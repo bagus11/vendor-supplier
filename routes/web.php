@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MasterProduct;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupplierController;
 /*
@@ -23,5 +24,6 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('suppliers', SupplierController::class);
+Route::resource('products', MasterProduct::class);
 
 require __DIR__.'/auth.php';
