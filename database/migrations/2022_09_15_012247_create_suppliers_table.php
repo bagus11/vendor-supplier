@@ -15,6 +15,16 @@ class CreateSuppliersTable extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
+            $table->string('supplierName');
+            $table->string('supplierPhone');
+            $table->string('email')->unique();
+            $table->text('supplierDescription');
+            $table->string('supplierNPWP');
+            $table->string('supplierNPWPFile');
+            $table->string('supplierSIUP');
+            $table->string('supplierSIUPFile');
+            $table->unsignedInteger('ProductId');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
