@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Suppliers;
+use App\Models\Suppliers;
 
 class SupplierController extends Controller
 {
@@ -14,7 +14,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        dd('true');
+        $suppliers = Suppliers::all();
+        return view('suppliers.supplier-index', ['suppliers' => $suppliers]);
     }
 
     /**
@@ -24,7 +25,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.supplier-create');
     }
 
     /**
