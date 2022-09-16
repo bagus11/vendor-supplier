@@ -12,5 +12,5 @@ class Suppliers extends Model
 
     protected $table = 'suppliers';
 
-    protected $guard = [];
+    protected $guarded = [];
 }

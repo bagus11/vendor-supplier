@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Suppliers;
+use App\Models\Product;
 
 class SupplierController extends Controller
 {
@@ -25,7 +26,8 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        return view('suppliers.supplier-create');
+        $products = Product::all();
+        return view('suppliers.supplier-create', ['products' => $products]);
     }
 
     /**
@@ -36,7 +38,31 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'supplierName' => 'required',
+            'supplierPhone' => 'numeric',
+            'email' => 'email|unique:users',
+            'supplierDescription' => 'required',
+            'supplierNPWP' => 'required',
+            'supplierSIUP' => 'required',
+            'ProductId' => 'required'
+        ]);
+        if($validated) {
+            // dd($request->supplierName);
+            Suppliers::create([
+                'supplierName' => $request->supplierName,
+                'supplierPhone' => $request->supplierPhone,
+                'email' => $request->email,
+                'supplierDescription' => $request->supplierDescription,
+                'supplierNPWP' => $request->supplierNPWP,
+                'supplierNPWPFile' => 'dummy npwp file',
+                'supplierSIUP' => $request->supplierSIUP,
+                'supplierSIUPFile' => 'dummy siup file',
+                'ProductId' => $request->ProductId,
+            ]);
+        }
+
+        return redirect()->route('suppliers.index')->with('success','Product created successfully.');
     }
 
     /**
