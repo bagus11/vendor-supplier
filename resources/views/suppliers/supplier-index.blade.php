@@ -32,7 +32,7 @@
                             @forelse ($suppliers as $supplier)
                                 <td class="px-4 py-2">{{ $supplier->supplierName }}</td>
                                 <td class="px-4 py-2">{{ $supplier->supplierPhone }}</td>
-                                <td class="px-4 py-2">{{ $supplier->email }}</td>
+                                <td class="px-4 py-2">{{ $supplier->supplierEmail }}</td>
                                 <td class="px-4 py-2">
                                     No Action
                                 </td>
