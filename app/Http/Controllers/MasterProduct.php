@@ -28,7 +28,9 @@ class MasterProduct extends Controller
      */
     public function create()
     {
-        //
+        return view('product.v_modal_add',[
+            'title'=>'Master Product'
+        ]);
     }
 
     /**
