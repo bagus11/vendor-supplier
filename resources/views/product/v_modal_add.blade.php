@@ -1,32 +1,379 @@
-<!-- Main modal -->
-<div id="defaultModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full">
-    <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Terms of Service
-                </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="defaultModal">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
+<style>
+    :root{
+        --primary-color:rgb(40, 139, 197);
+
+    }
+    *,
+    *::before,
+    *::after{
+        box-sizing: border-box
+    }
+   
+    /* Global input */
+    label{
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    input{
+        display: block;
+        width: 100%;
+        border: 1px solid #cccccc;
+        border-radius: 0.25rem;
+    }
+    /* Form */
+    form{
+        width: clamp(300px, 700px, 900px);
+        margin: 0 auto;
+        border: 1px solid #cccccc;
+        border-radius:0.35rem;
+        background-color: white;
+        padding:1.5rem;
+    }
+    .input-group{
+        margin: 0.5rem 0;
+    }
+    .btn{
+        padding: 0.75rem;
+        display: block;
+        password-decoration: none;
+        background-color: var(--primary-color);
+        color: #f3f3f3;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 0.25rem;
+        transition:0.3s;
+    }
+    .width-50{
+        width: 50%;
+    }
+    .ml-auto{
+        margin-left: auto;
+    }
+    .btn:hover{
+        box-shadow: 0 0 0 2px #ffff, 0 0 0 3px var(--primary-color);
+    }
+    .text-center{
+        text-align: center;
+    }
+    .btns-group{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    @keyframes animate{
+        from{
+            transform: scale(1,0);
+            opacity: 0;
+        }to{
+            transform: scale(1,1);
+            opacity: 1;
+        }
+    }
+    .form-step{
+        display: none;
+        transform-origin: top;
+        animation: animate 0.5s;
+        /* transition: animate 0.5s; */
+    }
+    .form-step-active{
+        display: block;
+    }
+    .progressbar{
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        counter-reset: step;
+        margin: 2rem 0 4rem;
+    }
+    .progress-step{
+        width   : 2.1875rem;
+        height  : 2.1875rem;
+        background-color: #dcdcdc;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+    }
+    .progress-step::before{
+        counter-increment: step;
+        content:counter(step);
+
+    }
+    .progressbar::before, .progress{
+        content: "";
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 4px;
+        width: 100%;
+        background-color: #dcdcdc;
+        counter-reset: step;
+    }
+    .progress{
+        background-color: var(--primary-color);
+        width: 0%;
+        transition: 0.5s;
+    }
+    .progress-step::after{
+        content: attr(data-title);
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        font-size: 0.85rem;
+        color: #666666;
+
+    }
+    .progress-step-active{
+        background-color: var(--primary-color);
+        color: #f3f3f3;
+     
+    }
+    textarea{
+        width: 100%; 
+    }
+    .textwrapper{
+        border:1px solid #999999;
+        margin:5px 0;
+        padding:3px;
+    }
+ 
+</style>
+
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Form Add Supplier') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-4">
+        <form action="">
+            <h1 class="font-semibold text-xl text-center text-gray-800 leading-tight">
+                {{ __('Register') }}
+            </h1>
+            {{-- Progress Bar --}}
+            <div class="progressbar mt-6">
+                <div class="progress" id="progress">
+
+                </div>
+                <div class="progress-step progress-step-active" data-title="Profile"></div>
+                <div class="progress-step" data-title="contact"></div>
+                <div class="progress-step" data-title="Attachment"></div>
+                <div class="progress-step" data-title="password"></div>
             </div>
-            <!-- Modal body -->
-            <div class="p-6 space-y-6">
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    With less than a month to go before the European Union enacts new consumer privacy laws for its citizens, companies around the world are updating their terms of service agreements to comply.
-                </p>
-                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                    The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
-                </p>
+            {{-- Step --}}
+            <div class="form-step form-step-active">
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-4">
+                        <label for="supplier_name">Nama Perusahaan</label>
+                        <input type="text" name="supplier_name" id="supplier_name">
+                    </div>
+                    <div class="input-group col-span-2">
+                        <label for="supplier_name">Tahun Pendirian</label>
+                        <input type="number" name="supplier_name" id="supplier_name">
+                    </div>
+                </div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-4">
+                        <label for="supplier_siup">Jenis Usaha</label>
+                        <input type="text" name="supplier_name" id="supplier_name">
+                    </div>
+                    <div class="input-group col-span-2">
+                        <label for="supplier_name">Jumlah Karyawan</label>
+                        <input type="number" name="supplier_name" id="supplier_name">
+                    </div>
+                </div>  
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Provinsi</label>
+                        <select name="categories" id="categories">
+                            <option value="">Please choose categories</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Kabupaten</label>
+                        <select name="categories" id="categories">
+                            <option value="">Please choose categories</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Kecamatan</label>
+                        <select name="categories" id="categories">
+                            <option value="">Please choose categories</option>
+                        </select>
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Kelurahan</label>
+                        <select name="categories" id="categories">
+                            <option value="">Please choose categories</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="supplier_name">Kode Pos</label>
+                    <input type="number" style="width: 20%" name="supplier_name" id="supplier_name">
+                </div>
+                <div class="input-group">
+                    <label for="description">Alamat Kantor</label>
+                    <div class="textwrapper">
+                        <textarea cols="1" rows="10" id="description">
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">No Telpon</label>
+                        <input type="number" name="supplier_name" id="supplier_name">
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Fax</label>
+                        <input type="number" name="supplier_name" id="supplier_name">
+                    </div>
+                </div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Email</label>
+                        <input type="text" name="supplier_name" id="supplier_name">
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Website</label>
+                        <input type="text" name="supplier_name" id="supplier_name">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="description">Alamat Lain</label>
+                    <div class="textwrapper">
+                        <textarea cols="1" rows="10" id="description">
+                        </textarea>
+                    </div>
+                    <small style="color: red">
+                        Harap cantumin kode pos
+                    </small>
+                </div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">No Telpon</label>
+                        <input type="number" name="supplier_name" id="supplier_name">
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Fax</label>
+                        <input type="number" name="supplier_name" id="supplier_name">
+                    </div>
+                </div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Email</label>
+                        <input type="text" name="supplier_name" id="supplier_name">
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Website</label>
+                        <input type="text" name="supplier_name" id="supplier_name">
+                    </div>
+                </div>
+            
+
+                <div class="">
+                    <a href="#" class="btn btn-next width-50 ml-auto">Next</a>
+                </div>
             </div>
-            <!-- Modal footer -->
-            <div class="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-                <button data-modal-toggle="defaultModal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I accept</button>
-                <button data-modal-toggle="defaultModal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Decline</button>
+            <div class="form-step">
+                <div class="input-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" id="phone">
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email">
+                </div>
+              
+                <div class="btns-group">
+                    <a href="#" class="btn btn-prev">Previous</a>
+                    <a href="#" class="btn btn-next">Next</a>
+                </div>
             </div>
-        </div>
+            <div class="form-step">
+                <div class="input-group">
+                    <label for="date">Date Of Birth</label>
+                    <input type="date" name="date"value="{{date('Y-m-d')}}" id="date">
+                </div>
+                <div class="input-group">
+                    <label for="id">National ID</label>
+                    <input type="number" name="id" id="id">
+                </div>
+              
+                <div class="btns-group">
+                    <a href="#" class="btn btn-prev">Previous</a>
+                    <a href="#" class="btn btn-next">Next</a>
+                </div>
+            </div>
+            <div class="form-step">
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <div class="input-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" name="confirmPassword" id="confirmPassword">
+                </div>
+              
+                <div class="btns-group">
+                    <a href="#" class="btn btn-prev">Previous</a>
+                    <input type="submit" name="submit" id="submit" style="color:rgb(40, 139, 197)" value="Submit" class="btn">
+                </div>
+            </div>
+       </form>
     </div>
-</div>
+</x-app-layout>
+<script>
+    const prevBtn   = document.querySelectorAll('.btn-prev');
+    const nextBtn   = document.querySelectorAll('.btn-next');
+    const progress  = document.getElementById('progress');
+    const formSteps = document.querySelectorAll('.form-step');
+    const progressSteps = document.querySelectorAll('.progress-step');
+
+
+
+    let formSetpsNum =0;
+    nextBtn.forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            formSetpsNum ++;
+            updateFormSteps();
+            updateProgressBar();
+        })
+    })
+    prevBtn.forEach(btn=>{
+        btn.addEventListener('click',()=>{
+            formSetpsNum --;
+            updateFormSteps();
+            updateProgressBar();
+        })
+    })
+
+    function updateFormSteps()
+    {
+        formSteps.forEach((formStep)=>{
+            formStep.classList.contains('form-step-active') && 
+            formStep.classList.remove('form-step-active')
+        });
+
+        formSteps[formSetpsNum].classList.add('form-step-active')
+    }
+    function updateProgressBar()
+    {
+        progressSteps.forEach((progressStep, idx)=>{
+            if(idx < formSetpsNum +1)
+            {
+                progressStep.classList.add('progress-step-active')
+            }else{
+                progressStep.classList.remove('progress-step-active')
+            }
+        });
+        const progressActive = document.querySelectorAll('.progress-step-active');
+        progress.style.width =((progressActive.length - 1) / (progressSteps.length -1) *100 +'%')
+
+    }
+</script>
