@@ -3,6 +3,7 @@
 use App\Http\Controllers\MasterProduct;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\IsoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,5 +26,6 @@ Route::get('/dashboard', function () {
 
 Route::resource('suppliers', SupplierController::class);
 Route::resource('products', MasterProduct::class);
+Route::resource('iso', IsoController::class);
 
 require __DIR__.'/auth.php';
