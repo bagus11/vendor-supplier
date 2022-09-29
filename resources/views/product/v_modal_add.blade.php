@@ -1,6 +1,6 @@
 <style>
     :root{
-        --primary-color:rgb(40, 139, 197);
+        --primary-color:rgb(40, 158, 197);
 
     }
     *,
@@ -157,9 +157,9 @@
 
                 </div>
                 <div class="progress-step progress-step-active" data-title="Profile"></div>
-                <div class="progress-step" data-title="contact"></div>
+                <div class="progress-step" data-title="Contact"></div>
                 <div class="progress-step" data-title="Attachment"></div>
-                <div class="progress-step" data-title="password"></div>
+                <div class="progress-step" data-title="Payment"></div>
             </div>
             {{-- Step --}}
             <div class="form-step form-step-active">
@@ -296,13 +296,52 @@
                 </div>
             </div>
             <div class="form-step">
+               
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">No Pengukuhan PKP</label>
+                        <input type="text" name="supplier_name" id="supplier_name">
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Attanchment</label>
+                        <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierNPWPFile" placeholder="Enter Supplier NPWP" name="supplierNPWPFile">
+                    </div>
+                   
+                </div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">No NPWP</label>
+                        <input type="number" name="supplier_name" id="supplier_name">
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Attanchment</label>
+                        <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierNPWPFile" placeholder="Enter Supplier NPWP" name="supplierNPWPFile">
+                    </div>
+                   
+                </div>
+ 
                 <div class="input-group">
-                    <label for="date">Date Of Birth</label>
-                    <input type="date" name="date"value="{{date('Y-m-d')}}" id="date">
+                        <label for="supplier_siup">Nama NPWP</label>
+                        <input type="text" name="supplier_name" id="supplier_name">
+                </div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Company Profile</label>
+                        <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierNPWPFile" placeholder="Enter Supplier NPWP" name="supplierNPWPFile">
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Surat Keterangan Terdaftar</label>
+                        <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierNPWPFile" placeholder="Enter Supplier NPWP" name="supplierNPWPFile">
+                    </div>
+                   
                 </div>
                 <div class="input-group">
-                    <label for="id">National ID</label>
-                    <input type="number" name="id" id="id">
+                    <label for="description">Alamat NPWP</label>
+                    <div class="textwrapper">
+                        <textarea cols="1" rows="10" id="description">
+                        </textarea>
+                    </div>
+                  
                 </div>
               
                 <div class="btns-group">
@@ -312,14 +351,22 @@
             </div>
             <div class="form-step">
                 <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password">
+                    <label for="password">Bank Account</label>
+                    <input type="text" name="password" id="password">
                 </div>
-                <div class="input-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" name="confirmPassword" id="confirmPassword">
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-2">
+                        <label for="supplier_siup">Term Of Payment</label>
+                        <input type="number" style="width: 80%;textAlgin:center" name="termOfPayment" id="termOfPayment">
+                    </div>
+                    <div class="input-group col-span-1">
+                        <br>
+                        <br>
+                        <label style="margin-top:-10px" for="">Days</label>
+                    </div>
+                   
                 </div>
-              
+
                 <div class="btns-group">
                     <a href="#" class="btn btn-prev">Previous</a>
                     <input type="submit" name="submit" id="submit" style="color:rgb(40, 139, 197)" value="Submit" class="btn">
