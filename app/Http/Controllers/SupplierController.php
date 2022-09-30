@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Suppliers;
 use App\Models\Product;
+use App\Models\CompanyAttachment;
+use Illuminate\Support\Facades\Storage;
 
 class SupplierController extends Controller
 {
@@ -41,28 +43,60 @@ class SupplierController extends Controller
         $validated = $request->validate([
             'supplierName' => 'required',
             'supplierPhone' => 'numeric',
-            'email' => 'email|unique:users',
-            'supplierDescription' => 'required',
-            'supplierNPWP' => 'required',
-            'supplierSIUP' => 'required',
-            'ProductId' => 'required'
+            'supplierEmail' => 'email|unique:suppliers',
+            'supplierWebsite' => 'required',
+            'supplierFax' => 'required',
+            'supplierType' => 'required',
+            'supplierProvince' => 'required',
+            'supplierCity' => 'required',
+            'supplierDistricts' => 'required',
+            'supplierWard' => 'required',
+            'supplierMainAddress' => 'required',
+            'supplierCategory' => 'required',
+            'supplierCategory' => 'required',
+            // company attachment
+            'numberPKP' => 'required',
+            'numberNPWP' => 'required',
+            'nameNPWP' => 'required',
+            'nameNPWP' => 'required',
+            'addressNPWP' => 'required',
+            'fileNPWP' => 'required|pdf|max:4096',
+            'filePKP' => 'required|pdf|max:4096',
+            'fileRegistrationCertificate' => 'required|pdf|max:10000',
         ]);
         if($validated) {
-            // dd($request->supplierName);
             Suppliers::create([
                 'supplierName' => $request->supplierName,
                 'supplierPhone' => $request->supplierPhone,
-                'email' => $request->email,
-                'supplierDescription' => $request->supplierDescription,
-                'supplierNPWP' => $request->supplierNPWP,
-                'supplierNPWPFile' => 'dummy npwp file',
-                'supplierSIUP' => $request->supplierSIUP,
-                'supplierSIUPFile' => 'dummy siup file',
-                'ProductId' => $request->ProductId,
+                'supplierEmail' => $request->supplierEmail,
+                'supplierWebsite' => $request->supplierWebsite,
+                'supplierFax' => $request->supplierFax,
+                'supplierType' => $request->supplierType,
+                'supplierProvince' => $request->supplierProvince,
+                'supplierCity' => $request->supplierCity,
+                'supplierDistricts' => $request->supplierDistricts,
+                'supplierWard' => $request->supplierWard,
+                'supplierMainAddress' => $request->supplierMainAddress,
+                'supplierOtherAddress' => $request->supplierOtherAddress,
+                'supplierPostalCode' => $request->supplierPostalCode,
+                'supplierCategory' => $request->supplierCategory,
             ]);
+
+            $fileNPWP = $request->file('fileNPWP')->getClientOriginalName();
+            $filePKP = $request->file('filePKP')->getClientOriginalName();
+            $fileRegistrationCertificate = $request->file('fileRegistrationCertificate')->getClientOriginalName();
+            
+            // CompanyAttachment
+
         }
 
-        return redirect()->route('suppliers.index')->with('success','Product created successfully.');
+        // return redirect()->route('suppliers.index')->with('success','Product created successfully.');
+        // $allData = $request->all();
+        // Suppliers::updateOrCreate([
+        //     'id' => $request->id
+        // ], [
+        //     $allData,
+        // ]);
     }
 
     /**

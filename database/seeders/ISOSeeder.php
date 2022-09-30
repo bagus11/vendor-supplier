@@ -19,8 +19,8 @@ class ISOSeeder extends Seeder
         DB::table('iso_masters')->insert([
             [
                 'ISO' => 'ISO 9001',
-                'created_at' => date('Y-m-d H:m:s'),
-                'updated_at' => date('Y-m-d H:m:s'),
+                // 'created_at' => date('Y-m-d H:m:s'),
+                // 'updated_at' => date('Y-m-d H:m:s'),
             ],
             [
                 'ISO' => 'ISO 22000'

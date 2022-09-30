@@ -32,11 +32,13 @@
                                 $no = 1;
                             @endphp
                             @forelse ($ISO as $iso)
-                                <td class="px-4 py-2">{{ $no++ }}</td>
-                                <td class="px-4 py-2">{{ $iso->ISO }}</td>
-                                <td class="px-4 py-2">
-                                    No Action
-                                </td>
+                                <tr>
+                                    <td class="px-4 py-2">{{ $no++ }}</td>
+                                    <td class="px-4 py-2">{{ $iso->ISO }}</td>
+                                    <td class="px-4 py-2">
+                                        No Action
+                                    </td>
+                                </tr>
                             @empty
                                 <td colspan="4">No Data</td>
                             @endforelse
