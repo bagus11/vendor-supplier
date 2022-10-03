@@ -19,26 +19,18 @@
                             Add Supplier
                         </a>
                     </button>
-                    <table class="table-auto w-full">
+                    <table class="table-auto w-full supplier-datatable">
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2">Name</th>
                                 <th class="px-4 py-2">Phone</th>
+                                <th class="px-4 py-2">Fax</th>
                                 <th class="px-4 py-2">Email</th>
                                 <th class="px-4 py-2">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($suppliers as $supplier)
-                                <td class="px-4 py-2">{{ $supplier->supplierName }}</td>
-                                <td class="px-4 py-2">{{ $supplier->supplierPhone }}</td>
-                                <td class="px-4 py-2">{{ $supplier->supplierEmail }}</td>
-                                <td class="px-4 py-2">
-                                    No Action
-                                </td>
-                            @empty
-                                <td colspan="4">No Data</td>
-                            @endforelse
+                            
                         </tbody>
                     </table>
                 </div>
@@ -46,3 +38,40 @@
         </div>
     </div>
 </x-app-layout>
+
+<script type="text/javascript">
+    $(function() {
+        var table = $('.supplier-datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '{!! url()->current() !!}',
+            },
+            columns: [
+                {
+                    data: 'supplierName',
+                    name: 'supplierName'
+                },
+                {
+                    data: 'supplierPhone',
+                    name: 'supplierPhone'
+                },
+                {
+                    data: 'supplierFax',
+                    name: 'supplierFax'
+                },
+                {
+                    data: 'supplierEmail',
+                    name: 'supplierEmail'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false,
+                    // width: '25%'
+                }
+            ]
+        })
+    })
+</script>

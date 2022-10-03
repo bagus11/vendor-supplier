@@ -14,11 +14,11 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mb-4 rounded">
+                    {{-- <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mb-4 rounded">
                         <a href="{{ route('iso.create') }}">
                             Add ISO
                         </a>
-                    </button>
+                    </button> --}}
                     <table class="table-auto w-full">
                         <thead>
                             <tr class="bg-gray-100">
