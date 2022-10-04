@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -36,6 +37,7 @@
             <main>
                 {{ $slot }}
             </main>
+            <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
         </div>
     </body>
 </html>

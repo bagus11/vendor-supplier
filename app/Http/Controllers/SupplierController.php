@@ -23,8 +23,11 @@ class SupplierController extends Controller
             $data = Suppliers::all();
             return DataTables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){
-                $btn = '<a href="javascript:void(0)" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mb-4 rounded">View</a>';
-                    return $btn;
+                // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="show text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 editPost">Edit</a>';
+                
+                $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-url="'.route('suppliers.show', $row->id).'" data-original-title="Edit" class="show text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 editPost">Edit</a>';
+
+                return $btn;
             })->rawColumns(['action'])->make(true);
         }
 
@@ -136,7 +139,9 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        //
+        $supplier = Suppliers::findOrFail($id);
+
+        return response()->json($supplier);
     }
 
     /**
