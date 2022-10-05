@@ -165,7 +165,7 @@
                 Register
             </h1>
             {{-- Progress Bar --}}
-            <div class="container" style="width: 60%; min-width:40%;margin:0 auto">
+            <div class="container" style="width: 40%; min-width:250px;margin:0 auto">
                 <div class="progressbar mt-6">
                     <div class="progress" id="progress">
     
