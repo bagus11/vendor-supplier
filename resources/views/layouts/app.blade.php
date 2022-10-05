@@ -63,6 +63,12 @@
 .toast-message {
   font-size: 12px;
 }
+.dataTables_filter{
+  margin-bottom:20px
+}
+.dataTables_length{
+  margin-bottom:20px
+}
 </style>
 <script>
     function SwalLoading(html = 'Loading ...', title = '') {
