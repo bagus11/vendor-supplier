@@ -38,65 +38,69 @@
         </div>
     </div>
 
-    <button class="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="toggleModal('modal-id')">
-        Open regular modal
-    </button>
-    <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-center" id="ajaxModelexa">
-        <div class="relative w-auto my-6 mx-auto max-w-3xl">
-        <!--content-->
-        <div class="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-            <!--header-->
-            <div class="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-            <h3 class="text-3xl font-semibold">
-                Modal Title
-            </h3>
-            <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" onclick="toggleModal('modal-id')">
-                <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                ×
-                </span>
-            </button>
-            </div>
-            <!--body-->
-            <div class="relative p-6 flex-auto">
-                <div class="grid grid-cols-2">
-                    <div>
-                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Name : <span  id="supplierName"></span></p>
-                    </div>
-                    <div>
-                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Email : <span  id="supplierEmail"></span></p>
+    <div class="relative z-auto overflow-y-auto hidden ease-out duration-400" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="dataModalSupplierDetail">
+        <!--x`
+        Background backdrop, show/hide based on modal state.
+    
+        Entering: "ease-out duration-300"
+            From: "opacity-0"
+            To: "opacity-100"
+        Leaving: "ease-in duration-200"
+            From: "opacity-100"
+            To: "opacity-0"
+        -->
+        <div class="fixed inset-0 transition-opacity">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+    
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <!--
+            Modal panel, show/hide based on modal state.
+    
+            Entering: "ease-out duration-300"
+                From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                To: "opacity-100 translate-y-0 sm:scale-100"
+            Leaving: "ease-in duration-200"
+                From: "opacity-100 translate-y-0 sm:scale-100"
+                To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            -->
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:max-w-xl">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title"></h3>
+                        <div class="mt-2">
+                        <!--body-->
+                        <div class="relative p-6 flex-auto">
+                            <div class="grid grid-cols-2">
+                                <div class="text-left mr-4">
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Name : <span id="supplierName"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Email : <span id="supplierEmail"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Fax : <span id="supplierFax"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Website : <span id="supplierWebsite"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Category : <span id="supplierCategory"></span></p>
+                                </div>
+                                <div class="text-left ml-4">
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Province : <span id="supplierProvince"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">City : <span id="supplierCity"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">District : <span id="supplierDistricts"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Village/Ward : <span id="supplierWard"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Address : <span id="supplierMainAddress"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Code : <span id="supplierPostalCode"></span></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!--footer-->
-            <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-            <button class="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="toggleModal('modal-id')">
-                Close
-            </button>
-            <button class="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" onclick="toggleModal('modal-id')">
-                Save Changes
-            </button>
+            <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm" id="closeSupplierDetail">Close</button>
+            </div>
             </div>
         </div>
         </div>
     </div>
-    <div class="hidden opacity-25 fixed inset-0 z-40 bg-black" id="modal-id-backdrop"></div>
-    {{-- <script type="text/javascript">
-        function toggleModal(modalID){
-        document.getElementById(modalID).classList.toggle("hidden");
-        document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
-        document.getElementById(modalID).classList.toggle("flex");
-        document.getElementById(modalID + "-backdrop").classList.toggle("flex");
-
-        var userURL = $(this).data('url');
-        $.get(userURL, function (data) {
-        // $.get("{{ route('suppliers.index') }}" +'/' + id, function (data) {
-            $('#ajaxModelexa').show();
-            $('#id').text(data.id);
-            $('#supplierName').text(data.supplierName);
-            $('#supplierEmail').text(data.supplierEmail);
-        });
-        }
-    </script> --}}
 
 </x-app-layout>
 
@@ -143,23 +147,29 @@
     });
 
     $('body').on('click', '.editPost', function () {
-        // var id = $(this).data('id');
-        document.getElementById(modalID).classList.toggle("hidden");
-        document.getElementById(modalID + "-backdrop").classList.toggle("hidden");
-        document.getElementById(modalID).classList.toggle("flex");
-        document.getElementById(modalID + "-backdrop").classList.toggle("flex");
-        var userURL = $(this).data('url');
+        // let id = $(this).data('id');
+        let userURL = $(this).data('url');
         $.get(userURL, function (data) {
         // $.get("{{ route('suppliers.index') }}" +'/' + id, function (data) {
-            $('#ajaxModelexa').show();
+            $('#dataModalSupplierDetail').show();
+            $('#modal-title').html('Supplier Details');
             $('#id').text(data.id);
             $('#supplierName').text(data.supplierName);
             $('#supplierEmail').text(data.supplierEmail);
+            $('#supplierWebsite').text(data.supplierWebsite);
+            $('#supplierFax').text(data.supplierFax);
+            $('#supplierProvince').text(data.supplierProvince);
+            $('#supplierCity').text(data.supplierCity);
+            $('#supplierDistricts').text(data.supplierDistricts);
+            $('#supplierWard').text(data.supplierWard);
+            $('#supplierMainAddress').text(data.supplierMainAddress);
+            $('#supplierPostalCode').text(data.supplierPostalCode);
+            $('#supplierCategory').text(data.supplierCategory);
         });
     });
 
-    $('#close-modal-supplier-detail').click(function() {
-        $('$ajaxModelexa').modal('hide');
+    $('#closeSupplierDetail').click(function() {
+        $('#dataModalSupplierDetail').hide();
     })
     
 </script>
