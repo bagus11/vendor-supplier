@@ -300,13 +300,14 @@
             <div class="form-step">
               
                 <div class="container" id ='contact_pic'>
-                    <table class="table "style="width: 100%"> 
+                    <table class="table" id="table_pic" style="width: 100%"> 
                         <thead>
                             <tr>
                               <th>Dept</th>
                               <th>Name</th>
                               <th>Phone Number</th>
                               <th>Email</th>
+                              <th></th>
                            
                             </tr>    
                         </thead> 
@@ -316,15 +317,15 @@
                                 <td><input type="text" name ="name_pic" class ="name_pic"></td>
                                 <td><input type="number" name ="phone_pic" class ="phone_pic"></td>
                                 <td><input type="email" name ="email_pic" class ="email_pic"></td>
-                              
+                                <td>
+                                   
+                                </td>
                             </tr>
                         </tbody>
 
 
                     </table>
-                </div>
-                <div class="grid grid-cols-2" style="width: 20%;display:flex">
-               
+                </div>               
                     <div class="input-group">
                         <button type="button" id="add_more" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -332,17 +333,7 @@
                               </svg>
                         </button>
                     </div>
-
-                    <div class="input-group">
-                        <button class="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" id="btn_pop">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              
-                        </button>
-                    </div>
-                </div>
-              
+             
               
               
                 <div class="btns-group">
@@ -571,6 +562,14 @@
                                 <td><input type="text" name ="name_pic" class ="name_pic"></td>
                                 <td><input type="number" name ="phone_pic" class ="phone_pic"></td>
                                 <td><input type="email" name ="email_pic" class ="email_pic"></td>
+                                <td>
+                                    <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                          </svg>
+                                          
+                                    </button>
+                                </td>
         </tr>
                     `
        );
@@ -580,14 +579,9 @@
     var phone_pic =document.getElementsByClassName("phone_pic");
     var email_pic =document.getElementsByClassName("email_pic");
 
-    $('#btn_pop').on('click', function(){
-        alert('test')
-      var select_pop=[
-        dept_pic,name_pic,phone_pic,email_pic
-      ];
-      console.log(select_pop);
-      select_pop.pop();
-    })
+   $('#table_pic').on('click', '.btn_pop', function(e){
+        $(this).parent().parent().remove();
+   })
    
     var id = document.getElementsByClassName('iso_master_id');
     var diterapkan = document.getElementsByClassName('diterapkan');
