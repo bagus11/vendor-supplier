@@ -4,6 +4,8 @@ use App\Http\Controllers\MasterProduct;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\IsoController;
+use App\Http\Controllers\SupplierDataController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,5 +29,9 @@ Route::get('/dashboard', function () {
 Route::resource('suppliers', SupplierController::class);
 Route::resource('products', MasterProduct::class);
 Route::resource('iso', IsoController::class);
+Route::get('get_district', [SupplierDataController::class, 'get_district'])->name('get_district');
+Route::get('get_regency', [SupplierDataController::class, 'get_regency'])->name('get_regency');
+Route::get('get_village', [SupplierDataController::class, 'get_village'])->name('get_village');
+
 
 require __DIR__.'/auth.php';

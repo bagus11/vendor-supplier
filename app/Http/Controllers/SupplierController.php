@@ -8,7 +8,12 @@ use App\Models\Product;
 use App\Models\CompanyAttachment;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\ResponseFormatter;
+use App\Models\IsoMaster;
 use DataTables;
+use App\Models\Provinces;
+use App\Models\Regencies;
+use App\Models\Districts;
+use App\Models\Villages;
 
 class SupplierController extends Controller
 {
@@ -42,7 +47,14 @@ class SupplierController extends Controller
     public function create()
     {
         $products = Product::all();
-        return view('suppliers.supplier-create', ['products' => $products]);
+        $iso  = IsoMaster::all();
+        $provinces = Provinces::all();
+        return view('suppliers.supplier-create', 
+        [
+            'products' => $products,
+            'master_iso'=>$iso,
+            'provinces'=>$provinces
+        ]);
     }
 
     /**
@@ -177,4 +189,5 @@ class SupplierController extends Controller
     {
         //
     }
+   
 }
