@@ -162,18 +162,19 @@
         <div class="form" id="form_serialize">
             @csrf
             <h1 class="font-semibold text-xl text-center text-gray-800 leading-tight">
-                {{ __('Register') }}
+                Register
             </h1>
             {{-- Progress Bar --}}
-            <div class="progressbar mt-6">
-                <div class="progress" id="progress">
-
+            <div class="container" style="width: 60%; min-width:40%;margin:0 auto">
+                <div class="progressbar mt-6">
+                    <div class="progress" id="progress">
+    
+                    </div>
+                    <div class="progress-step progress-step-active" data-title="Profile"></div>
+                    <div class="progress-step" data-title="Contact"></div>
+                    <div class="progress-step" data-title="Attachment"></div>
+                    <div class="progress-step" data-title="Payment"></div>
                 </div>
-                <div class="progress-step progress-step-active" data-title="Profile"></div>
-                <div class="progress-step" data-title="Contact"></div>
-                <div class="progress-step" data-title="Attachment"></div>
-                
-                <div class="progress-step" data-title="Payment"></div>
             </div>
             {{-- Step --}}
             <div class="form-step form-step-active">
@@ -432,9 +433,9 @@
                     </span>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
-                    <div class="input-group col-span-3" style="width:45%">
+                    <div class="input-group col-span-3" style="width:45%;">
                         <label for="supplier_siup">Term Of Payment</label>
-                            <div class="grid grid-cols-6 gap-3">
+                            <div class="grid grid-cols-6 gap-3" style="display:flex">
                                 <div class="col-span-3">
                                     <select name="jangka_waktu" id="jangka_waktu">
                                         <option value="15">15</option>
@@ -450,25 +451,6 @@
                             </div>
                            
                         </div>
-<<<<<<< HEAD
-                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse rounded">
-                            <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                                <button type="submit"
-                                    class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-sky-600 text-base leading-6 font-bold text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:border-green-700 focus:shadow-outline-green transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                    Save
-                                </button>
-                            </span>
-                            <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
-                                <button type="button"
-                                    class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-bold text-gray-700 shadow-sm hover:text-gray-700 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
-                                    <a href="{{ route('suppliers.index') }}">
-                                        Cancel
-                                    </a>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
-=======
                     
                 </div>
                
@@ -491,7 +473,6 @@
                     <a href="#" class="btn btn-prev">Previous</a>
                     {{-- <input type="submit" name="submit" id="submit" style="color:rgb(40, 139, 197); margin-top:20px" value="Submit" class="btn"> --}}
                     <button class="btn btn-submit" type="button" id="save">Submit</button>
->>>>>>> 5ed2cd8fe73cc3d31139aa0da6dd3fb63fa39db6
                 </div>
             </div>
         </div>
@@ -563,7 +544,7 @@
                                 <td><input type="number" name ="phone_pic" class ="phone_pic"></td>
                                 <td><input type="email" name ="email_pic" class ="email_pic"></td>
                                 <td>
-                                    <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                                    <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" style="margin:auto">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                           </svg>
@@ -649,13 +630,15 @@
         var kab = $('#kab').val();
         var kec = $('#kec').val();
         var kel = $('#kel').val();
+        var kode_pos = $('#kode_pos').val();
         var alamat_kantor = $('#alamat_kantor').val();
         var no_telpon = $('#no_telpon').val();
         var no_fax = $('#no_fax').val();
+        var email = $('#email').val();
+        var website= $('#website').val();
         var alamat_lain = $('#alamat_lain').val();
         var no_telp_lain = $('#no_telp_lain').val();
         var no_fax_lain = $('#no_fax_lain').val();
-        var email_lain = $('#email_lain').val();
         var email_lain = $('#email_lain').val();
         var website_lain = $('#website_lain').val();
         // End Halaman Pertama 
@@ -713,10 +696,36 @@
 
         // End Initiating
         var data ={
-
+            'nama_supplier':nama_supplier,
+            'tahun_pendirian':tahun_pendirian,
+            'jenis_usaha':jenis_usaha,
+            'jml_karyawan':jml_karyawan,
+            'prov':prov,
+            'kab':kab,
+            'kec':kec,
+            'kel':kel,
+            'kode_pos':kode_pos,
+            'alamat_kantor':alamat_kantor,
+            'no_telpon':no_telpon,
+            'no_fax':no_fax,
+            'email':email,
+            'website':website,
+            'alamat_lain':alamat_lain,
+            'no_telp_lain':no_telp_lain,
+            'no_fax_lain':no_fax_lain,
+            'no_fax_lain':no_fax_lain,
+            'email_lain':email_lain,
+            'website_lain':website_lain,
+            'arr_pic':arr_pic,
+            'no_pengukuhan':no_pengukuhan,
+            'no_npwp':no_npwp,
+            'nama_npwp':nama_npwp,
+            'alamat_npwp':alamat_npwp,
+            'arr_iso':arr_iso,
+            'bank_account':bank_account,
+            'jangka_waktu':jangka_waktu
         };
         // Ajax
-    
         $.ajax({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
