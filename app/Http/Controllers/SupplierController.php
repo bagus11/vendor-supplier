@@ -8,16 +8,8 @@ use App\Models\Product;
 use App\Models\CompanyAttachment;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\ResponseFormatter;
-use App\Models\IsoMaster;
 use DataTables;
-<<<<<<< HEAD
 use Validator;
-=======
-use App\Models\Provinces;
-use App\Models\Regencies;
-use App\Models\Districts;
-use App\Models\Villages;
->>>>>>> 5ed2cd8fe73cc3d31139aa0da6dd3fb63fa39db6
 
 class SupplierController extends Controller
 {
@@ -51,14 +43,7 @@ class SupplierController extends Controller
     public function create()
     {
         $products = Product::all();
-        $iso  = IsoMaster::all();
-        $provinces = Provinces::all();
-        return view('suppliers.supplier-create', 
-        [
-            'products' => $products,
-            'master_iso'=>$iso,
-            'provinces'=>$provinces
-        ]);
+        return view('suppliers.supplier-create', ['products' => $products]);
     }
 
     /**
@@ -70,90 +55,85 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            // 'supplierName' => 'required',
-            // 'supplierPhone' => 'numeric',
-            // 'supplierEmail' => 'email|unique:suppliers',
-            // 'supplierWebsite' => 'required',
-            // 'supplierFax' => 'required',
-            // 'supplierType' => 'required',
-            // 'supplierProvince' => 'required',
-            // 'supplierCity' => 'required',
-            // 'supplierDistricts' => 'required',
-            // 'supplierWard' => 'required',
-            // 'supplierMainAddress' => 'required',
-            // 'supplierCategory' => 'required',
-            // 'supplierCategory' => 'required',
+            'supplierName' => 'required',
+            'supplierPhone' => 'numeric',
+            'supplierEmail' => 'email|unique:suppliers',
+            'supplierWebsite' => 'required',
+            'supplierFax' => 'required',
+            'supplierType' => 'required',
+            'supplierProvince' => 'required',
+            'supplierCity' => 'required',
+            'supplierDistricts' => 'required',
+            'supplierWard' => 'required',
+            'supplierMainAddress' => 'required',
+            'supplierCategory' => 'required',
+            'supplierCategory' => 'required',
             
             // company attachment
-            // 'numberPKP' => 'required',
-            // 'numberNPWP' => 'required',
-            // 'nameNPWP' => 'required',
-            // 'nameNPWP' => 'required',
-            // 'addressNPWP' => 'required',
-            'supplierNPWPFile' => 'required|mimes:pdf|max:4096',
-            'supplierSIUPFile' => 'required|mimes:pdf|max:4096',
-            // 'filePKP' => 'required|pdf|max:4096',
-            // 'fileRegistrationCertificate' => 'required|mimes:pdf|max:10000',
+            'numberPKP' => 'required',
+            'numberNPWP' => 'required',
+            'nameNPWP' => 'required',
+            'addressNPWP' => 'required',
+            'fileNPWP' => 'required|mimes:pdf|max:10000',
+            'filePKP' => 'required|mimes:pdf|max:10000',
+            'fileRegistrationCertificate' => 'required|mimes:pdf|max:10000',
+            'fileCompanyProfile' => 'required|pdf|max:10000',
         ]);
 
-        $supplierNPWPFile = $request->file('supplierNPWPFile')->getClientOriginalName();
-        $supplierSIUPFile = $request->file('supplierSIUPFile')->getClientOriginalName();
-
-        dd([
-            $$supplierNPWPFile,
-            $supplierSIUPFile
-        ]);
         if($data) {
             $result = [];
-            // $suppliers = Suppliers::create([
-            //     'supplierName' => $request->supplierName,
-            //     'supplierPhone' => $request->supplierPhone,
-            //     'supplierEmail' => $request->supplierEmail,
-            //     'supplierWebsite' => $request->supplierWebsite,
-            //     'supplierFax' => $request->supplierFax,
-            //     'supplierType' => $request->supplierType,
-            //     'supplierProvince' => $request->supplierProvince,
-            //     'supplierCity' => $request->supplierCity,
-            //     'supplierDistricts' => $request->supplierDistricts,
-            //     'supplierWard' => $request->supplierWard,
-            //     'supplierMainAddress' => $request->supplierMainAddress,
-            //     'supplierOtherAddress' => $request->supplierOtherAddress,
-            //     'supplierPostalCode' => $request->supplierPostalCode,
-            //     'supplierCategory' => $request->supplierCategory,
-            // ]);
+            $suppliers = Suppliers::create([
+                'supplierName' => $request->supplierName,
+                'supplierPhone' => $request->supplierPhone,
+                'supplierEmail' => $request->supplierEmail,
+                'supplierWebsite' => $request->supplierWebsite,
+                'supplierFax' => $request->supplierFax,
+                'supplierType' => $request->supplierType,
+                'supplierProvince' => $request->supplierProvince,
+                'supplierCity' => $request->supplierCity,
+                'supplierDistricts' => $request->supplierDistricts,
+                'supplierWard' => $request->supplierWard,
+                'supplierMainAddress' => $request->supplierMainAddress,
+                'supplierOtherAddress' => $request->supplierOtherAddress,
+                'supplierPostalCode' => $request->supplierPostalCode,
+                'supplierCategory' => $request->supplierCategory,
+            ]);
 
-            // $filePKP = $request->file('filePKP')->getClientOriginalName();
-            // $fileRegistrationCertificate = $request->file('fileRegistrationCertificate')->getClientOriginalName();
+            $fileNPWP = $request->file('fileNPWP')->getClientOriginalName();
+            $filePKP = $request->file('filePKP')->getClientOriginalName();
+            $fileRegistrationCertificate = $request->file('fileRegistrationCertificate')->getClientOriginalName();
+            $fileCompanyProfile = $request->file('fileCompanyProfile')->getClientOriginalName();
+
+            $pathNPWP = $request->file('fileNPWP')->store('public/npwp');
+            $pathSIUP = $request->file('filePKP')->store('public/siup');
+            $pathRegistrationCertificate = $request->file('fileRegistrationCertificate')->store('public/registrationCertificate');
+            $pathCompanyProfile = $request->file('fileCompanyProfile')->store('public/companyProfile');
+
+            $companyAttachment = CompanyAttachment::create([
+                'supplierId' => $suppliers->id,
+                'numberPKP' => $request->numberPKP,
+                'numberNPWP' => $request->numberNPWP,
+                'nameNPWP' => $request->nameNPWP,
+                'addressNPWP' => $request->addressNPWP,
+                'fileNPWP' => $pathNPWP,
+                'filePKP' => $pathPKP,
+                'fileRegistrationCertificate' => $pathRegistrationCertificate,
+                'fileCompanyProfile' => $pathCompanyProfile,
+            ]);
             
-
-            $pathNPWP = $request->file('supplierNPWPFile')->store('public/files');
-            $pathNPWP = $request->file('supplierSIUPFile')->store('public/files');
-            // $pathPKP = $request->file('filePKP')->store('public/files');
-            // $pathFileRegistrationCertificate = $request->file('fileRegistrationCertificate')->store('public/files');
-
-            // $companyAttachment = CompanyAttachment::create([
-            //     'supplierId' => $suppliers->id,
-            //     'numberPKP' => $request->numberPKP,
-            //     'numberNPWP' => $request->numberNPWP,
-            //     'nameNPWP' => $request->nameNPWP,
-            //     'addressNPWP' => $request->addressNPWP,
-            //     'supplierNPWPFile' => $pathNPWP,
-            //     'filePKP' => $pathPKP,
-            //     'fileRegistrationCertificate' => $pathFileRegistrationCertificate,
-            // ]);
-            // array_push($result, $suppliers, $companyAttachment);
-            // if ($result != NULL) {
-            //     return ResponseFormatter::success(
-            //         $result,
-            //         'Vendor data saved successfully'
-            //     );
-            // } else {
-            //     return ResponseFormatter::error(
-            //         NULL,
-            //         'data is null',
-            //         404
-            //     );
-            // }
+            array_push($result, $suppliers, $companyAttachment);
+            if ($result != NULL) {
+                return ResponseFormatter::success(
+                    $result,
+                    'Vendor data saved successfully'
+                );
+            } else {
+                return ResponseFormatter::error(
+                    NULL,
+                    'data is null',
+                    404
+                );
+            }
         }
     }
 
@@ -203,5 +183,4 @@ class SupplierController extends Controller
     {
         //
     }
-   
 }
