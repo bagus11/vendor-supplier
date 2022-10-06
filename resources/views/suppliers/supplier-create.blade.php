@@ -182,20 +182,24 @@
                     <div class="input-group col-span-4">
                         <label for="nama_supplier">Nama Perusahaan</label>
                         <input type="text" name="nama_supplier" id="nama_supplier">
+                        @error('nama_supplier') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="input-group col-span-2">
                         <label for="tahun_pendirian">Tahun Pendirian</label>
                         <input type="number" min="1800"  name="tahun_pendirian" id="tahun_pendirian">
+                        @error('tahun_pendirian') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-4">
                         <label for="supplier_siup">Jenis Usaha</label>
                         <input type="text" name="jenis_usaha" id="jenis_usaha">
+                        @error('jenis_usaha') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="input-group col-span-2">
                         <label for="jml_karyawan">Jumlah Karyawan</label>
                         <input type="number" name="jml_karyawan" id="jml_karyawan">
+                        @error('jml_karyawan') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                 </div>  
                 <div class="grid grid-cols-6 gap-3">
@@ -207,18 +211,21 @@
                             <option value="{{$row->id}}">{{$row->name}}</option>
                             @endforeach
                         </select>
+                        @error('prov') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="input-group col-span-2">
                         <label for="supplier_siup">Kabupaten</label>
                         <select class="select2" name="kab" id="kab"style="width: 100%">
                             <option value="">Please choose provinces first</option>
                         </select>
+                        @error('kab') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="input-group col-span-2">
                         <label for="supplier_siup">Kecamatan</label>
                         <select class="select2" name="kec" id="kec"style="width: 100%">
                             <option value="">Please choose regencies first</option>
                         </select>
+                        @error('kec') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
@@ -228,72 +235,62 @@
                         <select class="select2" name="kel" id="kel" style="width: 100%">
                             <option value="">Please choose districts first</option>
                         </select>
+                        @error('kel') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="input-group col-span-2">
                         <label for="supplier_name">Kode Pos</label>
                         <input type="number" style="width: 50%" name="kode_pos" id="kode_pos">
+                        @error('kode_pos') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
+                </div>
+                <div class="input-group">
+                    <label for="alamat_lain">Jenis Alamat</label>
+                    <select name="jenis_alamat" id="jenis_alamat">
+                        <option value="">Pilih Jenis Alamat</option>
+                        <option value="HO">HO</option>
+                        <option value="Cabang">Cabang</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
                 </div>
               
                 <div class="input-group">
                     <label for="alamat_kantor">Alamat Kantor</label>
-                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor">
+                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor">
                     </textarea>
+                    @error('alamat_kantor') <span class="text-red-500">{{ $message }}</span>@enderror
                 </div>
 
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">No Telpon</label>
                         <input type="number" name="no_telpon" id="no_telpon">
+                        @error('no_telpon') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Fax</label>
                         <input type="number" name="no_fax" id="no_fax">
+                        @error('no_fax') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Email</label>
                         <input type="text" name="email" id="email">
+                        @error('email') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Website</label>
                         <input type="text" name="website" id="website">
+                        @error('website') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
                 </div>
-
+                <div class="another_address"></div>
                 <div class="input-group">
-                    <label for="alamat_lain">Alamat Lain</label>
-                    <div class="textwrapper">
-                        <textarea cols="1" rows="2" id="alamat_lain">
-                        </textarea>
-                    </div>
-                    <small style="color: red">
-                        Harap cantumin kode pos
-                    </small>
+                    <button class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" id="add_address">
+                <i class="fas fa-plus"></i> Address
+              </button>
                 </div>
-                <div class="grid grid-cols-6 gap-3">
-                    <div class="input-group col-span-3">
-                        <label for="no_telp_lain">No Telpon</label>
-                        <input type="number" name="no_telp_lain" id="no_telp_lain">
-                    </div>
-                    <div class="input-group col-span-3">
-                        <label for="supplier_siup">Fax</label>
-                        <input type="number" name="no_fax_lain" id="no_fax_lain">
-                    </div>
-                </div>
-                <div class="grid grid-cols-6 gap-3">
-                    <div class="input-group col-span-3">
-                        <label for="supplier_siup">Email</label>
-                        <input type="text" name="email_lain" id="email_lain">
-                    </div>
-                    <div class="input-group col-span-3">
-                        <label for="supplier_siup">Website</label>
-                        <input type="text" name="website_lain" id="website_lain">
-                    </div>
-                </div>
-            
-
                 <div class="">
                     <a href="#" id="btn_next_1" class="btn btn-next width-50 ml-auto">Next</a>
                 </div>
@@ -476,6 +473,7 @@
                 </div>
             </div>
         </div>
+      
      
     </div>
 </x-app-layout>
@@ -536,6 +534,64 @@
         const progressActive = document.querySelectorAll('.progress-step-active');
         progress.style.width =((progressActive.length - 1) / (progressSteps.length -1) *100 +'%')
     }
+ 
+
+    $('#add_address').on('click', function(){
+        $('.another_address').append(
+            `   
+            <div class="container form_address">
+                <div class="input-group" style="float:right">
+                    <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" style="margin:auto" id="btn_pop_address" style="float:right">
+                        <i class="fas fa-minus"></i>
+                    </button>
+            </div>
+            <div class="input-group">
+            <label for="alamat_lain">Jenis Alamat</label>
+            <select name="jenis_alamat_lain" id="jenis_alamat_lain"  class="jenis_alamat_lain">
+                <option value="">Pilih Jenis Alamat</option>
+                <option value="HO">HO</option>
+                <option value="Cabang">Cabang</option>
+                <option value="Workshop">Workshop</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+        </div>
+            <div class="input-group">
+                    <label for="alamat_lain">Alamat Lain</label>
+                    <div class="textwrapper">
+                        <textarea cols="1" class="alamat_lain" rows="2" id="alamat_lain">
+                        </textarea>
+                    </div>
+                    <small style="color: red">
+                        Harap cantumin kode pos
+                    </small>
+                </div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="no_telp_lain">No Telpon</label>
+                        <input type="number" name="no_telp_lain" class="no_telp_lain" id="no_telp_lain">
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Fax</label>
+                        <input type="number" name="no_fax_lain" class="no_fax_lain" id="no_fax_lain">
+                    </div>
+                </div>
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Email</label>
+                        <input type="text" name="email_lain" class="email_lain" id="email_lain">
+                    </div>
+                    <div class="input-group col-span-3">
+                        <label for="supplier_siup">Website</label>
+                        <input type="text" name="website_lain"  class="website_lain" id="website_lain">
+                    </div>
+                </div> 
+            </div>
+            `
+        )
+    })
+    $(document).on('click', '#btn_pop_address', function () {
+            $(this).closest('.form_address').remove();
+    });
     $('#add_more').on('click', function(e){
        $('#dynamic_field').append(`
        <tr>
@@ -560,13 +616,22 @@
     var phone_pic =document.getElementsByClassName("phone_pic");
     var email_pic =document.getElementsByClassName("email_pic");
 
+    var id = document.getElementsByClassName('iso_master_id');
+    var diterapkan = document.getElementsByClassName('diterapkan');
+    var tersertifikasi = document.getElementsByClassName('tersertifikasi');
+
+    var jenis_alamat_lain =document.getElementsByClassName('jenis_alamat_lain');
+    var alamat_lain =document.getElementsByClassName('alamat_lain');
+    var no_telp_lain =document.getElementsByClassName('no_telp_lain');
+    var no_fax_lain =document.getElementsByClassName('no_fax_lain');
+    var email_lain =document.getElementsByClassName('email_lain');
+    var website_lain =document.getElementsByClassName('website_lain');
+
    $('#table_pic').on('click', '.btn_pop', function(e){
         $(this).parent().parent().remove();
    })
    
-    var id = document.getElementsByClassName('iso_master_id');
-    var diterapkan = document.getElementsByClassName('diterapkan');
-    var tersertifikasi = document.getElementsByClassName('tersertifikasi');
+   
     $('#save').prop('disabled',true);
     $('#kab').prop('disabled',true);
     $('#kec').prop('disabled',true);
@@ -636,11 +701,23 @@
         var no_fax = $('#no_fax').val();
         var email = $('#email').val();
         var website= $('#website').val();
-        var alamat_lain = $('#alamat_lain').val();
-        var no_telp_lain = $('#no_telp_lain').val();
-        var no_fax_lain = $('#no_fax_lain').val();
-        var email_lain = $('#email_lain').val();
-        var website_lain = $('#website_lain').val();
+        var arr_address=[];
+           
+            for (let i = 0; i < alamat_lain.length; i++) {
+            let arralamat_lain = alamat_lain[i].value;
+            let arrjenis_alamat_lain = jenis_alamat_lain[i].value;
+            let arrno_telp_lain = no_telp_lain[i].value;
+            let arrno_fax_lain = no_fax_lain[i].value;
+            let arremail_lain = email_lain[i].value;
+            let array_alamat =[
+                arralamat_lain,
+                arrjenis_alamat_lain,
+                arrno_telp_lain,
+                arrno_fax_lain,
+                arremail_lain
+            ]
+            arr_address.push(array_alamat);
+            }
         // End Halaman Pertama 
 
         // Halaman Kedua
@@ -710,12 +787,7 @@
             'no_fax':no_fax,
             'email':email,
             'website':website,
-            'alamat_lain':alamat_lain,
-            'no_telp_lain':no_telp_lain,
-            'no_fax_lain':no_fax_lain,
-            'no_fax_lain':no_fax_lain,
-            'email_lain':email_lain,
-            'website_lain':website_lain,
+            'arr_address':arr_address,
             'arr_pic':arr_pic,
             'no_pengukuhan':no_pengukuhan,
             'no_npwp':no_npwp,
@@ -725,6 +797,7 @@
             'bank_account':bank_account,
             'jangka_waktu':jangka_waktu
         };
+        console.log(data)
         // Ajax
         $.ajax({
             headers: {
@@ -851,9 +924,5 @@
     }
     
     //  End Function
-
-    
-
-
 
 </script>
