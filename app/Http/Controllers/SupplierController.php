@@ -65,17 +65,20 @@ class SupplierController extends Controller
     {
         $data = $request->validate([
             'supplierName' => 'required',
+            'supplierType' => 'required',
+            'supplierCategory' => 'required',
+            'supplierYearOfEstablishment' => 'required',
+            'supplierNumberOfEmployee' => 'required',
+
             'supplierPhone' => 'numeric',
             'supplierEmail' => 'email|unique:suppliers',
             'supplierWebsite' => 'required',
             'supplierFax' => 'required',
-            'supplierType' => 'required',
             'supplierProvince' => 'required',
             'supplierCity' => 'required',
             'supplierDistricts' => 'required',
             'supplierWard' => 'required',
             'supplierMainAddress' => 'required',
-            'supplierCategory' => 'required',
             'supplierCategory' => 'required',
             
             // company attachment

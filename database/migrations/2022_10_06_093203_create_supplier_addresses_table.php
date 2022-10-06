@@ -30,6 +30,7 @@ class CreateSupplierAddressesTable extends Migration
             $table->string('supplierAddressType');
             $table->softDeletes();
             $table->timestamps();
+            
         });
     }
 
