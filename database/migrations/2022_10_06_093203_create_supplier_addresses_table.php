@@ -27,6 +27,7 @@ class CreateSupplierAddressesTable extends Migration
             $table->string('supplierDistricts');
             $table->string('supplierVillage');
             $table->string('supplierPostalCode');
+            $table->string('supplierAddressType');
             $table->softDeletes();
             $table->timestamps();
         });
