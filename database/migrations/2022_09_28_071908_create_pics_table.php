@@ -17,6 +17,9 @@ class CreatePicsTable extends Migration
             $table->id();
             $table->unsignedInteger('supplierId');
             $table->string('picName');
+            $table->string('picDepartement');
+            $table->string('picPhone');
+            $table->string('picEmail')->unique();
             $table->softDeletes();
             $table->timestamps();
         });

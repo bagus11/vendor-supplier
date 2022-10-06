@@ -19,7 +19,7 @@
                             Add Supplier
                         </a>
                     </button>
-                    <table class="table-auto w-full supplier-datatable">
+                    <table class="table-auto w-full bg-blue-500 supplier-datatable">
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2">Name</th>

@@ -26,7 +26,7 @@ class AddFieldFileCompanyProfileToCompanyAttachments extends Migration
     public function down()
     {
         Schema::table('company_attachments', function (Blueprint $table) {
-            $table->dropColumns('fileCompanyProfile');
+            $table->dropColumn('fileCompanyProfile');
         });
     }
 }

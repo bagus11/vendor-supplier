@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Suppliers;
 use App\Models\Product;
+use App\Models\Provinces;
+use App\Models\IsoMaster;
 use App\Models\CompanyAttachment;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\ResponseFormatter;
-use App\Models\IsoMaster;
-use App\Models\Provinces;
 use DataTables;
 use Validator;
 
@@ -52,7 +52,6 @@ class SupplierController extends Controller
             'products' => $products,
             'provinces' => $provinces,
             'master_iso' => $master_iso,
-
         ]);
     }
 
@@ -130,7 +129,7 @@ class SupplierController extends Controller
                 'fileRegistrationCertificate' => $pathRegistrationCertificate,
                 'fileCompanyProfile' => $pathCompanyProfile,
             ]);
-            
+
             array_push($result, $suppliers, $companyAttachment);
             if ($result != NULL) {
                 return ResponseFormatter::success(
@@ -155,8 +154,12 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        $supplier = Suppliers::findOrFail($id);
-
+        $supplier = Suppliers::with([
+            'CompanyAttachment'
+        ])
+        // ->where('id', $id)->get();
+        ->findOrFail($id);
+        // dd($supplier);
         return response()->json($supplier);
     }
 

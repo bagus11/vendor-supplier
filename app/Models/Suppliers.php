@@ -13,4 +13,8 @@ class Suppliers extends Model
     protected $table = 'suppliers';
 
     protected $guarded = [];
+
+    public function CompanyAttachment() {
+        return $this->hasMany(CompanyAttachment::class, 'supplierId', 'id');
+    }
 }
