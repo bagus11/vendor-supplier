@@ -32,6 +32,7 @@ Route::resource('iso', IsoController::class);
 Route::get('get_district', [SupplierDataController::class, 'get_district'])->name('get_district');
 Route::get('get_regency', [SupplierDataController::class, 'get_regency'])->name('get_regency');
 Route::get('get_village', [SupplierDataController::class, 'get_village'])->name('get_village');
+Route::post('post_supplier', [SupplierDataController::class, 'post_supplier'])->name('post_supplier');
 
 
 require __DIR__.'/auth.php';

@@ -242,18 +242,7 @@
                         <input type="number" style="width: 50%" name="kode_pos" id="kode_pos">
                         @error('kode_pos') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
-                </div>
-                <div class="input-group">
-                    <label for="alamat_lain">Jenis Alamat</label>
-                    <select name="jenis_alamat" id="jenis_alamat">
-                        <option value="">Pilih Jenis Alamat</option>
-                        <option value="HO">HO</option>
-                        <option value="Cabang">Cabang</option>
-                        <option value="Workshop">Workshop</option>
-                        <option value="Lainnya">Lainnya</option>
-                    </select>
-                </div>
-              
+                </div>    
                 <div class="input-group">
                     <label for="alamat_kantor">Alamat Kantor</label>
                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor">
@@ -709,12 +698,14 @@
             let arrno_telp_lain = no_telp_lain[i].value;
             let arrno_fax_lain = no_fax_lain[i].value;
             let arremail_lain = email_lain[i].value;
+            let arrwebsite_lain = website_lain[i].value;
             let array_alamat =[
                 arralamat_lain,
                 arrjenis_alamat_lain,
                 arrno_telp_lain,
                 arrno_fax_lain,
-                arremail_lain
+                arremail_lain,
+                arrwebsite_lain
             ]
             arr_address.push(array_alamat);
             }
@@ -797,13 +788,13 @@
             'bank_account':bank_account,
             'jangka_waktu':jangka_waktu
         };
-        console.log(data)
         // Ajax
+        console.log(data)
         $.ajax({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "{{route('suppliers.store')}}",
+            url: "{{route('post_supplier')}}",
             type: "post",
             dataType: 'json',
             async: true,
