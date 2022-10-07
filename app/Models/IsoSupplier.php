@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class IsoSupplier extends Model
 {
     use HasFactory;
+
+    protected $table = 'iso_suppliers';
+
+    protected $guarded = [];
 }

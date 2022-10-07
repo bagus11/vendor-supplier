@@ -22,11 +22,11 @@ class CreateSupplierAddressesTable extends Migration
             $table->string('supplierEmail')->unique();
             $table->string('supplierWebsite')->nullable();
             $table->string('supplierFax')->nullable();
-            $table->string('supplierProvince');
-            $table->string('supplierCity');
-            $table->string('supplierDistricts');
-            $table->string('supplierVillage');
-            $table->string('supplierPostalCode');
+            $table->string('supplierProvince')->nullable();
+            $table->string('supplierCity')->nullable();
+            $table->string('supplierDistricts')->nullable();
+            $table->string('supplierVillage')->nullable();
+            $table->string('supplierPostalCode')->nullable();
             $table->string('supplierAddressType');
             $table->softDeletes();
             $table->timestamps();

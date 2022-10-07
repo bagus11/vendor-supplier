@@ -15,8 +15,13 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
-            ISOSeeder::class,
-            SuppliersSeeder::class,
+            // ISOSeeder::class,
+            // SuppliersSeeder::class,
+            SupplierAddressSeeder::class,
+            SupplierPicSeeder::class,
+            CompanyAttachmentSeeder::class,
+            SupplierIsoSeeder::class,
+            SupplierPaymentSeeder::class,
         ]);
     }
 }

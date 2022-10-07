@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Suppliers;
+use App\Models\SupplierAddress;
+use App\Models\Pic;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Provinces;
 use App\Models\IsoMaster;
@@ -12,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Helpers\ResponseFormatter;
 use DataTables;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class SupplierController extends Controller
 {
@@ -63,54 +67,102 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $dataValidation = $request->validate([
+            // master supplier
             'supplierName' => 'required',
             'supplierType' => 'required',
             'supplierCategory' => 'required',
             'supplierYearOfEstablishment' => 'required',
             'supplierNumberOfEmployee' => 'required',
-
-            'supplierPhone' => 'numeric',
-            'supplierEmail' => 'email|unique:suppliers',
-            'supplierWebsite' => 'required',
-            'supplierFax' => 'required',
-            'supplierProvince' => 'required',
-            'supplierCity' => 'required',
-            'supplierDistricts' => 'required',
-            'supplierWard' => 'required',
-            'supplierMainAddress' => 'required',
-            'supplierCategory' => 'required',
+            
+            // master supplier address
+            'address' => 'required|array',
+            'address.*.supplierAddress' => 'required',
+            'address.*.flagMainAddress' => 'required',
+            'address.*.supplierPhone' => 'required|numeric|phone_number|size:13',
+            'address.*.supplierEmail' => 'email|unique:supplier_addresses',
+            'address.*.supplierWebsite' => 'required',
+            'address.*.supplierFax' => 'required',
+            'address.*.supplierProvince' => 'required',
+            'address.*.supplierCity' => 'required',
+            'address.*.supplierDistricts' => 'required',
+            'address.*.supplierVillage' => 'required',
+            'address.*.supplierPostalCode' => 'required',
+            'address.*.supplierAddressType' => 'required',
+            
+            // master PIC
+            'pic' => 'required|array',
+            'pic.*picName' => 'required',
+            'pic.*picDepartement' => 'required',
+            'pic.*picPhone' => 'required|numeric|phone_number|size:13',
+            'pic.*picEmail' => 'email|unique:supplier_addresses',
             
             // company attachment
             'numberPKP' => 'required',
-            'numberNPWP' => 'required',
+            'numberNPWP' => 'required|string',
             'nameNPWP' => 'required',
             'addressNPWP' => 'required',
-            'fileNPWP' => 'required|mimes:pdf|max:10000',
-            'filePKP' => 'required|mimes:pdf|max:10000',
-            'fileRegistrationCertificate' => 'required|mimes:pdf|max:10000',
-            'fileCompanyProfile' => 'required|pdf|max:10000',
+            'fileNPWP' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
+            'filePKP' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
+            'fileRegistrationCertificate' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
+            'fileCompanyProfile' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
+            
+            // iso supplier
+            'iso' => 'required|array',
+            'iso.*.id' => 'exists:iso_suppliers,id',
+            'iso.*.applied' => 'required',
+            'iso.*.certified' => 'required',
+            
+            // payment supplier
+            'bankId' => 'required',
+            'numberBank' => 'required',
+            'termOfPayment' => 'required|numeric',
+
         ]);
 
-        if($data) {
+        if($dataValidation) {
             $result = [];
+
+            // store master supplier
             $suppliers = Suppliers::create([
                 'supplierName' => $request->supplierName,
-                'supplierPhone' => $request->supplierPhone,
-                'supplierEmail' => $request->supplierEmail,
-                'supplierWebsite' => $request->supplierWebsite,
-                'supplierFax' => $request->supplierFax,
                 'supplierType' => $request->supplierType,
-                'supplierProvince' => $request->supplierProvince,
-                'supplierCity' => $request->supplierCity,
-                'supplierDistricts' => $request->supplierDistricts,
-                'supplierWard' => $request->supplierWard,
-                'supplierMainAddress' => $request->supplierMainAddress,
-                'supplierOtherAddress' => $request->supplierOtherAddress,
-                'supplierPostalCode' => $request->supplierPostalCode,
                 'supplierCategory' => $request->supplierCategory,
+                'supplierYearOfEstablishment' => $request->supplierYearOfEstablishment,
+                'supplierNumberOfEmployee' => $request->supplierNumberOfEmployee,
             ]);
 
+            // store address supplier
+            foreach ($request->address as $address) {
+                $supplierAddress = SupplierAddress::create([
+                    'supplierId' => Auth::user()->id,
+                    'supplierAddress' => $address['supplierAddress'],
+                    'flagMainAddress' => $address['flagMainAddress'],
+                    'supplierPhone' => $address['supplierPhone'],
+                    'supplierEmail' => $address['supplierEmail'],
+                    'supplierWebsite' => $address['supplierWebsite'],
+                    'supplierFax' => $address['supplierFax'],
+                    'supplierProvince' => $address['supplierProvince'],
+                    'supplierCity' => $address['supplierCity'],
+                    'supplierDistricts' => $address['supplierDistricts'],
+                    'supplierVillage' => $address['supplierVillage'],
+                    'supplierPostalCode' => $address['supplierPostalCode'],
+                    'supplierAddressType' => $address['supplierAddressType'],
+                ]);
+            }
+            
+            // store pic supplier
+            foreach ($request->pic as $pic) {
+                $pics = Pic::create([
+                    'supplierId' => Auth::user()->id,
+                    'picName' => $pic['picName'],
+                    'picDepartement' => $pic['picDepartement'],
+                    'picPhone' => $pic['picPhone'],
+                    'picEmail' => $pic['picEmail'],
+                ]);
+            }
+
+            // store company attachment
             $fileNPWP = $request->file('fileNPWP')->getClientOriginalName();
             $filePKP = $request->file('filePKP')->getClientOriginalName();
             $fileRegistrationCertificate = $request->file('fileRegistrationCertificate')->getClientOriginalName();
@@ -122,7 +174,7 @@ class SupplierController extends Controller
             $pathCompanyProfile = $request->file('fileCompanyProfile')->store('public/companyProfile');
 
             $companyAttachment = CompanyAttachment::create([
-                'supplierId' => $suppliers->id,
+                'supplierId' => Auth::user()->id,
                 'numberPKP' => $request->numberPKP,
                 'numberNPWP' => $request->numberNPWP,
                 'nameNPWP' => $request->nameNPWP,
@@ -133,7 +185,24 @@ class SupplierController extends Controller
                 'fileCompanyProfile' => $pathCompanyProfile,
             ]);
 
-            array_push($result, $suppliers, $companyAttachment);
+            // store iso supplier
+            foreach ($request->iso as $iso) {
+                $isoSupplier = IsoMaster::create([
+                    'isoId' => $iso['id'],
+                    'supplierId' => Auth::user()->id,
+                    'applied' => $iso['applied'],
+                    'certified' => $iso['certified'],
+                ]);
+            }
+
+            $payment = payments::create([
+                'bankId' => $request->bankId,
+                'supplierId' => Auth::user()->id,
+                'numberBank' => $request->numberBank,
+                'termOfPayment' => $request->termOfPayment,
+            ]);
+
+            array_push($result, $suppliers, $supplierAddress, $pics, $companyAttachment, $isoSupplier, $payment);
             if ($result != NULL) {
                 return ResponseFormatter::success(
                     $result,
@@ -158,9 +227,11 @@ class SupplierController extends Controller
     public function show($id)
     {
         $supplier = Suppliers::with([
-            'CompanyAttachment'
+            'companyAttachment',
+            'supplierAddress',
+            'supplierPic',
+            'supplierPayment'
         ])
-        // ->where('id', $id)->get();
         ->findOrFail($id);
         // dd($supplier);
         return response()->json($supplier);
