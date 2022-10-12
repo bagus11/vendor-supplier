@@ -118,16 +118,16 @@
                     name: 'supplierName'
                 },
                 {
-                    data: 'supplierPhone',
-                    name: 'supplierPhone'
+                    data: 'supplierAddress.supplierPhone',
+                    name: 'supplierAddress.supplierPhone'
                 },
                 {
-                    data: 'supplierFax',
-                    name: 'supplierFax'
+                    data: 'supplierAddress.supplierFax',
+                    name: 'supplierAddress.supplierFax'
                 },
                 {
-                    data: 'supplierEmail',
-                    name: 'supplierEmail'
+                    data: 'supplierAddress.supplierEmail',
+                    name: 'supplierAddress.supplierEmail'
                 },
                 {
                     data: 'action',

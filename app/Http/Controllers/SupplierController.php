@@ -26,11 +26,12 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
+        $data = Suppliers::with(['supplierAddress'])->get();
+        dd($data);
         if($request->ajax()) {
-            $data = Suppliers::all();
+            // $data = Suppliers::all();
             return DataTables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){
-                // $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="show text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 editPost">Edit</a>';
                 
                 $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-url="'.route('suppliers.show', $row->id).'" data-original-title="Edit" class="show text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 editPost">Edit</a>';
 
@@ -69,7 +70,7 @@ class SupplierController extends Controller
     {
         $dataValidation = $request->validate([
             // master supplier
-            'supplierName' => 'required',
+            'supplierName' => 'required|unique:suppliers',
             'supplierType' => 'required',
             'supplierCategory' => 'required',
             'supplierYearOfEstablishment' => 'required',
