@@ -146,6 +146,7 @@
         background-color:white; 
         border: 1px solid #cccccc;
     }
+
   
 
  
@@ -175,6 +176,9 @@
                     <div class="progress-step" data-title="Attachment"></div>
                     <div class="progress-step" data-title="Payment"></div>
                 </div>
+            </div>
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 print-error-msg" role="alert" style="display:none">
+                <ul></ul>
             </div>
             {{-- Step --}}
             <div class="form-step form-step-active">
@@ -242,18 +246,7 @@
                         <input type="number" style="width: 50%" name="kode_pos" id="kode_pos">
                         @error('kode_pos') <span class="text-red-500">{{ $message }}</span>@enderror
                     </div>
-                </div>
-                <div class="input-group">
-                    <label for="alamat_lain">Jenis Alamat</label>
-                    <select name="jenis_alamat" id="jenis_alamat">
-                        <option value="">Pilih Jenis Alamat</option>
-                        <option value="HO">HO</option>
-                        <option value="Cabang">Cabang</option>
-                        <option value="Workshop">Workshop</option>
-                        <option value="Lainnya">Lainnya</option>
-                    </select>
-                </div>
-              
+                </div>    
                 <div class="input-group">
                     <label for="alamat_kantor">Alamat Kantor</label>
                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor">
@@ -420,14 +413,24 @@
             </div>
           
             <div class="form-step">
-                <div class="input-group">
-                    <label for="bank_account">Bank Account</label>
-                    <input type="text" name="bank_account" id="bank_account">
-                    <span style="font-size:12px">
-                       <strong>
-                        example : BNI 46 (000.914.2005)
-                       </strong>
-                    </span>
+                <div class="grid grid-cols-6 gap-4">
+                    <div class="col-span-1">
+                      <div class="input-group">
+                        <label for="">Bank</label>
+                        <select name="bankName" id="bankName" class="select2" style="width: 100%;">
+                            <option value="">Please Choose Bank Name</option>
+                            @foreach($master_bank as $row)
+                                <option value="{{$row->id}}">{{$row->nameBank}}</option>
+                            @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-span-2">
+                        <div class="input-group">
+                            <label for="bank_account">Bank Account</label>
+                            <input type="number" name="bank_account" id="bank_account">
+                        </div>
+                    </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3" style="width:45%;">
@@ -676,6 +679,8 @@
             toastr.error('Please checklist Term & Condition before click the submit button')
             return false
         }else{
+            $('#save').prop('disabled', true);
+            $('#cc').prop('disabled', true);
             save()
         }
     })
@@ -701,6 +706,7 @@
         var no_fax = $('#no_fax').val();
         var email = $('#email').val();
         var website= $('#website').val();
+        var bankName= $('#bankName').val();
         var arr_address=[];
            
             for (let i = 0; i < alamat_lain.length; i++) {
@@ -709,12 +715,14 @@
             let arrno_telp_lain = no_telp_lain[i].value;
             let arrno_fax_lain = no_fax_lain[i].value;
             let arremail_lain = email_lain[i].value;
+            let arrwebsite_lain = website_lain[i].value;
             let array_alamat =[
                 arralamat_lain,
                 arrjenis_alamat_lain,
                 arrno_telp_lain,
                 arrno_fax_lain,
-                arremail_lain
+                arremail_lain,
+                arrwebsite_lain
             ]
             arr_address.push(array_alamat);
             }
@@ -773,37 +781,38 @@
 
         // End Initiating
         var data ={
-            'nama_supplier':nama_supplier,
-            'tahun_pendirian':tahun_pendirian,
-            'jenis_usaha':jenis_usaha,
-            'jml_karyawan':jml_karyawan,
-            'prov':prov,
-            'kab':kab,
-            'kec':kec,
-            'kel':kel,
-            'kode_pos':kode_pos,
-            'alamat_kantor':alamat_kantor,
-            'no_telpon':no_telpon,
-            'no_fax':no_fax,
-            'email':email,
-            'website':website,
+            'supplierName':nama_supplier,
+            'supplierYearOfEstablishment':tahun_pendirian,
+            'supplierType':jenis_usaha,
+            'supplierNumberOfEmployee':jml_karyawan,
+            'supplierProvince':prov,
+            'supplierCity':kab,
+            'supplierDistricts':kec,
+            'supplierVillage':kel,
+            'supplierPostalCode':kode_pos,
+            'supplierAddress':alamat_kantor,
+            'supplierPhone':no_telpon,
+            'supplierFax':no_fax,
+            'supplierEmail':email,
+            'supplierWebsite':website,
             'arr_address':arr_address,
             'arr_pic':arr_pic,
-            'no_pengukuhan':no_pengukuhan,
-            'no_npwp':no_npwp,
-            'nama_npwp':nama_npwp,
-            'alamat_npwp':alamat_npwp,
+            'numberPKP':no_pengukuhan,
+            'numberNPWP':no_npwp,
+            'nameNPWP':nama_npwp,
+            'addressNPWP':alamat_npwp,
             'arr_iso':arr_iso,
-            'bank_account':bank_account,
-            'jangka_waktu':jangka_waktu
+            'numberBank':bank_account,
+            'bankName':bankName,
+            'termOfPayment':jangka_waktu
         };
-        console.log(data)
         // Ajax
+    
         $.ajax({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            url: "{{route('suppliers.store')}}",
+            url: "{{route('post_supplier')}}",
             type: "post",
             dataType: 'json',
             async: true,
@@ -813,20 +822,17 @@
             },
             success: function(response) {
                 swal.close();
-            if(response.get_kode_area_tagih==[]|| response.get_kode_area_tagih=='' || response.get_kode_area_tagih==null)
-            {
-                toastr['success'](response.message);
-                window.location = "{{route('suppliers.create')}}";
-            }
-            else{
-                    toastr['success'](response.message);
+                if(response.status==422)
+                {
+                    printErrorMsg(response.message)
                 }
-                mapping_wilayah_detail(response)
+                $('#save').prop('disabled', false);
+               
 
             },
             error: function(xhr, status, error) {
                 swal.close();
-                toastr['error']('gagal mengambil data, silakan hubungi ITMAN');
+                toastr['error']('Error system, please contact ICT Developer');
             }
         });
         // End Ajax
@@ -857,7 +863,7 @@
             },
             error: function(xhr, status, error) {
                 swal.close();
-                toastr['error']('gagal mengambil data, silakan hubungi ITMAN');
+                toastr['error']('Failed to get data, please contact ICT Developer');
             }
         });
     }
@@ -887,7 +893,7 @@
             },
             error: function(xhr, status, error) {
                 swal.close();
-                toastr['error']('gagal mengambil data, silakan hubungi ITMAN');
+                toastr['error']('Failed to get data, please contact ICT Developer');
             }
         });
     }
@@ -918,10 +924,18 @@
             },
             error: function(xhr, status, error) {
                 swal.close();
-                toastr['error']('gagal mengambil data, silakan hubungi ITMAN');
+                toastr['error']('Failed to get data, please contact ICT Developer');
             }
         });
     }
+
+    function printErrorMsg (msg) {
+            $(".print-error-msg").find("ul").html('');
+            $(".print-error-msg").css('display','block');
+            $.each( msg, function( key, value ) {
+                $(".print-error-msg").find("ul").append(`<li>${value}</li>`);
+            });
+        }
     
     //  End Function
 

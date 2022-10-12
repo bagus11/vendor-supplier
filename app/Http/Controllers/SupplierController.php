@@ -16,7 +16,8 @@ use App\Helpers\ResponseFormatter;
 use DataTables;
 use Validator;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
+use App\Models\Bank;
 class SupplierController extends Controller
 {
     /**
@@ -27,15 +28,22 @@ class SupplierController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $data = Suppliers::with(['supplierAddress']);
-            // $data = Suppliers::all();
-            return DataTables::of($data)->addIndexColumn()
-            ->addColumn('action', function($row){
-                
-                $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-url="'.route('suppliers.show', $row->id).'" data-original-title="Edit" class="show text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 editPost">Edit</a>';
+            // $data = DB::table('suppliers')
+            // ->join('supplier_addresses','supplier_addresses.supplierId','=','suppliers.userId')
+            // ->select('suppliers.supplierName','supplier_addresses.supplierPhone','supplier_addresses.supplierFax','supplier_addresses.supplierEmail','suppliers.id')
+            // ->where('supplier_addresses.flagMainAddress',1)->get();
 
+            $data = Suppliers::with(['supplierAddress'])->whereHas('supplierAddress', function($query){
+                $query->where('flagMainAddress', 1);
+            });
+            // dd($data);
+            return DataTables::eloquent($data)
+            ->addColumn('action', function($row){
+                $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-url="'.route('suppliers.show', $row->id).'" data-original-title="Edit" class="show text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 editPost">Edit</a>';
+                
                 return $btn;
-            })->rawColumns(['action'])->make(true);
+            })->toJson();
+           
         }
 
         return view('suppliers.supplier-index');
@@ -51,11 +59,13 @@ class SupplierController extends Controller
         $products = Product::all();
         $provinces = Provinces::all();
         $master_iso = IsoMaster::all();
+        $master_bank = Bank::all();
         return view('suppliers.supplier-create', 
         [
             'products' => $products,
             'provinces' => $provinces,
             'master_iso' => $master_iso,
+            'master_bank' => $master_bank,
         ]);
     }
 

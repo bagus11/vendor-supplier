@@ -113,31 +113,15 @@
                 url: '{!! url()->current() !!}',
             },
             columns: [
-                {
-                    data: 'supplierName',
-                    name: 'supplierName'
-                },
-                {
-                    data: 'supplierType',
-                    name: 'supplierType'
-                },
-                {
-                    data: supplier_address[
-                        supplierPhone
-                    ],
-                    name: supplier_address[
-                        supplierPhone
-                    ]
-                },
-                {
-                    data: 'supplier_address.supplierEmail',
-                    name: 'supplier_address.supplierEmail'
-                },
+                {data: 'supplierName',name: 'supplierName'},
+                {data: 'supplier_address[0].supplierPhone',name: 'supplier_address'},
+                {data: 'supplier_address[0].supplierFax',name: 'supplier_address'},
+                {data: 'supplier_address[0].supplierEmail',name: 'supplier_address'},
                 {
                     data: 'action',
                     name: 'action',
-                    orderable: false,
-                    searchable: false,
+                    orderable: true,
+                    searchable: true,
                     // width: '25%'
                 }
             ]
