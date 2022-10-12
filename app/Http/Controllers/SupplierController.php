@@ -26,9 +26,8 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Suppliers::with(['supplierAddress'])->get();
-        dd($data);
         if($request->ajax()) {
+            $data = Suppliers::with(['supplierAddress']);
             // $data = Suppliers::all();
             return DataTables::of($data)->addIndexColumn()
             ->addColumn('action', function($row){

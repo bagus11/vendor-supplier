@@ -17,6 +17,7 @@ class SuppliersSeeder extends Seeder
     public function run()
     {
         DB::table('suppliers')->insert([
+            'userId' => 1,
             'supplierName' => 'PT Mencari Cinta Sejati',
             'supplierType' => 'Manufacture',
             'supplierCategory' => 'PKP',
