@@ -73,7 +73,8 @@
                         <div class="mt-2">
                         <!--body-->
                         <div class="relative p-6 flex-auto">
-                            <div class="grid grid-cols-2">
+                            {{-- <div class="grid grid-cols-2"> --}}
+                                <div class="grid grid-flow-col auto-cols-max">
                                 <div class="text-left mr-4">
                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Name : <span id="supplierName"></span></p>
                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Email : <span id="supplierEmail"></span></p>
@@ -81,12 +82,15 @@
                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Website : <span id="supplierWebsite"></span></p>
                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Category : <span id="supplierCategory"></span></p>
                                 </div>
-                                <div class="text-left ml-4">
+                                <div class="text-left mr-4">
                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Province : <span id="supplierProvince"></span></p>
                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">City : <span id="supplierCity"></span></p>
                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">District : <span id="supplierDistricts"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Village/Ward : <span id="supplierWard"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Address : <span id="supplierMainAddress"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Village : <span id="supplierVillage"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Address : <span id="supplierAddress"></span></p>
+                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Code : <span id="supplierPostalCode"></span></p>
+                                </div>
+                                <div class="text-left mr-4">
                                     <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Code : <span id="supplierPostalCode"></span></p>
                                 </div>
                             </div>
@@ -114,9 +118,9 @@
             },
             columns: [
                 {data: 'supplierName',name: 'supplierName'},
-                {data: 'supplier_address[0].supplierPhone',name: 'supplier_address'},
-                {data: 'supplier_address[0].supplierFax',name: 'supplier_address'},
-                {data: 'supplier_address[0].supplierEmail',name: 'supplier_address'},
+                {data: 'supplier_address.supplierPhone',name: 'supplier_address'},
+                {data: 'supplier_address.supplierFax',name: 'supplier_address'},
+                {data: 'supplier_address.supplierEmail',name: 'supplier_address'},
                 {
                     data: 'action',
                     name: 'action',
@@ -135,24 +139,23 @@
     });
 
     $('body').on('click', '.editPost', function () {
-        // let id = $(this).data('id');
         let userURL = $(this).data('url');
         $.get(userURL, function (data) {
-        // $.get("{{ route('suppliers.index') }}" +'/' + id, function (data) {
+            console.log(data);
             $('#dataModalSupplierDetail').show();
             $('#modal-title').html('Supplier Details');
             $('#id').text(data.id);
-            $('#supplierName').text(data.supplierName);
-            $('#supplierEmail').text(data.supplierEmail);
-            $('#supplierWebsite').text(data.supplierWebsite);
-            $('#supplierFax').text(data.supplierFax);
-            $('#supplierProvince').text(data.supplierProvince);
-            $('#supplierCity').text(data.supplierCity);
-            $('#supplierDistricts').text(data.supplierDistricts);
-            $('#supplierWard').text(data.supplierWard);
-            $('#supplierMainAddress').text(data.supplierMainAddress);
-            $('#supplierPostalCode').text(data.supplierPostalCode);
-            $('#supplierCategory').text(data.supplierCategory);
+            $('#supplierName').text(data[0].supplierName);
+            $('#supplierEmail').text(data[0].supplier_address[0].supplierEmail);
+            $('#supplierWebsite').text(data[0].supplier_address[0].supplierWebsite);
+            $('#supplierFax').text(data[0].supplier_address[0].supplierFax);
+            $('#supplierProvince').text(data[0].supplier_address[0].supplierProvince.name);
+            $('#supplierCity').text(data[0].supplier_address[0].supplierCity.name);
+            $('#supplierDistricts').text(data[0].supplier_address[0].supplierDistricts.name);
+            $('#supplierVillage').text(data[0].supplier_address[0].supplierVillage.name);
+            $('#supplierAddress').text(data[0].supplier_address[0].supplierAddress);
+            $('#supplierPostalCode').text(data[0].supplier_address[0].supplierPostalCode);
+            $('#supplierCategory').text(data[0].supplierCategory);
         });
     });
 

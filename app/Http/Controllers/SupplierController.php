@@ -32,10 +32,11 @@ class SupplierController extends Controller
             // ->join('supplier_addresses','supplier_addresses.supplierId','=','suppliers.userId')
             // ->select('suppliers.supplierName','supplier_addresses.supplierPhone','supplier_addresses.supplierFax','supplier_addresses.supplierEmail','suppliers.id')
             // ->where('supplier_addresses.flagMainAddress',1)->get();
-
+            
             $data = Suppliers::with(['supplierAddress'])->whereHas('supplierAddress', function($query){
                 $query->where('flagMainAddress', 1);
             });
+            
             // dd($data);
             return DataTables::eloquent($data)
             ->addColumn('action', function($row){
@@ -43,7 +44,6 @@ class SupplierController extends Controller
                 
                 return $btn;
             })->toJson();
-           
         }
 
         return view('suppliers.supplier-index');
@@ -135,6 +135,7 @@ class SupplierController extends Controller
 
             // store master supplier
             $suppliers = Suppliers::create([
+                'userId' => Auth::user()->id,
                 'supplierName' => $request->supplierName,
                 'supplierType' => $request->supplierType,
                 'supplierCategory' => $request->supplierCategory,
@@ -236,15 +237,29 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        $supplier = Suppliers::with([
-            'companyAttachment',
-            'supplierAddress',
-            'supplierPic',
-            'supplierPayment'
-        ])
-        ->findOrFail($id);
+        // return $supplier = Suppliers::with([
+        //     'companyAttachment',
+        //     'supplierAddress',
+        //     'supplierPic',
+        //     'supplierPayment'
+        // ])
+        // ->where('id', $id)->toJson();
+        // ->findOrFail($id)->toJson();
         // dd($supplier);
-        return response()->json($supplier);
+        // $village = $supplier[0]->supplierAddress[0]->villages->name;
+        
+        
+        $supplier = DB::table('suppliers')
+        ->join('supplier_addresses', 'suppliers.id', '=', 'supplier_addresses.supplierId')
+        ->join('provinces', 'supplier_addresses.supplierProvince', '=', 'provinces.id')
+        ->join('regencies', 'supplier_addresses.supplierCity', '=', 'regencies.id')
+        ->join('districts', 'supplier_addresses.supplierDistricts', '=', 'districts.id')
+        ->join('villages', 'supplier_addresses.supplierVillage', '=', 'villages.id')
+        ->join('pic', 'suppliers.id', '=', 'pic.supplierId')
+        ->join('payment', 'suppliers.id', '=', 'payment.supplierId')
+        ->select('suppliers');
+
+        // return response()->json($supplier);
     }
 
     /**
