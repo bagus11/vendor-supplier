@@ -40,7 +40,7 @@ class SupplierController extends Controller
             // dd($data);
             return DataTables::eloquent($data)
             ->addColumn('action', function($row){
-                $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-url="'.route('suppliers.show', $row->id).'" data-original-title="Edit" class="show text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 editPost">Edit</a>';
+                $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-url="'.route('suppliers.show', $row->id).'" data-original-title="Edit" class="show text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 editPost">Detail</a>';
                 
                 return $btn;
             })->toJson();
@@ -255,11 +255,14 @@ class SupplierController extends Controller
         ->join('regencies', 'supplier_addresses.supplierCity', '=', 'regencies.id')
         ->join('districts', 'supplier_addresses.supplierDistricts', '=', 'districts.id')
         ->join('villages', 'supplier_addresses.supplierVillage', '=', 'villages.id')
-        ->join('pic', 'suppliers.id', '=', 'pic.supplierId')
-        ->join('payment', 'suppliers.id', '=', 'payment.supplierId')
-        ->select('suppliers');
+        ->join('pics', 'suppliers.id', '=', 'pics.supplierId')
+        ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
+        ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'provinces.name as province_name', 'regencies.name as regency_name', 'districts.name as district_name', 'villages.name as village_name', 'pics.picName', 'pics.picDepartement', 'pics.picPhone', 'pics.picEmail', 'payments.numberBank', 'payments.termOfPayment')
+        ->where('suppliers.id', $id)
+        ->where('supplier_addresses.flagMainAddress', 1)
+        ->get();
 
-        // return response()->json($supplier);
+        return response()->json($supplier);
     }
 
     /**
