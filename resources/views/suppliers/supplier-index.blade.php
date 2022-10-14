@@ -167,30 +167,33 @@
         }
     });
 
-    $('body').on('click', '.editPost', function () {
-        let userURL = $(this).data('url');
-        $.get(userURL, function (data) {
-            console.log(data);
-            $('#dataModalSupplierDetail').show();
-            $('#modal-title').html('Supplier Details');
-            $('#id').text(data.id);
-            $('#supplierName').text(data[0].supplierName);
-            $('#supplierEmail').text(data[0].supplierEmail);
-            $('#supplierWebsite').text(data[0].supplierWebsite);
-            $('#supplierFax').text(data[0].supplierFax);
-            $('#supplierProvince').text(data[0].province_name);
-            $('#supplierCity').text(data[0].regency_name);
-            $('#supplierDistricts').text(data[0].district_name);
-            $('#supplierVillage').text(data[0].village_name);
-            $('#supplierAddress').text(data[0].supplierAddress);
-            $('#supplierPostalCode').text(data[0].supplierPostalCode);
-            $('#supplierCategory').text(data[0].supplierCategory);
-            $('#numberBank').text(data[0].numberBank);
-            $('#termOfPayment').text(data[0].termOfPayment);
-            $('#picName').text(data[0].picName);
-            $('#picDepartement').text(data[0].picDepartement);
-            $('#picPhone').text(data[0].picPhone);
-            $('#picEmail').text(data[0].picEmail);
+    $('.supplier-datatable').on('click', '.editPost', function () {
+        var id = $(this).data('id');
+        $('#dataModalSupplierDetail').show();
+        $('#modal-title').html('Supplier Details');
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{route('supplierDetail')}}",
+            type: "get",
+            dataType: 'json',
+            async: true,
+            data: {
+                'id':id
+            },
+            beforeSend: function() {
+                SwalLoading('Please wait ...');
+            },
+            success: function(response) {
+                swal.close();
+              
+                console.log(response)
+            },
+            error: function(xhr, status, error) {
+                swal.close();
+                toastr['error']('Failed to get data, please contact ICT Developer');
+            }
         });
     });
 

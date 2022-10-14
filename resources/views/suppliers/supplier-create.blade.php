@@ -160,7 +160,7 @@
     </x-slot>
 
     <div class="py-4">
-        <div class="form" id="form_serialize">
+        <form class="form" id="form_serialize">
             @csrf
             <h1 class="font-semibold text-xl text-center text-gray-800 leading-tight">
                 Register
@@ -177,7 +177,7 @@
                     <div class="progress-step" data-title="Payment"></div>
                 </div>
             </div>
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 print-error-msg" role="alert" style="display:none">
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 print-error-msg" role="alert" style="display:none;margin-bottom:20px;margin-top:20px">
                 <ul></ul>
             </div>
             {{-- Step --}}
@@ -186,24 +186,24 @@
                     <div class="input-group col-span-4">
                         <label for="nama_supplier">Nama Perusahaan</label>
                         <input type="text" name="nama_supplier" id="nama_supplier">
-                        @error('nama_supplier') <span class="text-red-500">{{ $message }}</span>@enderror
+                      
                     </div>
                     <div class="input-group col-span-2">
                         <label for="tahun_pendirian">Tahun Pendirian</label>
                         <input type="number" min="1800"  name="tahun_pendirian" id="tahun_pendirian">
-                        @error('tahun_pendirian') <span class="text-red-500">{{ $message }}</span>@enderror
+                       
                     </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-4">
                         <label for="supplier_siup">Jenis Usaha</label>
                         <input type="text" name="jenis_usaha" id="jenis_usaha">
-                        @error('jenis_usaha') <span class="text-red-500">{{ $message }}</span>@enderror
+                      
                     </div>
                     <div class="input-group col-span-2">
                         <label for="jml_karyawan">Jumlah Karyawan</label>
                         <input type="number" name="jml_karyawan" id="jml_karyawan">
-                        @error('jml_karyawan') <span class="text-red-500">{{ $message }}</span>@enderror
+                       
                     </div>
                 </div>  
                 <div class="grid grid-cols-6 gap-3">
@@ -215,21 +215,21 @@
                             <option value="{{$row->id}}">{{$row->name}}</option>
                             @endforeach
                         </select>
-                        @error('prov') <span class="text-red-500">{{ $message }}</span>@enderror
+                       
                     </div>
                     <div class="input-group col-span-2">
                         <label for="supplier_siup">Kabupaten</label>
                         <select class="select2" name="kab" id="kab"style="width: 100%">
                             <option value="">Please choose provinces first</option>
                         </select>
-                        @error('kab') <span class="text-red-500">{{ $message }}</span>@enderror
+                       
                     </div>
                     <div class="input-group col-span-2">
                         <label for="supplier_siup">Kecamatan</label>
                         <select class="select2" name="kec" id="kec"style="width: 100%">
                             <option value="">Please choose regencies first</option>
                         </select>
-                        @error('kec') <span class="text-red-500">{{ $message }}</span>@enderror
+                       
                     </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
@@ -239,43 +239,43 @@
                         <select class="select2" name="kel" id="kel" style="width: 100%">
                             <option value="">Please choose districts first</option>
                         </select>
-                        @error('kel') <span class="text-red-500">{{ $message }}</span>@enderror
+                       
                     </div>
                     <div class="input-group col-span-2">
                         <label for="supplier_name">Kode Pos</label>
                         <input type="number" style="width: 50%" name="kode_pos" id="kode_pos">
-                        @error('kode_pos') <span class="text-red-500">{{ $message }}</span>@enderror
+                       
                     </div>
                 </div>    
                 <div class="input-group">
                     <label for="alamat_kantor">Alamat Kantor</label>
                     <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor">
                     </textarea>
-                    @error('alamat_kantor') <span class="text-red-500">{{ $message }}</span>@enderror
+                   
                 </div>
 
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">No Telpon</label>
                         <input type="number" name="no_telpon" id="no_telpon">
-                        @error('no_telpon') <span class="text-red-500">{{ $message }}</span>@enderror
+                       
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Fax</label>
                         <input type="number" name="no_fax" id="no_fax">
-                        @error('no_fax') <span class="text-red-500">{{ $message }}</span>@enderror
+                        
                     </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Email</label>
                         <input type="text" name="email" id="email">
-                        @error('email') <span class="text-red-500">{{ $message }}</span>@enderror
+                       
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Website</label>
                         <input type="text" name="website" id="website">
-                        @error('website') <span class="text-red-500">{{ $message }}</span>@enderror
+                        
                     </div>
                 </div>
                 <div class="another_address"></div>
@@ -391,7 +391,7 @@
                         <div class="col-span-1">
                             <label for="cc" style="font-size: 12px">
                                 <input type="checkbox" class="diterapkan" name="diterapkan">
-                                DiTerapkan                  
+                                Diterapkan                  
                             </label>
                         </div>
                         <div class="col-span-1">
@@ -475,7 +475,7 @@
                     <button class="btn btn-submit" type="button" id="save">Submit</button>
                 </div>
             </div>
-        </div>
+        </form>
       
      
     </div>
@@ -806,6 +806,46 @@
             'bankName':bankName,
             'termOfPayment':jangka_waktu
         };
+
+        // Form Upload
+        var pengukuhan_attachment = $('#pengukuhan_attachment')[0].files[0];
+        var npwp_attachment = $('#npwp_attachment')[0].files[0];
+        var cp_attachment = $('#cp_attachment')[0].files[0];
+        var skt_attachment = $('#skt_attachment')[0].files[0];
+        var formData = new FormData();
+            formData.append('pengukuhan_attachment',pengukuhan_attachment)
+            formData.append('npwp_attachment',npwp_attachment)
+            formData.append('cp_attachment',cp_attachment)
+            formData.append('skt_attachment',skt_attachment)
+            formData.append('supplierName',nama_supplier)
+            formData.append('supplierYearOfEstablishment',tahun_pendirian)
+            formData.append('supplierType',jenis_usaha)
+            formData.append('supplierNumberOfEmployee',jml_karyawan)
+            formData.append('supplierProvince',prov)
+            formData.append('supplierCity',kab)
+            formData.append('supplierDistricts',kec)
+            formData.append('supplierVillage',kel)
+            formData.append('supplierPostalCode',kode_pos)
+            formData.append('supplierAddress',alamat_kantor)
+            formData.append('supplierPhone',no_telpon)
+            formData.append('supplierFax',no_fax)
+            formData.append('supplierEmail',email)
+            formData.append('supplierWebsite',website)
+            formData.append('arr_address',arr_address)
+            formData.append('arr_pic',arr_pic)
+            formData.append('numberPKP',no_pengukuhan)
+            formData.append('numberNPWP',no_npwp)
+            formData.append('nameNPWP',nama_npwp)
+            formData.append('addressNPWP',alamat_npwp)
+            formData.append('arr_iso',arr_iso)
+            formData.append('numberBank',bank_account)
+            formData.append('bankName',bankName)
+            formData.append('termOfPayment',jangka_waktu)
+
+        // EndForm Upload
+        // console.log(formData);
+        // return false;
+
         // Ajax
     
         $.ajax({

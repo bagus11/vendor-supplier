@@ -78,6 +78,8 @@ class SupplierDataController extends Controller
         $bankName = $request->bankName;
         $termOfPayment = $request->termOfPayment;
 
+        $supplierLast = Suppliers::orderby('created_at','desc')->first();
+        $supplierID = $supplierLast + 1; 
         // Other Address
         if($arr_address)
         {
@@ -88,7 +90,7 @@ class SupplierDataController extends Controller
     
                 }else{
                     $address_array=[
-                        'supplierId' => Auth::user()->id,
+                        'supplierId' => $supplierID,
                         'supplierAddress' => $address[0],
                         'supplierAddressType' => $address[1],
                         'supplierPhone' => $address[2],
@@ -112,7 +114,7 @@ class SupplierDataController extends Controller
     
                 }else{
                     $pic_array=[
-                        'supplierId' => Auth::user()->id,
+                        'supplierId' => $supplierID,
                         'picDepartement' => $pic[0],
                         'picName' => $pic[1],
                         'picPhone' => $pic[2],
@@ -135,7 +137,7 @@ class SupplierDataController extends Controller
                 }else{
                     $iso_array=[
                         'isoId' => $iso[0],
-                        'supplierId' => Auth::user()->id,
+                        'supplierId' =>$supplierID,
                         'applied' => $iso[1],
                         'certified' => $iso[2],
                         'created_at'=>date('Y-m-d H:i:s')
@@ -148,26 +150,27 @@ class SupplierDataController extends Controller
             'supplierName' => $request->supplierName,
             'supplierType' => $request->supplierType,
             'supplierCategory' => 'PKP',
+            'userId' => Auth::user()->id,
             'supplierYearOfEstablishment' => $request->supplierYearOfEstablishment,
             'supplierNumberOfEmployee' => $request->supplierNumberOfEmployee,
         ];
         $payment=[
-            'bankId' => $bankName,
-            'supplierId' => Auth::user()->id,
+            'bankId' => '1',
+            'supplierId' =>$supplierID,
             'numberBank' => $numberBank,
             'termOfPayment' => $termOfPayment,
         ];
 
-            // store company attachment
-                // $fileNPWP = $request->file('fileNPWP')->getClientOriginalName();
-                // $filePKP = $request->file('filePKP')->getClientOriginalName();
-                // $fileRegistrationCertificate = $request->file('fileRegistrationCertificate')->getClientOriginalName();
-                // $fileCompanyProfile = $request->file('fileCompanyProfile')->getClientOriginalName();
+            // // store company attachment
+            //     $fileNPWP = $request->file('fileNPWP')->getClientOriginalName();
+            //     $filePKP = $request->file('filePKP')->getClientOriginalName();
+            //     $fileRegistrationCertificate = $request->file('fileRegistrationCertificate')->getClientOriginalName();
+            //     $fileCompanyProfile = $request->file('fileCompanyProfile')->getClientOriginalName();
 
-                // $pathNPWP = $request->file('fileNPWP')->store('public/npwp');
-                // $pathSIUP = $request->file('filePKP')->store('public/siup');
-                // $pathRegistrationCertificate = $request->file('fileRegistrationCertificate')->store('public/registrationCertificate');
-                // $pathCompanyProfile = $request->file('fileCompanyProfile')->store('public/companyProfile');
+            //     $pathNPWP = $request->file('fileNPWP')->store('public/npwp');
+            //     $pathSIUP = $request->file('filePKP')->store('public/siup');
+            //     $pathRegistrationCertificate = $request->file('fileRegistrationCertificate')->store('public/registrationCertificate');
+            //     $pathCompanyProfile = $request->file('fileCompanyProfile')->store('public/companyProfile');
 
             // $companyAttachment =[
             //     'numberPKP' => $request->numberPKP,
@@ -179,10 +182,9 @@ class SupplierDataController extends Controller
             //     'fileRegistrationCertificate' => $pathRegistrationCertificate,
             //     'fileCompanyProfile' => $pathCompanyProfile,
             // ];
-            $companyAttachment=[];
-
+           $companyAttachment=[];
             $supplier_address=[
-                'supplierId' => Auth::user()->id,
+                'supplierId' => $supplierID,
                 'supplierAddress' => $supplierAddress,
                 'flagMainAddress' =>'1',
                 'supplierPhone' => $supplierPhone,
@@ -211,31 +213,60 @@ class SupplierDataController extends Controller
             ]);
           }else{
 
-              // DB::transaction(function() use ($push_iso,$push_pic,$push_address,$supplier,$payment,$companyAttachment,$supplier_address){
-              //     if(count($push_iso) > 0)
-              //     {
-              //         IsoSupplier::insert($push_iso);
-              //     }
-              //     if(count($push_pic) > 0)
-              //     {
-              //         Pic::insert($push_pic);
-              //     }
-              //     if(count($push_address) > 0)
-              //     {
-              //         SupplierAddress::insert($push_address);
-              //     }
-              //     // Suppllier 
-              //     Suppliers::create($supplier);
-              //     // Payment
-              //     Payment::create($payment);
-              //     // Company Attachment
+              DB::transaction(function() use ($push_iso,$push_pic,$push_address,$supplier,$payment,$companyAttachment,$supplier_address){
+                  // Main Address
+                  SupplierAddress::create($supplier_address); 
+                if(count($push_iso) > 0)
+                  {
+                      IsoSupplier::insert($push_iso);
+                  }
+                  if(count($push_pic) > 0)
+                  {
+                      Pic::insert($push_pic);
+                  }
+                  if(count($push_address) > 0)
+                  {
+                      SupplierAddress::insert($push_address);
+                  }
+                  // Suppllier 
+                  Suppliers::create($supplier);
+                  // Payment
+                  Payment::create($payment);
+                  // Company Attachment
                   
-              //     // CompanyAttachment::create($companyAttachment);
-      
-              //     // Main Address
-              //     SupplierAddress::create($supplier_address);
-              // });
+                //   CompanyAttachment::create($companyAttachment);
+  
+              });
           }
 
+    }
+    public function supplierDetail(Request $request)
+    {
+        // return $supplier = Suppliers::with([
+        //     'companyAttachment',
+        //     'supplierAddress',
+        //     'supplierPic',
+        //     'supplierPayment'
+        // ])
+        // ->where('id', $id)->toJson();
+        // ->findOrFail($id)->toJson();
+        // dd($supplier);
+        // $village = $supplier[0]->supplierAddress[0]->villages->name;
+        
+        
+        $supplier = DB::table('suppliers')
+        ->join('supplier_addresses', 'suppliers.id', '=', 'supplier_addresses.supplierId')
+        ->join('provinces', 'supplier_addresses.supplierProvince', '=', 'provinces.id')
+        ->join('regencies', 'supplier_addresses.supplierCity', '=', 'regencies.id')
+        ->join('districts', 'supplier_addresses.supplierDistricts', '=', 'districts.id')
+        ->join('villages', 'supplier_addresses.supplierVillage', '=', 'villages.id')
+        ->join('pics', 'suppliers.id', '=', 'pics.supplierId')
+        ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
+        ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'provinces.name as province_name', 'regencies.name as regency_name', 'districts.name as district_name', 'villages.name as village_name', 'pics.picName', 'pics.picDepartement', 'pics.picPhone', 'pics.picEmail', 'payments.numberBank', 'payments.termOfPayment')
+        ->where('suppliers.id', $request->id)
+        ->where('supplier_addresses.flagMainAddress', 1)
+        ->get();
+           
+        return response()->json($supplier);
     }
 }

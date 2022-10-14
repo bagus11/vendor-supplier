@@ -27,5 +27,8 @@ class SupplierAddress extends Model
     public function villages() {
         return $this->belongsTo(Villages::class, 'supplierVillage', 'id');
     }
+    public function suppliers(){
+        return $this->belongsTo(Suppliers::class, 'supplierId', 'userId');
+    }
 
 }
