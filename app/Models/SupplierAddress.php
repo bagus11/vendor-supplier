@@ -12,6 +12,10 @@ class SupplierAddress extends Model
     protected $table = 'supplier_addresses';
     protected $guarded = [];
 
+    public function supplier() {
+        return $this->belongsTo(Suppliers::class, 'supplierId', 'id');
+    }
+
     public function provinces() {
         return $this->belongsTo(Provinces::class, 'supplierProvince', 'id');
     }
