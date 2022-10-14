@@ -79,7 +79,7 @@ class SupplierDataController extends Controller
         $termOfPayment = $request->termOfPayment;
 
         $supplierLast = Suppliers::orderby('created_at','desc')->first();
-        $supplierID = $supplierLast + 1; 
+        $supplierID = $supplierLast->id + 1; 
         // Other Address
         if($arr_address)
         {
