@@ -33,10 +33,12 @@ class SupplierController extends Controller
             // ->select('suppliers.supplierName','supplier_addresses.supplierPhone','supplier_addresses.supplierFax','supplier_addresses.supplierEmail','suppliers.id')
             // ->where('supplier_addresses.flagMainAddress',1)->get();
             
-            $data = Suppliers::with(['supplierAddress'])->whereHas('supplierAddress', function($query){
-                $query->where('flagMainAddress', 1);
-            });
-            
+            // $data = Suppliers::with(['supplierAddress'])->whereHas('supplierAddress', function($query){
+            //     $query->where('flagMainAddress', 1);
+            // });
+            // $data = Suppliers::query();
+            $data = SupplierAddress::with('supplier')->where('flagMainAddress', 1);
+
             // dd($data);
             return DataTables::eloquent($data)
             ->addColumn('action', function($row){
@@ -79,7 +81,7 @@ class SupplierController extends Controller
     {
         $dataValidation = $request->validate([
             // master supplier
-            'supplierName' => 'required|unique:suppliers',
+            'supplierName' => 'required',
             'supplierType' => 'required',
             'supplierCategory' => 'required',
             'supplierYearOfEstablishment' => 'required',
@@ -90,7 +92,7 @@ class SupplierController extends Controller
             'address.*.supplierAddress' => 'required',
             'address.*.flagMainAddress' => 'required',
             'address.*.supplierPhone' => 'required|numeric|phone_number|size:13',
-            'address.*.supplierEmail' => 'email|unique:supplier_addresses',
+            'address.*.supplierEmail' => 'email',
             'address.*.supplierWebsite' => 'required',
             'address.*.supplierFax' => 'required',
             'address.*.supplierProvince' => 'required',
@@ -105,7 +107,7 @@ class SupplierController extends Controller
             'pic.*picName' => 'required',
             'pic.*picDepartement' => 'required',
             'pic.*picPhone' => 'required|numeric|phone_number|size:13',
-            'pic.*picEmail' => 'email|unique:supplier_addresses',
+            'pic.*picEmail' => 'email',
             
             // company attachment
             'numberPKP' => 'required',
