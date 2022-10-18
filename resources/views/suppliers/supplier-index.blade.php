@@ -82,7 +82,7 @@
                 <div class="p-10 text-white-700 mt-4" style="justify-content: left;max-width:830px" >
                     <details class="bg-gray-200 open:bg-amber-200 duration-300" open>
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Profil</summary>
-                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm font-light">
+                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <div class="grid grid-cols-6 gap-3">
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">Nama</label>
@@ -93,7 +93,7 @@
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierYearOfEstablishment" name="supplierYearOfEstablishment" readOnly>
                                 </div>
                                 <div class="input-group col-span-1">
-                                    <label for="supplier_siup">Jumlah Karyawan</label>
+                                    <label for="supplier_siup">Jml Karyawan</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierNumberOfEmployee" name="supplierNumberOfEmployee" readOnly>
                                 </div>
                             </div>   
@@ -130,7 +130,7 @@
                     </details>
                     <details class="bg-gray-200 open:bg-amber-200 duration-300" id="other_address">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Alamat</summary>
-                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm font-light">
+                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <p>
                         
                                 <div class="flex justify-start">
@@ -161,7 +161,7 @@
                     </details>
                     <details class="bg-gray-200 open:bg-amber-200 duration-300 border border-white-500">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">PIC</summary>
-                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm font-light">
+                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <table class="table-auto w-full border-collapse" id="supplierPICDetail">
                                 <thead>
                                     <tr class="border">
@@ -192,7 +192,7 @@
                     </details>
                     <details class="bg-gray-200 open:bg-amber-200 duration-300">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">ISO</summary>
-                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm font-light">
+                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <p id="supplier_iso"></p>
                         </div>
                     </details>

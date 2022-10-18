@@ -644,18 +644,30 @@
     // Provinsi ketika on change, buka kabupaten 
     $('#prov').on('change', function(){
         $('#kab').prop('disabled', false)
+        $('#kec').prop('disabled', true)
+        $('#kec').empty()
+        $('#kec').append('<option value="">Silahkan pilih kabupaten terlebih dahulu</option>')
+        $('#kel').prop('disabled', true)
+        $('#kel').empty()
+        $('#kel').append('<option value="">Silahkan pilih kecamatan terlebih dahulu</option>')
+        $('#kode_pos').val('')
         get_regency()
     })
     // End Provinsi on change
     // Kabupaten on change
     $('#kab').on('change', function(){
         $('#kec').prop('disabled', false)
+        $('#kel').prop('disabled', true)
+        $('#kel').empty()
+        $('#kel').append('<option value="">Silahkan pilih kecamatan terlebih dahulu</option>')
+        $('#kode_pos').val('')
         get_district()
     })
     // End Kabupaten on change
     // Kecamatan on change
     $('#kec').on('change', function(){
         $('#kel').prop('disabled', false)
+        $('#kode_pos').val('')
         get_village()
     })
     // End Kecamatan on change
@@ -670,7 +682,6 @@
         }
     })
     $('#kel').on('change', function(){
-        $('#kel').prop('disabled', true);
         get_postalcode()
     })
     // End Set CC
