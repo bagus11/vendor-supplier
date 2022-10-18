@@ -65,66 +65,138 @@
                 From: "opacity-100 translate-y-0 sm:scale-100"
                 To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             -->
-            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:max-w-2xl">
+            <div class="relative w-full max-w-4xl h-full md:h-auto overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div class="sm:flex sm:items-start">
                     <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                         <h2 class="text-xl font-medium leading-6 text-gray-900" id="modal-title"></h2>
                         <div class="mt-2">
                         <!--body-->
-                        <div class="relative p-6 flex-auto">
-                            <div class="grid grid-cols-3">
-                                {{-- <div class="grid grid-flow-col auto-cols-max"> --}}
-                                <div class="text-left mr-4">
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Name : <span id="supplierName"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Email : <span id="supplierEmail"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Fax : <span id="supplierFax"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Website : <span id="supplierWebsite"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Category : <span id="supplierCategory"></span></p>
-                                </div>
-                                <div class="text-left mr-4">
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Province : <span id="supplierProvince"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">City : <span id="supplierCity"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">District : <span id="supplierDistricts"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Village : <span id="supplierVillage"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Address : <span id="supplierAddress"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Code : <span id="supplierPostalCode"></span></p>
-                                </div>
-                                <div class="text-left mr-4">
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Number Bank : <span id="numberBank"></span></p>
-                                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">Term Of Payment : <span id="termOfPayment"></span> Hari</p>
-                                </div>
-                            </div>
-                            <div class="mt-4">
-                                <table class="table-auto w-full border-collapse border border-blue-300">
-                                    <thead>
-                                        <tr class="border">
-                                            <th>PIC Name</th>
-                                            <th>PIC Departement</th>
-                                            <th>PIC Phone</th>
-                                            <th>PIC Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="border">
-                                            <td>
-                                                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picName"></span></p>
-                                            </td>
-                                            <td>
-                                                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picDepartement"></span></p>
-                                            </td>
-                                            <td>
-                                                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picPhone"></span></p>
-                                            </td>
-                                            <td>
-                                                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picEmail"></span></p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                       
+                       
                     </div>
+                    
+                </div>
+            </div>
+            <div class="mt-4"id="other_address">
+                <div class="p-10 text-white-700 mt-4" style="justify-content: left;max-width:830px" >
+                    <details class="bg-gray-200 open:bg-amber-200 duration-300" open>
+                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Profil</summary>
+                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm font-light">
+                            <div class="grid grid-cols-6 gap-3">
+                                <div class="input-group col-span-3">
+                                    <label for="supplier_siup">Nama</label>
+                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierName" name="supplierName" readOnly>
+                                </div>
+                                <div class="input-group col-span-1">
+                                    <label for="supplier_siup">Tahun Berdiri</label>
+                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierYearOfEstablishment" name="supplierYearOfEstablishment" readOnly>
+                                </div>
+                                <div class="input-group col-span-1">
+                                    <label for="supplier_siup">Jumlah Karyawan</label>
+                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierNumberOfEmployee" name="supplierNumberOfEmployee" readOnly>
+                                </div>
+                            </div>   
+                            <div class="grid grid-cols-6 gap-3">
+                                <div class="input-group col-span-3">
+                                    <label for="supplier_siup">Jenis</label>
+                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierType" name="supplierType" readOnly>
+                                </div>
+                                <div class="input-group col-span-1">
+                                    <label for="supplier_siup">Kategori</label>
+                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierCategory" name="supplierCategory" readOnly>
+                                </div>
+                               
+                            </div>   
+                            <div class="grid grid-cols-6 gap-3 mt-2">
+                                <div class="input-group col-span-3">
+                                    <label for="supplier_siup">No Rekening</label>
+                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numberBank" name="numberBank" readOnly>
+                                </div>
+                                <div class="input-group col-span-1">
+                                    <label for="supplier_siup">Nama Bank</label>
+                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="nameBank" name="nameBank" readOnly>
+                                </div>
+                            </div>   
+                            <div class="grid grid-cols-6 gap-3 mt-2">
+                                <div class="input-group col-span-2">
+                                    <label for="supplier_siup">Jangka Waktu Pembayaran</label><br>
+                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="max-width:70px;text-align:center" id="termOfPayment" name="termOfPayment" readOnly>
+                                    <label class="ml-3">Hari</label>
+                                </div>
+                            </div>   
+
+                        </div>
+                    </details>
+                    <details class="bg-gray-200 open:bg-amber-200 duration-300" id="other_address">
+                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Alamat</summary>
+                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm font-light">
+                            <p>
+                        
+                                <div class="flex justify-start">
+                                    <div class="relative w-full p-6 rounded-lg shadow-lg bg-white max-w-4xl">
+                                     <strong class="text-green-500">
+                                        Alamat Utama
+                                     </strong>
+                                      <p class="ml-4 mt-2">
+                                        No Hp / No Fax: <span id="supplierPhoneNumber"></span> / <span id="supplierFax"></span>
+                                        <br>
+                                        Email : <span id="supplierEmail"></span>
+                                        <br>
+                                        Website : <span id="supplierWebsite"></span>
+                                        <br>
+                                        Alamat : <span id="supplierAddress"></span><br>
+                                    </p>
+                                    </div>
+                                  </div>
+
+                             
+                                <p id="alamat_lain"></p>
+                              
+
+                              
+                              
+                            </p>
+                        </div>
+                    </details>
+                    <details class="bg-gray-200 open:bg-amber-200 duration-300 border border-white-500">
+                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">PIC</summary>
+                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm font-light">
+                            <table class="table-auto w-full border-collapse" id="supplierPICDetail">
+                                <thead>
+                                    <tr class="border">
+                                        <th>PIC Name</th>
+                                        <th>PIC Departement</th>
+                                        <th>PIC Phone</th>
+                                        <th>PIC Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border">
+                                        <td>
+                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picName"></span></p>
+                                        </td>
+                                        <td>
+                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picDepartement"></span></p>
+                                        </td>
+                                        <td>
+                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picPhone"></span></p>
+                                        </td>
+                                        <td>
+                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picEmail"></span></p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details class="bg-gray-200 open:bg-amber-200 duration-300">
+                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">ISO</summary>
+                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm font-light">
+                            <p id="supplier_iso"></p>
+                        </div>
+                    </details>
+    
                 </div>
             </div>
             <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
@@ -167,18 +239,6 @@
                     data: 'supplierFax', 
                     name: 'supplierFax'
                 },
-                // {data: 'supplierName',name: 'supplierName'},
-                // {data: 'supplierType',name: 'supplierType'},
-                // {data: 'supplierCategory',name: 'supplierCategory'},
-                // {data: 'supplierYearOfEstablishment',name: 'supplierYearOfEstablishment'},
-                // {data: 'supplierNumberOfEmployee',name: 'supplierNumberOfEmployee'},
-
-                // {data: 'supplier_address.supplierPhone',name: 'supplier_address'},
-                // {data: 'supplier_address.supplierFax',name: 'supplier_address'},
-                // {data: 'supplier_address.supplierEmail',name: 'supplier_address'},
-                // {data: 'supplier_address.supplierPhone',name: 'supplierPhone'},
-                // {data: 'supplier_address.supplierFax',name: 'supplierFax'},
-                // {data: 'supplier_address.supplierEmail',name: 'supplierEmail'},
                 {
                     data: 'action',
                     name: 'action',
@@ -190,13 +250,9 @@
         })
     });
 
-    // $.ajaxSetup({
-    //     headers: {
-    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
-
     $('.supplier-datatable').on('click', '.editPost', function () {
+        $('#supplierPICDetail').DataTable().clear();
+        $('#supplierPICDetail').DataTable().destroy();
         var id = $(this).data('id');
         $('#dataModalSupplierDetail').show();
         $('#modal-title').html('Supplier Details');
@@ -208,16 +264,20 @@
             type: "get",
             dataType: 'json',
             async: true,
-            data: {
-                'id':id
-            },
+            data: {'id':id},
             beforeSend: function() {
                 SwalLoading('Please wait ...');
             },
             success: function(response) {
                 swal.close();
-              
-                console.log(response)
+                var res = response.supplierDetail[0]
+                var res_pic = response.pic
+                var res_address = response.otherAdress
+                var res_iso = response.iso
+                mapping_iso(res_iso)
+                mapping_detail_supplier(res)
+                mapping_pic(res_pic)
+                mapping_address(res_address)
             },
             error: function(xhr, status, error) {
                 swal.close();
@@ -229,5 +289,106 @@
     $('#closeSupplierDetail').click(function() {
         $('#dataModalSupplierDetail').hide();
     })
+    function mapping_detail_supplier(res)
+    {
+        $('#supplierName').val(res.supplierName)
+        $('#supplierType').val(res.supplierType)
+        $('#supplierYearOfEstablishment').val(res.supplierYearOfEstablishment)
+        $('#supplierNumberOfEmployee').val(res.supplierNumberOfEmployee)
+        $('#supplierEmail').html(res.supplierEmail)
+        $('#supplierFax').html(res.supplierFax)
+        $('#supplierPhoneNumber').html(res.supplierPhone)
+        $('#supplierWebsite').html(res.supplierWebsite)
+        $('#supplierCategory').val(res.supplierCategory)
+        $('#supplierProvince').html(res.province_name)
+        $('#supplierCity').html(res.regency_name)
+        $('#supplierDistricts').html(res.district_name)
+        $('#supplierVillage').html(res.village_name)
+        $('#supplierAddress').html(res.supplierAddress)
+        $('#supplierPostalCode').html(res.supplierPostalCode)
+        $('#numberBank').val(res.numberBank)
+        $('#nameBank').val(res.nameBank)
+        $('#termOfPayment').val(res.termOfPayment)
+    }
+    function mapping_pic(res_pic){
+        var data=''
+ 
+    for(i = 0; i < res_pic.length; i++ )
+    {
+        data += `<tr style="text-align: center;">
+
+                    <td style="text-align: left;">${res_pic[i]['picName']==null?'':res_pic[i]['picName']}</td>
+                    <td style="text-align: left;">${res_pic[i]['picDepartement']==null?'':res_pic[i]['picDepartement']}</td>
+                    <td style="text-align: left;">${res_pic[i]['picPhone']==null?'':res_pic[i]['picPhone']}</td>
+                    <td style="text-align: left;">${res_pic[i]['picEmail']==null?'':res_pic[i]['picEmail']}</td>
+                    </tr>
+                `;
+    }
+        $('#supplierPICDetail > tbody:first').html(data);
+            $(document).ready(function() 
+            {
+                $('#supplierPICDetail').DataTable( {
+                    "destroy": true,
+                    "scrollX": true,
+                    "autoWidth" : false,
+                    "searching": false,
+                    "aaSorting" : false
+            });
+
+
+     } );
+    }
+    function mapping_address(res)
+    {
+        $('#alamat_lain').empty();
+        $.each(res,function(i,data){
+                    $('#alamat_lain').append(`
+
+                    <div class="flex justify-start mt-4">
+                                    <div class="relative w-full p-6 rounded-lg shadow-lg bg-white max-w-4xl">
+                                        <strong class="text-blue-500 mt-3">
+                                            Alamat ${data.supplierAddressType}
+                                        </strong>
+                                        <p class="ml-4 mt-2 mb-4">
+                                            No Hp / No Fax: ${data.supplierPhone} / ${data.supplierFax}
+                                            <br>
+                                            Email : ${data.supplierEmail}
+                                            <br>
+                                            Website : ${data.supplierWebsite}
+                                            <br>
+                                            Alamat : ${data.supplierAddress}<br>
+                                        </p>
+                                    </div>
+                                </div>
+                              
+                    `);
+                });
+    }
+    function mapping_iso(res){
+        $('#supplier_iso').empty();
+        $.each(res,function(i,data){
+                    $('#supplier_iso').append(`
+
+                    <div class="grid grid-cols-6 gap-3">
+                        <div class="col-span-1">
+                            <label for="">${data.iso}</label>
+                        </div>
+                        <div class="col-span-1">
+                            <label for="cc" style="font-size: 12px">
+                                <input type="checkbox" class="diterapkan" name="diterapkan" ${data.applied =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
+                                Diterapkan                  
+                            </label>
+                        </div>
+                        <div class="col-span-1">
+                            <label for="cc" style="font-size: 12px">
+                                <input type="checkbox" class="tersertifikasi" name="tersertifikasi"${data.certified =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
+                              Tersertifikasi                  
+                            </label>
+                        </div>
+                        </div>
+                              
+                    `);
+                });
+    }
     
 </script>

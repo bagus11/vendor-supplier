@@ -70,6 +70,14 @@
 .dataTables_length{
   margin-bottom:20px
 }
+.open\:bg-green-200[open] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(187 247 208 / var(--tw-bg-opacity));
+}
+.open\:bg-amber-200[open] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 230 138 / var(--tw-bg-opacity));
+}
 </style>
 <script>
     function SwalLoading(html = 'Loading ...', title = '') {

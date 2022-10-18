@@ -281,8 +281,8 @@
                 <div class="another_address"></div>
                 <div class="input-group">
                     <button class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" id="add_address">
-                <i class="fas fa-plus"></i> Address
-              </button>
+                        <i class="fas fa-plus"></i> Address
+                    </button>
                 </div>
                 <div class="">
                     <a href="#" id="btn_next_1" class="btn btn-next width-50 ml-auto">Next</a>
@@ -763,7 +763,6 @@
                     var arr_id = id[i].value;
                     var arr_diterapkan = diterapkan[i].checked == true?'1':'0';
                     var arr_tersertifikasi = tersertifikasi[i].checked == true?'1':'0'
-
                     var selected_data =[
                         arr_id,
                         arr_diterapkan,
@@ -841,10 +840,10 @@
             formData.append('numberBank',bank_account)
             formData.append('bankName',bankName)
             formData.append('termOfPayment',jangka_waktu)
-
+ 
         // EndForm Upload
-        // console.log(formData);
-        // return false;
+        console.log(data);
+        return false;
 
         // Ajax
     

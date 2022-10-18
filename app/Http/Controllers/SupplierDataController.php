@@ -242,31 +242,33 @@ class SupplierDataController extends Controller
     }
     public function supplierDetail(Request $request)
     {
-        // return $supplier = Suppliers::with([
-        //     'companyAttachment',
-        //     'supplierAddress',
-        //     'supplierPic',
-        //     'supplierPayment'
-        // ])
-        // ->where('id', $id)->toJson();
-        // ->findOrFail($id)->toJson();
-        // dd($supplier);
-        // $village = $supplier[0]->supplierAddress[0]->villages->name;
-        
-        
         $supplier = DB::table('suppliers')
         ->join('supplier_addresses', 'suppliers.id', '=', 'supplier_addresses.supplierId')
         ->join('provinces', 'supplier_addresses.supplierProvince', '=', 'provinces.id')
         ->join('regencies', 'supplier_addresses.supplierCity', '=', 'regencies.id')
         ->join('districts', 'supplier_addresses.supplierDistricts', '=', 'districts.id')
         ->join('villages', 'supplier_addresses.supplierVillage', '=', 'villages.id')
-        ->join('pics', 'suppliers.id', '=', 'pics.supplierId')
         ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
-        ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'provinces.name as province_name', 'regencies.name as regency_name', 'districts.name as district_name', 'villages.name as village_name', 'pics.picName', 'pics.picDepartement', 'pics.picPhone', 'pics.picEmail', 'payments.numberBank', 'payments.termOfPayment')
+        ->join('banks', 'banks.id', '=', 'payments.bankId')
+        ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'provinces.name as province_name', 'regencies.name as regency_name', 'districts.name as district_name', 'villages.name as village_name', 'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
         ->where('suppliers.id', $request->id)
         ->where('supplier_addresses.flagMainAddress', 1)
         ->get();
-           
-        return response()->json($supplier);
+
+        $pic = Pic::where('supplierId', $request->id)->get();
+        $otherAdress = SupplierAddress::
+        where('supplierId', $request->id)
+        ->where('flagMainAddress', 2)
+        ->get();
+        $iso = DB::table('iso_suppliers')
+                ->join('iso_masters', 'iso_masters.id','=','iso_suppliers.isoId')
+                ->select('iso_suppliers.applied','iso_suppliers.certified','iso_masters.iso')
+                ->where('iso_suppliers.supplierId',$request->id)->get();
+        return response()->json([
+            'supplierDetail'=>$supplier,
+            'otherAdress'=>$otherAdress,
+            'iso'=>$iso,
+            'pic'=>$pic
+        ]);
     }
 }

@@ -42,7 +42,9 @@ class SupplierController extends Controller
             // dd($data);
             return DataTables::eloquent($data)
             ->addColumn('action', function($row){
-                $btn = '<a href="javascript:void(0)" data-toggle="tooltip" data-url="'.route('suppliers.show', $row->id).'" data-id ="'.$row->id.'" data-original-title="Edit" class="show text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 editPost">Detail</a>';
+                $btn = '<button class="editPost bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"data-id="'.$row->id.'" >
+                Detail
+              </button>';
                 
                 return $btn;
             })->toJson();
@@ -237,7 +239,7 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
         // return $supplier = Suppliers::with([
         //     'companyAttachment',
@@ -259,12 +261,15 @@ class SupplierController extends Controller
         ->join('villages', 'supplier_addresses.supplierVillage', '=', 'villages.id')
         ->join('pics', 'suppliers.id', '=', 'pics.supplierId')
         ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
-        ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'provinces.name as province_name', 'regencies.name as regency_name', 'districts.name as district_name', 'villages.name as village_name', 'pics.picName', 'pics.picDepartement', 'pics.picPhone', 'pics.picEmail', 'payments.numberBank', 'payments.termOfPayment')
-        ->where('suppliers.id', $request->id)
+        ->join('banks','banks.id','=', 'payments.bankId')
+        ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'provinces.name as province_name', 'regencies.name as regency_name', 'districts.name as district_name', 'villages.name as village_name', 'pics.picName', 'pics.picDepartement', 'pics.picPhone', 'pics.picEmail', 'payments.numberBank', 'payments.termOfPayment','banks.nameBank')
+        ->where('suppliers.id', $id)
         ->where('supplier_addresses.flagMainAddress', 1)
         ->get();
 
-        return response()->json($supplier);
+        return response()->json([
+            'supplierDetail'=>$supplier
+        ]);
     }
 
     /**
