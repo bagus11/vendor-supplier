@@ -139,13 +139,13 @@
                                         Alamat Utama
                                      </strong>
                                       <p class="ml-4 mt-2">
+                                        Alamat : <span id="supplierAddress"></span><br>
                                         No Hp / No Fax: <span id="supplierPhoneNumber"></span> / <span id="supplierFax"></span>
                                         <br>
                                         Email : <span id="supplierEmail"></span>
                                         <br>
                                         Website : <span id="supplierWebsite"></span>
                                         <br>
-                                        Alamat : <span id="supplierAddress"></span><br>
                                     </p>
                                     </div>
                                   </div>
@@ -350,13 +350,10 @@
                                             Alamat ${data.supplierAddressType}
                                         </strong>
                                         <p class="ml-4 mt-2 mb-4">
-                                            No Hp / No Fax: ${data.supplierPhone} / ${data.supplierFax}
-                                            <br>
-                                            Email : ${data.supplierEmail}
-                                            <br>
-                                            Website : ${data.supplierWebsite}
-                                            <br>
                                             Alamat : ${data.supplierAddress}<br>
+                                            No Hp / No Fax: ${data.supplierPhone} / ${data.supplierFax}<br>
+                                            Email : ${data.supplierEmail}<br>
+                                            Website : ${data.supplierWebsite}<br>
                                         </p>
                                     </div>
                                 </div>

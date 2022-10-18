@@ -212,7 +212,7 @@
                         <select class="select2" name="prov" id="prov"style="width: 100%">
                             <option value="">Pilih Provinsi</option>
                             @foreach($provinces as $row)
-                            <option value="{{$row->id}}">{{$row->name}}</option>
+                            <option value="{{$row->id}}">{{$row->provinsi}}</option>
                             @endforeach
                         </select>
                        
@@ -669,6 +669,10 @@
             $('#save').prop('disabled',true);
         }
     })
+    $('#kel').on('change', function(){
+        $('#kel').prop('disabled', true);
+        get_postalcode()
+    })
     // End Set CC
 
     // Button Submit
@@ -811,38 +815,38 @@
         var npwp_attachment = $('#npwp_attachment')[0].files[0];
         var cp_attachment = $('#cp_attachment')[0].files[0];
         var skt_attachment = $('#skt_attachment')[0].files[0];
-        var formData = new FormData();
-            formData.append('pengukuhan_attachment',pengukuhan_attachment)
-            formData.append('npwp_attachment',npwp_attachment)
-            formData.append('cp_attachment',cp_attachment)
-            formData.append('skt_attachment',skt_attachment)
-            formData.append('supplierName',nama_supplier)
-            formData.append('supplierYearOfEstablishment',tahun_pendirian)
-            formData.append('supplierType',jenis_usaha)
-            formData.append('supplierNumberOfEmployee',jml_karyawan)
-            formData.append('supplierProvince',prov)
-            formData.append('supplierCity',kab)
-            formData.append('supplierDistricts',kec)
-            formData.append('supplierVillage',kel)
-            formData.append('supplierPostalCode',kode_pos)
-            formData.append('supplierAddress',alamat_kantor)
-            formData.append('supplierPhone',no_telpon)
-            formData.append('supplierFax',no_fax)
-            formData.append('supplierEmail',email)
-            formData.append('supplierWebsite',website)
-            formData.append('arr_address',arr_address)
-            formData.append('arr_pic',arr_pic)
-            formData.append('numberPKP',no_pengukuhan)
-            formData.append('numberNPWP',no_npwp)
-            formData.append('nameNPWP',nama_npwp)
-            formData.append('addressNPWP',alamat_npwp)
-            formData.append('arr_iso',arr_iso)
-            formData.append('numberBank',bank_account)
-            formData.append('bankName',bankName)
-            formData.append('termOfPayment',jangka_waktu)
+        var fd = new FormData();    
+            fd.append('pengukuhan_attachment',pengukuhan_attachment)
+            fd.append('npwp_attachment',npwp_attachment)
+            fd.append('cp_attachment',cp_attachment)
+            fd.append('skt_attachment',skt_attachment)
+            fd.append('supplierName',nama_supplier)
+            fd.append('supplierYearOfEstablishment',tahun_pendirian)
+            fd.append('supplierType',jenis_usaha)
+            fd.append('supplierNumberOfEmployee',jml_karyawan)
+            fd.append('supplierProvince',prov)
+            fd.append('supplierCity',kab)
+            fd.append('supplierDistricts',kec)
+            fd.append('supplierVillage',kel)
+            fd.append('supplierPostalCode',kode_pos)
+            fd.append('supplierAddress',alamat_kantor)
+            fd.append('supplierPhone',no_telpon)
+            fd.append('supplierFax',no_fax)
+            fd.append('supplierEmail',email)
+            fd.append('supplierWebsite',website)
+            fd.append('arr_address',arr_address)
+            fd.append('arr_pic',arr_pic)
+            fd.append('numberPKP',no_pengukuhan)
+            fd.append('numberNPWP',no_npwp)
+            fd.append('nameNPWP',nama_npwp)
+            fd.append('addressNPWP',alamat_npwp)
+            fd.append('arr_iso',arr_iso)
+            fd.append('numberBank',bank_account)
+            fd.append('bankName',bankName)
+            fd.append('termOfPayment',jangka_waktu)
  
         // EndForm Upload
-        console.log(data);
+        console.log(fd);
         return false;
 
         // Ajax
@@ -897,7 +901,7 @@
                 $('#kab').empty();
                 $('#kab').append('<option value="">Pilih Kabupaten</option>');
                 $.each(response.regency,function(i,data){
-                    $('#kab').append('<option value="'+data.id+'">' + data.name +'</option>');
+                    $('#kab').append('<option value="'+data.id+'">' + data.kabupaten_kota +'</option>');
                 });
             },
             error: function(xhr, status, error) {
@@ -927,7 +931,7 @@
                 $('#kec').empty();
                 $('#kec').append('<option value="">Pilih Kecamatan</option>');
                 $.each(response.district,function(i,data){
-                    $('#kec').append('<option value="'+data.id+'">' + data.name +'</option>');
+                    $('#kec').append('<option value="'+data.id+'">' + data.kecamatan +'</option>');
                 });
             },
             error: function(xhr, status, error) {
@@ -958,8 +962,34 @@
                 $('#kel').empty();
                 $('#kel').append('<option value="">Pilih Kelurahan</option>');
                 $.each(response.village,function(i,data){
-                    $('#kel').append('<option value="'+data.id+'">' + data.name +'</option>');
+                    $('#kel').append('<option value="'+data.id+'">' + data.kelurahan +'</option>');
                 });
+            },
+            error: function(xhr, status, error) {
+                swal.close();
+                toastr['error']('Failed to get data, please contact ICT Developer');
+            }
+        });
+    }
+    function get_postalcode()
+    {
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{route('get_kdpos')}}",
+            type: "get",
+            dataType: 'json',
+            async: true,
+            data: {
+                'kel_id':$('#kel').val()
+            },
+            beforeSend: function() {
+                SwalLoading('Please wait ...');
+            },
+            success: function(response) {
+                swal.close();
+                $('#kode_pos').val(response.kel.kd_pos);
             },
             error: function(xhr, status, error) {
                 swal.close();

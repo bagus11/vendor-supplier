@@ -9,10 +9,10 @@ class Provinces extends Model
 {
     use HasFactory;
 
-    protected $table = 'provinces';
+    protected $table = 'tbl_provinsi';
     protected $primaryKey = 'id';
     
     protected $fillable = [
-        'name',  
+        'provinsi',  
     ];
 }

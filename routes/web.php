@@ -33,6 +33,7 @@ Route::get('get_district', [SupplierDataController::class, 'get_district'])->nam
 Route::get('get_regency', [SupplierDataController::class, 'get_regency'])->name('get_regency');
 Route::get('get_village', [SupplierDataController::class, 'get_village'])->name('get_village');
 Route::get('supplierDetail', [SupplierDataController::class, 'supplierDetail'])->name('supplierDetail');
+Route::get('get_kdpos', [SupplierDataController::class, 'get_kdpos'])->name('get_kdpos');
 Route::post('post_supplier', [SupplierDataController::class, 'post_supplier'])->name('post_supplier');
 
 

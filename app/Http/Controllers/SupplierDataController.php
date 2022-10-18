@@ -29,20 +29,26 @@ class SupplierDataController extends Controller
     public function get_regency(Request $request)
     {
         $province = $request->prov;
-        $regency = Regencies::where('province_id', $province)->get();
+        $regency = Regencies::where('provinsi_id', $province)->get();
         return response()->json(['regency'=>$regency]);
     }
     public function get_district(Request $request)
     {
         $kab = $request->regency_id;
-        $district = Districts::where('regency_id', $kab)->get();
+        $district = Districts::where('kabkot_id', $kab)->get();
         return response()->json(['district'=>$district]);
     }
     public function get_village(Request $request)
     {
         $kec = $request->district_id;
-        $village = Villages::where('district_id', $kec)->get();
+        $village = Villages::where('kecamatan_id', $kec)->get();
         return response()->json(['village'=>$village]);
+    }
+    public function get_kdpos(Request $request)
+    {
+        $id_kel = $request->kel_id;
+        $kel = Villages::findOrFail($id_kel);
+        return response()->json(['kel'=>$kel]);
     }
     public function post_supplier(Request $request)
     {
@@ -244,13 +250,13 @@ class SupplierDataController extends Controller
     {
         $supplier = DB::table('suppliers')
         ->join('supplier_addresses', 'suppliers.id', '=', 'supplier_addresses.supplierId')
-        ->join('provinces', 'supplier_addresses.supplierProvince', '=', 'provinces.id')
-        ->join('regencies', 'supplier_addresses.supplierCity', '=', 'regencies.id')
-        ->join('districts', 'supplier_addresses.supplierDistricts', '=', 'districts.id')
-        ->join('villages', 'supplier_addresses.supplierVillage', '=', 'villages.id')
+        ->join('tbl_provinsi', 'supplier_addresses.supplierProvince', '=', 'tbl_provinsi.id')
+        ->join('tbl_kabkot', 'supplier_addresses.supplierCity', '=', 'tbl_kabkot.id')
+        ->join('tbl_kecamatan', 'supplier_addresses.supplierDistricts', '=', 'tbl_kecamatan.id')
+        ->join('tbl_kelurahan', 'supplier_addresses.supplierVillage', '=', 'tbl_kelurahan.id')
         ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
         ->join('banks', 'banks.id', '=', 'payments.bankId')
-        ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'provinces.name as province_name', 'regencies.name as regency_name', 'districts.name as district_name', 'villages.name as village_name', 'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
+        ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'tbl_provinsi.provinsi as province_name', 'tbl_kabkot.kabupaten_kota as regency_name', 'tbl_kecamatan.kecamatan as district_name', 'tbl_kelurahan.kelurahan as village_name', 'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
         ->where('suppliers.id', $request->id)
         ->where('supplier_addresses.flagMainAddress', 1)
         ->get();
