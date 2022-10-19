@@ -19,7 +19,7 @@ class CreateSupplierAddressesTable extends Migration
             $table->text('supplierAddress');
             $table->boolean('flagMainAddress');
             $table->string('supplierPhone');
-            $table->string('supplierEmail')->unique();
+            $table->string('supplierEmail');
             $table->string('supplierWebsite')->nullable();
             $table->string('supplierFax')->nullable();
             $table->string('supplierProvince')->nullable();
