@@ -65,12 +65,12 @@ class SupplierDataController extends Controller
         $supplierWebsite = $request->supplierWebsite;
      
         // Array Address 
-        $arr_address = $request->arr_address;
+        $arr_address = json_decode($_POST['arr_address']);
         $push_address = [];
         // $message_address =[];
         
         // Array PIC
-        $arr_pic = $request->arr_pic;
+        $arr_pic =json_decode($_POST['arr_pic']); 
         $push_pic = [];
         
         $numberPKP = $request->numberPKP;
@@ -78,7 +78,7 @@ class SupplierDataController extends Controller
         $nameNPWP = $request->nameNPWP;
         $addressNPWP = $request->addressNPWP;
         // Array ISO
-        $arr_iso = $request->arr_iso;
+        $arr_iso = json_decode($_POST['arr_iso']);
         $push_iso = [];
         $numberBank = $request->numberBank;
         $bankName = $request->bankName;
@@ -87,6 +87,7 @@ class SupplierDataController extends Controller
         $supplierLast = Suppliers::orderby('created_at','desc')->first();
         $supplierID = $supplierLast->id + 1; 
         // Other Address
+        // dd($arr_address);
         if($arr_address)
         {
             foreach($arr_address as $address)
@@ -167,28 +168,30 @@ class SupplierDataController extends Controller
             'termOfPayment' => $termOfPayment,
         ];
 
-            // // store company attachment
-            //     $fileNPWP = $request->file('fileNPWP')->getClientOriginalName();
-            //     $filePKP = $request->file('filePKP')->getClientOriginalName();
-            //     $fileRegistrationCertificate = $request->file('fileRegistrationCertificate')->getClientOriginalName();
-            //     $fileCompanyProfile = $request->file('fileCompanyProfile')->getClientOriginalName();
+            // store company attachment
+            
+                $fileNPWP = $request->file('npwp_attachment')->getClientOriginalName();
+                $filePKP = $request->file('pengukuhan_attachment')->getClientOriginalName();
+                $fileRegistrationCertificate = $request->file('skt_attachment')->getClientOriginalName();
+                $fileCompanyProfile = $request->file('cp_attachment')->getClientOriginalName();
 
-            //     $pathNPWP = $request->file('fileNPWP')->store('public/npwp');
-            //     $pathSIUP = $request->file('filePKP')->store('public/siup');
-            //     $pathRegistrationCertificate = $request->file('fileRegistrationCertificate')->store('public/registrationCertificate');
-            //     $pathCompanyProfile = $request->file('fileCompanyProfile')->store('public/companyProfile');
+                $pathNPWP = $request->file('npwp_attachment')->store('public/npwp');
+                $pathSIUP = $request->file('pengukuhan_attachment')->store('public/siup');
+                $pathRegistrationCertificate = $request->file('skt_attachment')->store('public/registrationCertificate');
+                $pathCompanyProfile = $request->file('cp_attachment')->store('public/companyProfile');
 
-            // $companyAttachment =[
-            //     'numberPKP' => $request->numberPKP,
-            //     'numberNPWP' => $request->numberNPWP,
-            //     'nameNPWP' => $request->nameNPWP,
-            //     'addressNPWP' => $request->addressNPWP,
-            //     'fileNPWP' => $pathNPWP,
-            //     // 'filePKP' => $pathPKP,
-            //     'fileRegistrationCertificate' => $pathRegistrationCertificate,
-            //     'fileCompanyProfile' => $pathCompanyProfile,
-            // ];
-           $companyAttachment=[];
+            $companyAttachment =[
+                'numberPKP' => $request->numberPKP,
+                'numberNPWP' => $request->numberNPWP,
+                'nameNPWP' => $request->nameNPWP,
+                'addressNPWP' => $request->addressNPWP,
+                'fileNPWP' => $pathNPWP,
+                'filePKP' => $filePKP,
+                'fileRegistrationCertificate' => $pathRegistrationCertificate,
+                'fileCompanyProfile' => $pathCompanyProfile,
+            ];
+          
+        //    $companyAttachment=[];
             $supplier_address=[
                 'supplierId' => $supplierID,
                 'supplierAddress' => $supplierAddress,
@@ -239,8 +242,7 @@ class SupplierDataController extends Controller
                   // Payment
                   Payment::create($payment);
                   // Company Attachment
-                  
-                //   CompanyAttachment::create($companyAttachment);
+                  CompanyAttachment::create($companyAttachment);
   
               });
           }

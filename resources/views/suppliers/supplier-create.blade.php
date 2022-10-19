@@ -160,7 +160,7 @@
     </x-slot>
 
     <div class="py-4">
-        <form class="form" id="form_serialize">
+        <form class="form" id="form_serialize" enctype="multipart/form-data">
             @csrf
             <h1 class="font-semibold text-xl text-center text-gray-800 leading-tight">
                 Register
@@ -249,8 +249,7 @@
                 </div>    
                 <div class="input-group">
                     <label for="alamat_kantor">Alamat Kantor</label>
-                    <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor">
-                    </textarea>
+                    <textarea class="shadow appearance-none border rounded w-full py-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor"></textarea>
                    
                 </div>
 
@@ -375,8 +374,7 @@
                 <div class="input-group">
                     <label for="alamat_npwp">Alamat NPWP</label>
                     <div class="textwrapper">
-                        <textarea cols="1" rows="2" id="alamat_npwp">
-                        </textarea>
+                        <textarea cols="1" rows="2" id="alamat_npwp"></textarea>
                     </div>
                 </div>
                 <div class="container">
@@ -472,7 +470,7 @@
                 <div class="btns-group">
                     <a href="#" class="btn btn-prev">Previous</a>
                     {{-- <input type="submit" name="submit" id="submit" style="color:rgb(40, 139, 197); margin-top:20px" value="Submit" class="btn"> --}}
-                    <button class="btn btn-submit" type="button" id="save">Submit</button>
+                    <button class="btn btn-submit" type="submit" id="save">Submit</button>
                 </div>
             </div>
         </form>
@@ -561,8 +559,7 @@
             <div class="input-group">
                     <label for="alamat_lain">Alamat Lain</label>
                     <div class="textwrapper">
-                        <textarea cols="1" class="alamat_lain" rows="2" id="alamat_lain">
-                        </textarea>
+                        <textarea cols="1" class="alamat_lain" rows="2" id="alamat_lain"></textarea>
                     </div>
                     <small style="color: red">
                         Harap cantumin kode pos
@@ -766,12 +763,6 @@
         var no_npwp = $('#no_npwp').val()
         var nama_npwp = $('#nama_npwp').val()
         var alamat_npwp = $('#alamat_npwp').val()
-            // Attachment
-                var pengukuhan_attachment = $('#pengukuhan_attachment').val()
-                var npwp_attachment = $('#npwp_attachment').val()
-                var cp_attachment = $('#cp_attachment').val()
-                var skt_attachment = $('#skt_attachment').val()
-
             //End Attachment 
             // ISO
             for (let i = 0; i < id.length; i++) {
@@ -794,71 +785,71 @@
         // End Halaman Keempat
 
         // End Initiating
-        var data ={
-            'supplierName':nama_supplier,
-            'supplierYearOfEstablishment':tahun_pendirian,
-            'supplierType':jenis_usaha,
-            'supplierNumberOfEmployee':jml_karyawan,
-            'supplierProvince':prov,
-            'supplierCity':kab,
-            'supplierDistricts':kec,
-            'supplierVillage':kel,
-            'supplierPostalCode':kode_pos,
-            'supplierAddress':alamat_kantor,
-            'supplierPhone':no_telpon,
-            'supplierFax':no_fax,
-            'supplierEmail':email,
-            'supplierWebsite':website,
-            'arr_address':arr_address,
-            'arr_pic':arr_pic,
-            'numberPKP':no_pengukuhan,
-            'numberNPWP':no_npwp,
-            'nameNPWP':nama_npwp,
-            'addressNPWP':alamat_npwp,
-            'arr_iso':arr_iso,
-            'numberBank':bank_account,
-            'bankName':bankName,
-            'termOfPayment':jangka_waktu
-        };
+        // var data ={
+        //     'supplierName':nama_supplier,
+        //     'supplierYearOfEstablishment':tahun_pendirian,
+        //     'supplierType':jenis_usaha,
+        //     'supplierNumberOfEmployee':jml_karyawan,
+        //     'supplierProvince':prov,
+        //     'supplierCity':kab,
+        //     'supplierDistricts':kec,
+        //     'supplierVillage':kel,
+        //     'supplierPostalCode':kode_pos,
+        //     'supplierAddress':alamat_kantor,
+        //     'supplierPhone':no_telpon,
+        //     'supplierFax':no_fax,
+        //     'supplierEmail':email,
+        //     'supplierWebsite':website,
+        //     'arr_address':arr_address,
+        //     'arr_pic':arr_pic,
+        //     'numberPKP':no_pengukuhan,
+        //     'numberNPWP':no_npwp,
+        //     'nameNPWP':nama_npwp,
+        //     'addressNPWP':alamat_npwp,
+        //     'arr_iso':arr_iso,
+        //     'numberBank':bank_account,
+        //     'bankName':bankName,
+        //     'termOfPayment':jangka_waktu
+        // };
 
         // Form Upload
+        var formData = new FormData();    
         var pengukuhan_attachment = $('#pengukuhan_attachment')[0].files[0];
         var npwp_attachment = $('#npwp_attachment')[0].files[0];
         var cp_attachment = $('#cp_attachment')[0].files[0];
         var skt_attachment = $('#skt_attachment')[0].files[0];
-        var fd = new FormData();    
-            fd.append('pengukuhan_attachment',pengukuhan_attachment)
-            fd.append('npwp_attachment',npwp_attachment)
-            fd.append('cp_attachment',cp_attachment)
-            fd.append('skt_attachment',skt_attachment)
-            fd.append('supplierName',nama_supplier)
-            fd.append('supplierYearOfEstablishment',tahun_pendirian)
-            fd.append('supplierType',jenis_usaha)
-            fd.append('supplierNumberOfEmployee',jml_karyawan)
-            fd.append('supplierProvince',prov)
-            fd.append('supplierCity',kab)
-            fd.append('supplierDistricts',kec)
-            fd.append('supplierVillage',kel)
-            fd.append('supplierPostalCode',kode_pos)
-            fd.append('supplierAddress',alamat_kantor)
-            fd.append('supplierPhone',no_telpon)
-            fd.append('supplierFax',no_fax)
-            fd.append('supplierEmail',email)
-            fd.append('supplierWebsite',website)
-            fd.append('arr_address',arr_address)
-            fd.append('arr_pic',arr_pic)
-            fd.append('numberPKP',no_pengukuhan)
-            fd.append('numberNPWP',no_npwp)
-            fd.append('nameNPWP',nama_npwp)
-            fd.append('addressNPWP',alamat_npwp)
-            fd.append('arr_iso',arr_iso)
-            fd.append('numberBank',bank_account)
-            fd.append('bankName',bankName)
-            fd.append('termOfPayment',jangka_waktu)
+        
+            formData.append('pengukuhan_attachment',pengukuhan_attachment)
+            formData.append('npwp_attachment',npwp_attachment)
+            formData.append('cp_attachment',cp_attachment)
+            formData.append('skt_attachment',skt_attachment)
+            formData.append('supplierName',nama_supplier)
+            formData.append('supplierYearOfEstablishment',tahun_pendirian)
+            formData.append('supplierType',jenis_usaha)
+            formData.append('supplierNumberOfEmployee',jml_karyawan)
+            formData.append('supplierProvince',prov)
+            formData.append('supplierCity',kab)
+            formData.append('supplierDistricts',kec)
+            formData.append('supplierVillage',kel)
+            formData.append('supplierPostalCode',kode_pos)
+            formData.append('supplierAddress',alamat_kantor)
+            formData.append('supplierPhone',no_telpon)
+            formData.append('supplierFax',no_fax)
+            formData.append('supplierEmail',email)
+            formData.append('supplierWebsite',website)
+            formData.append('arr_address',JSON.stringify(arr_address))
+            formData.append('arr_pic',JSON.stringify(arr_pic))
+            formData.append('numberPKP',no_pengukuhan)
+            formData.append('numberNPWP',no_npwp)
+            formData.append('nameNPWP',nama_npwp)
+            formData.append('addressNPWP',alamat_npwp)
+            formData.append('arr_iso',JSON.stringify(arr_iso))
+            formData.append('numberBank',bank_account)
+            formData.append('bankName',bankName)
+            formData.append('termOfPayment',jangka_waktu)
  
         // EndForm Upload
-        console.log(fd);
-        return false;
+        // return false;
 
         // Ajax
     
@@ -870,7 +861,9 @@
             type: "post",
             dataType: 'json',
             async: true,
-            data: data,
+            processData: false,
+            contentType: false,
+            data: formData,
             beforeSend: function() {
                 SwalLoading('Inserting progress, please wait .');
             },
