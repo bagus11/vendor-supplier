@@ -167,28 +167,7 @@ class SupplierDataController extends Controller
             'termOfPayment' => $termOfPayment,
         ];
 
-        // store company attachment
-        
-        $fileNPWP = $request->file('npwp_attachment')->getClientOriginalName();
-        $filePKP = $request->file('pengukuhan_attachment')->getClientOriginalName();
-        $fileRegistrationCertificate = $request->file('skt_attachment')->getClientOriginalName();
-        $fileCompanyProfile = $request->file('cp_attachment')->getClientOriginalName();
-
-        $pathNPWP = $request->file('npwp_attachment')->store('public/npwp');
-        $pathSIUP = $request->file('pengukuhan_attachment')->store('public/siup');
-        $pathRegistrationCertificate = $request->file('skt_attachment')->store('public/registrationCertificate');
-        $pathCompanyProfile = $request->file('cp_attachment')->store('public/companyProfile');
-
-        $companyAttachment =[
-            'numberPKP' => $request->numberPKP,
-            'numberNPWP' => $request->numberNPWP,
-            'nameNPWP' => $request->nameNPWP,
-            'addressNPWP' => $request->addressNPWP,
-            'fileNPWP' => $pathNPWP,
-            'filePKP' => $filePKP,
-            'fileRegistrationCertificate' => $pathRegistrationCertificate,
-            'fileCompanyProfile' => $pathCompanyProfile,
-        ];
+       
 
         //    $companyAttachment=[];
         $supplier_address=[
@@ -211,51 +190,38 @@ class SupplierDataController extends Controller
             // master supplier
             'supplierName' => 'required',
             'supplierType' => 'required',
-            'supplierCategory' => 'required',
+            // 'supplierCategory' => 'required',
             'supplierYearOfEstablishment' => 'required',
             'supplierNumberOfEmployee' => 'required',
             
             // master supplier address
-            'address' => 'required|array',
-            'address.*.supplierAddress' => 'required',
-            'address.*.flagMainAddress' => 'required',
-            'address.*.supplierPhone' => 'required|numeric|phone_number|size:13',
-            'address.*.supplierEmail' => 'email',
-            'address.*.supplierWebsite' => 'required',
-            'address.*.supplierFax' => 'required',
-            'address.*.supplierProvince' => 'required',
-            'address.*.supplierCity' => 'required',
-            'address.*.supplierDistricts' => 'required',
-            'address.*.supplierVillage' => 'required',
-            'address.*.supplierPostalCode' => 'required',
-            'address.*.supplierAddressType' => 'required',
-            
-            // master PIC
-            'pic' => 'required|array',
-            'pic.*picName' => 'required',
-            'pic.*picDepartement' => 'required',
-            'pic.*picPhone' => 'required|numeric|phone_number|size:13',
-            'pic.*picEmail' => 'email',
-            
+            // 'address' => 'required|array',
+            // 'address.*.supplierAddress' => 'required',
+            // 'address.*.flagMainAddress' => 'required',
+            // 'address.*.supplierPhone' => 'required|numeric|phone_number|size:13',
+            // 'address.*.supplierEmail' => 'email',
+            // 'address.*.supplierWebsite' => 'required',
+            // 'address.*.supplierFax' => 'required',
+            // 'address.*.supplierProvince' => 'required',
+            // 'address.*.supplierCity' => 'required',
+            // 'address.*.supplierDistricts' => 'required',
+            // 'address.*.supplierVillage' => 'required',
+            // 'address.*.supplierPostalCode' => 'required',
+            // 'address.*.supplierAddressType' => 'required',
+
             // company attachment
             'numberPKP' => 'required',
             'numberNPWP' => 'required|string',
             'nameNPWP' => 'required',
             'addressNPWP' => 'required',
-            'fileNPWP' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
-            'filePKP' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
-            'fileRegistrationCertificate' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
-            'fileCompanyProfile' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
-            
-            // iso supplier
-            'iso' => 'required|array',
-            'iso.*.id' => 'exists:iso_suppliers,id',
-            'iso.*.applied' => 'required',
-            'iso.*.certified' => 'required',
-            
+            'npwp_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
+            'pengukuhan_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
+            'skt_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
+            'cp_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
+
             // payment supplier
-            'bankId' => 'required',
             'numberBank' => 'required',
+            'bankName' => 'required',
             'termOfPayment' => 'required|numeric',
         ]);
 
@@ -265,7 +231,29 @@ class SupplierDataController extends Controller
             'status'=>422
         ]);
         }else{
+ // store company attachment
+        
+            $fileNPWP = $request->file('npwp_attachment')->getClientOriginalName();
+            $filePKP = $request->file('pengukuhan_attachment')->getClientOriginalName();
+            $fileRegistrationCertificate = $request->file('skt_attachment')->getClientOriginalName();
+            $fileCompanyProfile = $request->file('cp_attachment')->getClientOriginalName();
 
+            $pathNPWP = $request->file('npwp_attachment')->store('public/npwp');
+            $pathSIUP = $request->file('pengukuhan_attachment')->store('public/siup');
+            $pathRegistrationCertificate = $request->file('skt_attachment')->store('public/registrationCertificate');
+            $pathCompanyProfile = $request->file('cp_attachment')->store('public/companyProfile');
+
+            $companyAttachment =[
+                'numberPKP' => $request->numberPKP,
+                'numberNPWP' => $request->numberNPWP,
+                'nameNPWP' => $request->nameNPWP,
+                'supplierId' => $supplierID,
+                'addressNPWP' => $request->addressNPWP,
+                'fileNPWP' => $pathNPWP,
+                'filePKP' => $filePKP,
+                'fileRegistrationCertificate' => $pathRegistrationCertificate,
+                'fileCompanyProfile' => $pathCompanyProfile,
+            ];
             DB::transaction(function() use ($push_iso,$push_pic,$push_address,$supplier,$payment,$companyAttachment,$supplier_address){
                 // Main Address
                 SupplierAddress::create($supplier_address); 
@@ -287,6 +275,13 @@ class SupplierDataController extends Controller
                 Payment::create($payment);
                 // Company Attachment
                 CompanyAttachment::create($companyAttachment);
+                return response()->json([
+                    'message'=>'Data berhasil disimpan', 
+                    'status'=>200,
+                    'other_address'=>$push_address,
+                    'push_pic'=>$push_pic,
+                    'push_iso'=>$push_iso,
+                ]);
 
             });
         }

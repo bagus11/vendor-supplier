@@ -16,7 +16,7 @@
                     @endif
                     <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mb-4 rounded">
                         <a href="{{ route('suppliers.create') }}">
-                            Add Supplier
+                            <i class="fas fa-solid fa-plus"></i> Supplier
                         </a>
                     </button>
                     <table class="table-auto w-full bg-blue-500 supplier-datatable">

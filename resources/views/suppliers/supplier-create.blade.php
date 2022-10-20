@@ -17,7 +17,7 @@
     input{
         display: block;
         width: 100%;
-        border: 1px solid #cccccc;
+        border: 0.5px solid none;
         border-radius: 0.25rem;
     }
     /* Form */
@@ -25,8 +25,8 @@
         /* width: clamp(300px, 850px, 900px); */
         width: 80%;
         margin: 0 auto;
-        border: 1px solid #cccccc;
-        border-radius:0.35rem;
+        border: 1px solid none;
+        border-radius:0.75rem;
         background-color: white;
         padding:1.5rem;
     }
@@ -220,14 +220,14 @@
                     <div class="input-group col-span-2">
                         <label for="supplier_siup">Kabupaten</label>
                         <select class="select2" name="kab" id="kab"style="width: 100%">
-                            <option value="">Please choose provinces first</option>
+                            <option value="">Pilih provinsi terlebih dahulu</option>
                         </select>
                        
                     </div>
                     <div class="input-group col-span-2">
                         <label for="supplier_siup">Kecamatan</label>
                         <select class="select2" name="kec" id="kec"style="width: 100%">
-                            <option value="">Please choose regencies first</option>
+                            <option value="">Pilih provinsi terlebih dahulu</option>
                         </select>
                        
                     </div>
@@ -237,7 +237,7 @@
                     <div class="input-group col-span-2">
                         <label for="supplier_siup">Kelurahan</label>
                         <select class="select2" name="kel" id="kel" style="width: 100%">
-                            <option value="">Please choose districts first</option>
+                            <option value="">Pilih provinsi terlebih dahulu</option>
                         </select>
                        
                     </div>
@@ -256,12 +256,12 @@
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">No Telpon</label>
-                        <input type="number" name="no_telpon" id="no_telpon">
+                        <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;"name="no_telpon" id="no_telpon">
                        
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Fax</label>
-                        <input type="number" name="no_fax" id="no_fax">
+                        <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name="no_fax" id="no_fax">
                         
                     </div>
                 </div>
@@ -305,7 +305,7 @@
                             <tr>
                                 <td><input type="text" name ="dept_pic"  class="dept_pic"></td>
                                 <td><input type="text" name ="name_pic" class ="name_pic"></td>
-                                <td><input type="number" name ="phone_pic" class ="phone_pic"></td>
+                                <td><input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name ="phone_pic" class ="phone_pic"></td>
                                 <td><input type="email" name ="email_pic" class ="email_pic"></td>
                                 <td>
                                    
@@ -347,7 +347,7 @@
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3">
                         <label for="no_npwp">No NPWP</label>
-                        <input type="number" name="no_npwp" id="no_npwp">
+                        <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;" name="no_npwp" id="no_npwp">
                     </div>
                     <div class="input-group col-span-3">
                         <label for="no_npwp_attachment">Attachment</label>
@@ -494,8 +494,6 @@
     const nextBtn   = document.querySelectorAll('.btn-next');
     const progress  = document.getElementById('progress');
     const formSteps = document.querySelectorAll('.form-step');
-    const progressSteps = document.querySelectorAll('.progress-step');
- 
 
     let formSetpsNum =0;
     nextBtn.forEach(btn=>{
@@ -568,11 +566,11 @@
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3">
                         <label for="no_telp_lain">No Telpon</label>
-                        <input type="number" name="no_telp_lain" class="no_telp_lain" id="no_telp_lain">
+                        <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name="no_telp_lain" class="no_telp_lain" id="no_telp_lain">
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Fax</label>
-                        <input type="number" name="no_fax_lain" class="no_fax_lain" id="no_fax_lain">
+                        <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name="no_fax_lain" class="no_fax_lain" id="no_fax_lain">
                     </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
@@ -597,7 +595,7 @@
        <tr>
                                 <td><input type="text" name ="dept_pic"  class="dept_pic"></td>
                                 <td><input type="text" name ="name_pic" class ="name_pic"></td>
-                                <td><input type="number" name ="phone_pic" class ="phone_pic"></td>
+                                <td><input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name ="phone_pic" class ="phone_pic"></td>
                                 <td><input type="email" name ="email_pic" class ="email_pic"></td>
                                 <td>
                                     <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" style="margin:auto">
@@ -785,32 +783,7 @@
         // End Halaman Keempat
 
         // End Initiating
-        // var data ={
-        //     'supplierName':nama_supplier,
-        //     'supplierYearOfEstablishment':tahun_pendirian,
-        //     'supplierType':jenis_usaha,
-        //     'supplierNumberOfEmployee':jml_karyawan,
-        //     'supplierProvince':prov,
-        //     'supplierCity':kab,
-        //     'supplierDistricts':kec,
-        //     'supplierVillage':kel,
-        //     'supplierPostalCode':kode_pos,
-        //     'supplierAddress':alamat_kantor,
-        //     'supplierPhone':no_telpon,
-        //     'supplierFax':no_fax,
-        //     'supplierEmail':email,
-        //     'supplierWebsite':website,
-        //     'arr_address':arr_address,
-        //     'arr_pic':arr_pic,
-        //     'numberPKP':no_pengukuhan,
-        //     'numberNPWP':no_npwp,
-        //     'nameNPWP':nama_npwp,
-        //     'addressNPWP':alamat_npwp,
-        //     'arr_iso':arr_iso,
-        //     'numberBank':bank_account,
-        //     'bankName':bankName,
-        //     'termOfPayment':jangka_waktu
-        // };
+     
 
         // Form Upload
         var formData = new FormData();    
