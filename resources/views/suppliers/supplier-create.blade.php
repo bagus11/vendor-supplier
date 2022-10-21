@@ -17,8 +17,7 @@
     input{
         display: block;
         width: 100%;
-        border: 0.5px solid none;
-        border-radius: 0.25rem;
+        border-radius: 5px !important;
     }
     /* Form */
     .form{
@@ -247,6 +246,7 @@
                        
                     </div>
                 </div>    
+                
                 <div class="input-group">
                     <label for="alamat_kantor">Alamat Kantor</label>
                     <textarea class="shadow appearance-none border rounded w-full py-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor"></textarea>
@@ -280,7 +280,7 @@
                 <div class="another_address"></div>
                 <div class="input-group">
                     <button class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" id="add_address">
-                        <i class="fas fa-plus"></i> Address
+                        <i class="fas fa-plus"></i> Alamat Lain
                     </button>
                 </div>
                 <div class="">
@@ -293,9 +293,9 @@
                     <table class="table" id="table_pic" style="width: 100%"> 
                         <thead>
                             <tr>
-                              <th>Dept</th>
-                              <th>Name</th>
-                              <th>Phone Number</th>
+                              <th>Departemen</th>
+                              <th>Nama</th>
+                              <th>No Hp</th>
                               <th>Email</th>
                               <th></th>
                            
@@ -334,7 +334,7 @@
             <div class="form-step">
                
                 <div class="grid grid-cols-6 gap-3">
-                    <div class="input-group col-span-3">
+                    <div class="input-group col-span-3" style="padding-top:10px">
                         <label for="no_pengukuhan">No Pengukuhan PKP</label>
                         <input type="text" name="no_pengukuhan" id="no_pengukuhan">
                     </div>
@@ -345,7 +345,7 @@
                    
                 </div>
                 <div class="grid grid-cols-6 gap-3">
-                    <div class="input-group col-span-3">
+                    <div class="input-group col-span-3" style="padding-top:10px">
                         <label for="no_npwp">No NPWP</label>
                         <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;" name="no_npwp" id="no_npwp">
                     </div>
@@ -355,10 +355,21 @@
                     </div>
                    
                 </div>
- 
-                <div class="input-group">
-                        <label for="supplier_siup">Nama NPWP</label>
-                        <input type="text" name="nama_npwp" id="nama_npwp">
+                <div class="grid grid-cols-6 gap-3">
+                    <div class="input-group col-span-3">
+                        <div class="input-group">
+                                <label for="supplier_siup">Nama NPWP</label>
+                                <input type="text" name="nama_npwp" id="nama_npwp">
+                        </div>
+                    </div>
+                    <div class="input-group col-span-3">
+                        <div class="input-group">
+                            <label for="alamat_npwp">Alamat NPWP</label>
+                            <div class="textwrapper">
+                                <textarea cols="1" rows="2" id="alamat_npwp"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3">
@@ -371,13 +382,8 @@
                     </div>
                    
                 </div>
-                <div class="input-group">
-                    <label for="alamat_npwp">Alamat NPWP</label>
-                    <div class="textwrapper">
-                        <textarea cols="1" rows="2" id="alamat_npwp"></textarea>
-                    </div>
-                </div>
-                <div class="container">
+                
+                <div class="container mt-2">
                     <label for="">Kelengkapan ISO</label>
                     <div class="input-group" style="margin-left: 20px">
                         @foreach($master_iso as $row)
@@ -416,7 +422,7 @@
                       <div class="input-group">
                         <label for="">Bank</label>
                         <select name="bankName" id="bankName" class="select2" style="width: 100%;">
-                            <option value="">Please Choose Bank Name</option>
+                            <option value="">Pilih Bank</option>
                             @foreach($master_bank as $row)
                                 <option value="{{$row->id}}">{{$row->nameBank}}</option>
                             @endforeach
@@ -425,14 +431,14 @@
                     </div>
                     <div class="col-span-2">
                         <div class="input-group">
-                            <label for="bank_account">Bank Account</label>
+                            <label for="bank_account">No Rekening</label>
                             <input type="number" name="bank_account" id="bank_account">
                         </div>
                     </div>
                 </div>
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3" style="width:45%;">
-                        <label for="supplier_siup">Term Of Payment</label>
+                        <label for="supplier_siup">Jangka Waktu Pembayaran</label>
                             <div class="grid grid-cols-6 gap-3" style="display:flex">
                                 <div class="col-span-3">
                                     <select name="jangka_waktu" id="jangka_waktu">
@@ -494,7 +500,7 @@
     const nextBtn   = document.querySelectorAll('.btn-next');
     const progress  = document.getElementById('progress');
     const formSteps = document.querySelectorAll('.form-step');
-
+    const progressSteps = document.querySelectorAll('.progress-step');
     let formSetpsNum =0;
     nextBtn.forEach(btn=>{
         btn.addEventListener('click',()=>{
@@ -845,6 +851,8 @@
                 if(response.status==422)
                 {
                     printErrorMsg(response.message)
+                }else{
+
                 }
                 $('#save').prop('disabled', false);
                

@@ -193,21 +193,12 @@ class SupplierDataController extends Controller
             // 'supplierCategory' => 'required',
             'supplierYearOfEstablishment' => 'required',
             'supplierNumberOfEmployee' => 'required',
-            
-            // master supplier address
-            // 'address' => 'required|array',
-            // 'address.*.supplierAddress' => 'required',
-            // 'address.*.flagMainAddress' => 'required',
-            // 'address.*.supplierPhone' => 'required|numeric|phone_number|size:13',
-            // 'address.*.supplierEmail' => 'email',
-            // 'address.*.supplierWebsite' => 'required',
-            // 'address.*.supplierFax' => 'required',
-            // 'address.*.supplierProvince' => 'required',
-            // 'address.*.supplierCity' => 'required',
-            // 'address.*.supplierDistricts' => 'required',
-            // 'address.*.supplierVillage' => 'required',
-            // 'address.*.supplierPostalCode' => 'required',
-            // 'address.*.supplierAddressType' => 'required',
+            // Address
+            'supplierAddress'=>'required',
+            'supplierPhone'=>'required',
+            'supplierEmail'=>'required',
+            'supplierWebsite'=>'required',
+            'supplierFax'=>'required',
 
             // company attachment
             'numberPKP' => 'required',
@@ -223,6 +214,45 @@ class SupplierDataController extends Controller
             'numberBank' => 'required',
             'bankName' => 'required',
             'termOfPayment' => 'required|numeric',
+        ],[
+            'supplierName.required'=>'Nama supplier tidak boleh kosong',
+            'supplierType.required'=>'Jenis usaha tidak boleh kosong',
+            'supplierYearOfEstablishment.required'=>'Tahun pendirian tidak boleh kosong',
+            'supplierNumberOfEmployee.required'=>'Jumlah karyawan tidak boleh kosong',
+            'supplierNumberOfEmployee.required'=>'Jumlah karyawan tidak boleh kosong',
+            'numberPKP.required'=>'No Pengukuhan tidak boleh kosong',
+            'numberNPWP.required'=>'No NPWP tidak boleh kosong',
+            'nameNPWP.required'=>'Nama NPWP tidak boleh kosong',
+            'addressNPWP.required'=>'Alamat NPWP tidak boleh kosong',
+            // Address
+            'supplierAddress.required'=>'Alamat Utama tidak boleh kosong',
+            'supplierPhone.required'=>'No HP tidak boleh kosong',
+            'supplierFax.required'=>'Fax tidak boleh kosong',
+            'supplierEmail.required'=>'Email tidak boleh kosong',
+            'supplierWebsite.required'=>'Website tidak boleh kosong',
+            
+            // Attachment
+            'npwp_attachment.required'=>'NPWP Attachment tidak boleh kosong',
+            'npwp_attachment.mimes'=>'File NPWP harus berupa format : PDF,PNG,JPG,JPEG',
+            'npwp_attachment.max'=>'File NPWP max 21MB',
+
+            'pengukuhan_attachment.required'=>'File PKP tidak boleh kosong',
+            'pengukuhan_attachment.mimes'=>'File PKP harus berupa format : PDF,PNG,JPG,JPEG',
+            'pengukuhan_attachment.max'=>'File PKP max 21MB',
+
+            'skt_attachment.required'=>'File Surat Keterangan Terdaftar tidak boleh kosong',
+            'skt_attachment.mimes'=>'File Surat Keterangan Terdaftar harus berupa format : PDF,PNG,JPG,JPEG',
+            'skt_attachment.max'=>'File Surat Keterangan Terdaftar max 21MB',
+
+            'cp_attachment.required'=>'File Company Profile tidak boleh kosong',
+            'cp_attachment.mimes'=>'File Company Profile harus berupa format : PDF,PNG,JPG,JPEG',
+            'cp_attachment.max'=>'File Company Profile max 21MB',
+
+            'numberBank.required'=>'No Rekening tidak boleh kosong',
+            'bankName.required'=>'Nama Bank tidak boleh kosong',
+            'termOfPayment.required'=>'Jangka Waktu Pembayaran tidak boleh kosong',
+
+
         ]);
 
         if($validator->fails()){
@@ -279,8 +309,10 @@ class SupplierDataController extends Controller
                     'message'=>'Data berhasil disimpan', 
                     'status'=>200,
                     'other_address'=>$push_address,
-                    'push_pic'=>$push_pic,
                     'push_iso'=>$push_iso,
+                    'push_pic'=>$push_pic,
+                    'MainSupplier'=>$supplier,
+                    'Payment'=>$payment,
                 ]);
 
             });
