@@ -28,6 +28,7 @@
         border-radius:0.75rem;
         background-color: white;
         padding:1.5rem;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
     .input-group{
         margin: 0.5rem 0;
@@ -181,7 +182,7 @@
             </div>
             {{-- Step --}}
             <div class="form-step form-step-active">
-                <div class="grid grid-cols-6 gap-3">
+                <div class="grid grid-cols-6 gap-3 hover:auto-rows-min">
                     <div class="input-group col-span-4">
                         <label for="nama_supplier">Nama Perusahaan</label>
                         <input type="text" name="nama_supplier" id="nama_supplier">
@@ -193,7 +194,7 @@
                        
                     </div>
                 </div>
-                <div class="grid grid-cols-6 gap-3">
+                <div class="grid grid-cols-6 gap-3 hover:auto-rows-min">
                     <div class="input-group col-span-4">
                         <label for="supplier_siup">Jenis Usaha</label>
                         <input type="text" name="jenis_usaha" id="jenis_usaha">
@@ -287,36 +288,37 @@
                     <a href="#" id="btn_next_1" class="btn btn-next width-50 ml-auto">Next</a>
                 </div>
             </div>
-            <div class="form-step">
+            <div class="form-step" >
               
-                <div class="container" id ='contact_pic'>
-                    <table class="table" id="table_pic" style="width: 100%"> 
-                        <thead>
-                            <tr>
-                              <th>Departemen</th>
-                              <th>Nama</th>
-                              <th>No Hp</th>
-                              <th>Email</th>
-                              <th></th>
-                           
-                            </tr>    
-                        </thead> 
-                        <tbody  class="dynamic_field" id="dynamic_field" >
-                            <tr>
-                                <td><input type="text" name ="dept_pic"  class="dept_pic"></td>
-                                <td><input type="text" name ="name_pic" class ="name_pic"></td>
-                                <td><input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name ="phone_pic" class ="phone_pic"></td>
-                                <td><input type="email" name ="email_pic" class ="email_pic"></td>
-                                <td>
-                                   
-                                </td>
-                            </tr>
-                        </tbody>
-
-
-                    </table>
+                <div class="container">      
+                    <div id="dynamic_field" class ="grid md:grid-cols-2 grid-flow-col gap-4 auto-cols-auto sm:grid-cols-1"> 
+                            <div class="relative w-full p-3 rounded-lg shadow-lg bg-white max-w-md" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                <div class="grid grid-cols-6 gap-3 pt-4">
+                                    <div class="input-group col-span-2" style="justify-content:center">
+                                    <img style="margin-top:20%;" src="{{URL::asset('profile.png')}}" alt="">                     
+                                    </div>
+    
+                                    <div class="input-group col-span-4">
+                                            <div class="input-group" style="max-width: 120px">
+                                                <input type="text" name ="dept_pic" placeholder="Departement" class="dept_pic">
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="text" placeholder="Nama" name ="name_pic" class ="name_pic">
+                                            </div>
+                                        
+                                            <div class="input-group">
+                                                <input type="number" placeholder="No HP" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name ="phone_pic" class ="phone_pic">
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="email" placeholder="Email" name ="email_pic" class ="email_pic">
+                                            </div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                    </div>
                 </div>               
-                    <div class="input-group">
+                    <div class="input-group mt-4">
                         <button type="button" id="add_more" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -450,7 +452,7 @@
                                     </select>
                                 </div>
                                 <div class="col-span-3 mt-2">
-                                    <label for="">Days</label>
+                                    <label for="">Hari</label>
                                 </div>
                             </div>
                            
@@ -596,23 +598,42 @@
     $(document).on('click', '#btn_pop_address', function () {
             $(this).closest('.form_address').remove();
     });
+    $(document).on('click', '#btn_pop_pic', function () {
+            $(this).closest('.array_pic_contact').remove();
+    });
     $('#add_more').on('click', function(e){
        $('#dynamic_field').append(`
-       <tr>
-                                <td><input type="text" name ="dept_pic"  class="dept_pic"></td>
-                                <td><input type="text" name ="name_pic" class ="name_pic"></td>
-                                <td><input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name ="phone_pic" class ="phone_pic"></td>
-                                <td><input type="email" name ="email_pic" class ="email_pic"></td>
-                                <td>
-                                    <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" style="margin:auto">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                          </svg>
-                                          
-                                    </button>
-                                </td>
-        </tr>
-                    `
+                    <div class="array_pic_contact relative w-full p-3 rounded-lg shadow-lg bg-white max-w-md" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" style="float:right" id="btn_pop_pic">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+</svg>
+
+                                </button>
+                                <div class="grid grid-cols-6 gap-3 pt-4">
+                                    <div class="input-group col-span-2" style="justify-content:center">
+                                    <img style="margin-top:25%;" src="{{URL::asset('profile.png')}}" alt="">                     
+                                    </div>
+    
+                                    <div class="input-group col-span-4">
+                                            <div class="input-group" style="max-width: 120px">
+                                                <input type="text" name ="dept_pic" placeholder="Departement" class="dept_pic">
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="text" placeholder="Nama" name ="name_pic" class ="name_pic">
+                                            </div>
+                                        
+                                            <div class="input-group">
+                                                <input type="number" placeholder="No HP" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name ="phone_pic" class ="phone_pic">
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="email" placeholder="Email" name ="email_pic" class ="email_pic">
+                                            </div>
+                                    </div>
+                                
+                                </div>
+                  </div>
+        `
        );
     })
     var dept_pic =document.getElementsByClassName("dept_pic");
@@ -631,11 +652,6 @@
     var email_lain =document.getElementsByClassName('email_lain');
     var website_lain =document.getElementsByClassName('website_lain');
 
-   $('#table_pic').on('click', '.btn_pop', function(e){
-        $(this).parent().parent().remove();
-   })
-   
-   
     $('#save').prop('disabled',true);
     $('#kab').prop('disabled',true);
     $('#kec').prop('disabled',true);
@@ -834,7 +850,7 @@
     
         $.ajax({
             headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url: "{{route('post_supplier')}}",
             type: "post",
