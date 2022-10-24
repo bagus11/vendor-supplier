@@ -429,7 +429,7 @@
         <div class="grid grid-cols-6 gap-3 mt-3">
             <div class="col-span-2">
                 <p>
-                    <label for="">File Pengukuhan</label>
+                    <label for="">File Surat Keterangan Terdaftar</label>
                     <br>
                     <a target="_blank" href="{{URL::asset('storage/registrationCertificate/${res_attachment[0].fileRegistrationCertificate}')}}" class="ml-3" style="color:blue">
                         <i class="far fa-file-pdf" style="color: red;font-size: 20px;"></i>

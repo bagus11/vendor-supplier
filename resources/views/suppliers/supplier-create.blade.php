@@ -243,7 +243,7 @@
                     </div>
                     <div class="input-group col-span-2">
                         <label for="supplier_name">Kode Pos</label>
-                        <input type="number" style="width: 50%" name="kode_pos" id="kode_pos">
+                        <input type="number" style="width: 50%; min-width:90px;text-align:center" name="kode_pos" id="kode_pos">
                        
                     </div>
                 </div>    
@@ -291,8 +291,8 @@
             <div class="form-step" >
               
                 <div class="container">      
-                    <div id="dynamic_field" class ="grid md:grid-cols-2 grid-flow-col gap-2 auto-cols-auto sm:grid-cols-1"> 
-                            <div class="relative w-full p-3 rounded-lg shadow-lg bg-white max-w-md" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div id="dynamic_field" class ="grid grid justify-items-center md:grid-cols-2 grid-flow-col gap-2 auto-cols-auto sm:grid-cols-1"> 
+                            <div class="relative w-full p-3 rounded-lg shadow-lg bg-white max-w-xl" >
                                 <div class="grid grid-cols-6 gap-2 pt-4">
                                     <div class="input-group col-span-2" style="justify-content:center">
                                     <img style="margin-top:20%;width:100%" src="{{URL::asset('profile.png')}}" alt="">                     
@@ -305,7 +305,7 @@
                                             <div class="input-group">
                                                 <input type="text" placeholder="Nama" name ="name_pic" class ="name_pic">
                                             </div>
-                                        
+
                                             <div class="input-group">
                                                 <input type="number" placeholder="No HP" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name ="phone_pic" class ="phone_pic">
                                             </div>
@@ -319,7 +319,7 @@
                     </div>
                 </div>               
                     <div class="input-group mt-4">
-                        <button type="button" id="add_more" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        <button type="button" id="add_more" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
@@ -419,7 +419,7 @@
             </div>
           
             <div class="form-step">
-                <div class="grid grid-cols-1 gap-3 md:grid-cols-6 gap-3 xl:grid-cols-6 gap-3">
+                <div class="grid sm:grid-cols-2 gap-3 md:grid-cols-6 xl:grid-cols-6 xxl:grid-cols-6">
                     <div class="col-span-1">
                       <div class="input-group">
                         <label for="">Bank</label>
@@ -603,7 +603,7 @@
     });
     $('#add_more').on('click', function(e){
        $('#dynamic_field').append(`
-                    <div class="array_pic_contact relative w-full p-3 rounded-lg shadow-lg bg-white max-w-md" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="array_pic_contact relative w-full p-3 rounded-lg shadow-lg bg-white max-w-xl">
                                 <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" style="float:right" id="btn_pop_pic">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
