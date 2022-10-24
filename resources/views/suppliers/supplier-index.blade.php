@@ -148,14 +148,8 @@
                                         <br>
                                     </p>
                                     </div>
-                                  </div>
-
-                             
+                                  </div>                             
                                 <p id="alamat_lain"></p>
-                              
-
-                              
-                              
                             </p>
                         </div>
                     </details>
@@ -188,6 +182,14 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </details>
+                    <details class="bg-gray-200 open:bg-amber-200 duration-300">
+                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Attachment</summary>
+                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                            <div class="container" id="attachement_id">
+
+                            </div>
                         </div>
                     </details>
                     <details class="bg-gray-200 open:bg-amber-200 duration-300">
@@ -274,10 +276,12 @@
                 var res_pic = response.pic
                 var res_address = response.otherAdress
                 var res_iso = response.iso
+                var res_attachment = response.attachment
                 mapping_iso(res_iso)
                 mapping_detail_supplier(res)
                 mapping_pic(res_pic)
                 mapping_address(res_address)
+                mapping_attachment(res_attachment)
             },
             error: function(xhr, status, error) {
                 swal.close();
@@ -386,6 +390,56 @@
                               
                     `);
                 });
+    }
+    function mapping_attachment(res_attachment)
+    {
+        $('#attachement_id').empty();
+      
+        $('#attachement_id').append(`
+
+        <div class="grid grid-cols-6 gap-3">
+            <div class="col-span-2">
+                <p>
+                    <label for="">File Pengukuhan</label>
+                    <br>
+                    <a target="_blank" href="{{URL::asset('storage/siup/${res_attachment[0].filePKP}')}}" class="ml-3" style="color:blue">
+                        <i class="far fa-file-pdf" style="color: red;font-size: 20px;"></i>
+                        Klik untuk lihat file</a>
+                </p>
+            </div>
+            <div class="col-span-2">
+                <p>
+                    <label for="">File NPWP</label>
+                    <br>
+                    <a target="_blank" href="{{URL::asset('storage/npwp/${res_attachment[0].fileNPWP}')}}" class="ml-3" style="color:blue">
+                            <i class="far fa-file-pdf" style="color: red;font-size: 20px;"></i>
+                            Klik untuk lihat file</a>
+                </p>
+            </div>
+            <div class="col-span-2">
+                <p>
+                    <label for="">File Company Profile</label>
+                    <br>
+                    <a target="_blank" href="{{URL::asset('storage/companyProfile/${res_attachment[0].fileCompanyProfile}')}}" class="ml-3" style="color:blue">
+                        <i class="far fa-file-pdf" style="color: red;font-size: 20px;"></i>
+                        Klik untuk lihat file</a>
+                </p>
+            </div>
+        </div>
+        <div class="grid grid-cols-6 gap-3 mt-3">
+            <div class="col-span-2">
+                <p>
+                    <label for="">File Pengukuhan</label>
+                    <br>
+                    <a target="_blank" href="{{URL::asset('storage/registrationCertificate/${res_attachment[0].fileRegistrationCertificate}')}}" class="ml-3" style="color:blue">
+                        <i class="far fa-file-pdf" style="color: red;font-size: 20px;"></i>
+                        Klik untuk lihat file</a>
+                </p>
+            </div>
+         
+        </div>
+                    
+        `);
     }
     
 </script>

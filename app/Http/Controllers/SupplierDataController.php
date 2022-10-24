@@ -263,10 +263,10 @@ class SupplierDataController extends Controller
         }else{
  // store company attachment
         
-            $fileNPWP = $request->file('npwp_attachment')->getClientOriginalName();
-            $filePKP = $request->file('pengukuhan_attachment')->getClientOriginalName();
-            $fileRegistrationCertificate = $request->file('skt_attachment')->getClientOriginalName();
-            $fileCompanyProfile = $request->file('cp_attachment')->getClientOriginalName();
+            $fileNPWP = $request->file('npwp_attachment')->hashName();
+            $filePKP = $request->file('pengukuhan_attachment')->hashName();
+            $fileRegistrationCertificate = $request->file('skt_attachment')->hashName();
+            $fileCompanyProfile = $request->file('cp_attachment')->hashName();
 
             $pathNPWP = $request->file('npwp_attachment')->store('public/npwp');
             $pathSIUP = $request->file('pengukuhan_attachment')->store('public/siup');
@@ -279,14 +279,15 @@ class SupplierDataController extends Controller
                 'nameNPWP' => $request->nameNPWP,
                 'supplierId' => $supplierID,
                 'addressNPWP' => $request->addressNPWP,
-                'fileNPWP' => $pathNPWP,
+                'fileNPWP' => $fileNPWP,
                 'filePKP' => $filePKP,
-                'fileRegistrationCertificate' => $pathRegistrationCertificate,
-                'fileCompanyProfile' => $pathCompanyProfile,
+                'fileRegistrationCertificate' => $fileRegistrationCertificate,
+                'fileCompanyProfile' => $fileCompanyProfile,
             ];
+           
             DB::transaction(function() use ($push_iso,$push_pic,$push_address,$supplier,$payment,$companyAttachment,$supplier_address){
                 // Main Address
-                SupplierAddress::create($supplier_address); 
+            SupplierAddress::create($supplier_address); 
             if(count($push_iso) > 0)
                 {
                     IsoSupplier::insert($push_iso);
@@ -305,18 +306,17 @@ class SupplierDataController extends Controller
                 Payment::create($payment);
                 // Company Attachment
                 CompanyAttachment::create($companyAttachment);
-                return response()->json([
-                    'message'=>'Data berhasil disimpan', 
-                    'status'=>200,
-                    'other_address'=>$push_address,
-                    'push_iso'=>$push_iso,
-                    'push_pic'=>$push_pic,
-                    'MainSupplier'=>$supplier,
-                    'Payment'=>$payment,
-                ]);
-
             });
         }
+        return response()->json([
+            'message'=>'Data berhasil disimpan', 
+            'status'=>200,
+            'other_address'=>$push_address,
+            'push_iso'=>$push_iso,
+            'push_pic'=>$push_pic,
+            'MainSupplier'=>$supplier,
+            'Payment'=>$payment,
+        ]);
 
     }
     public function supplierDetail(Request $request)
@@ -343,9 +343,12 @@ class SupplierDataController extends Controller
                 ->join('iso_masters', 'iso_masters.id','=','iso_suppliers.isoId')
                 ->select('iso_suppliers.applied','iso_suppliers.certified','iso_masters.iso')
                 ->where('iso_suppliers.supplierId',$request->id)->get();
+
+        $attachment = CompanyAttachment::where('supplierId', $request->id)->get();
         return response()->json([
             'supplierDetail'=>$supplier,
             'otherAdress'=>$otherAdress,
+            'attachment'=>$attachment,
             'iso'=>$iso,
             'pic'=>$pic
         ]);

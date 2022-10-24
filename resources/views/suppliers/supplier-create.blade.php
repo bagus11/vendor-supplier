@@ -182,7 +182,7 @@
             </div>
             {{-- Step --}}
             <div class="form-step form-step-active">
-                <div class="grid grid-cols-6 gap-3 hover:auto-rows-min">
+                <div class="grid grid-cols-6 gap-3 ">
                     <div class="input-group col-span-4">
                         <label for="nama_supplier">Nama Perusahaan</label>
                         <input type="text" name="nama_supplier" id="nama_supplier">
@@ -194,7 +194,7 @@
                        
                     </div>
                 </div>
-                <div class="grid grid-cols-6 gap-3 hover:auto-rows-min">
+                <div class="grid grid-cols-6 gap-3 md:cols-4">
                     <div class="input-group col-span-4">
                         <label for="supplier_siup">Jenis Usaha</label>
                         <input type="text" name="jenis_usaha" id="jenis_usaha">
@@ -291,11 +291,11 @@
             <div class="form-step" >
               
                 <div class="container">      
-                    <div id="dynamic_field" class ="grid md:grid-cols-2 grid-flow-col gap-4 auto-cols-auto sm:grid-cols-1"> 
+                    <div id="dynamic_field" class ="grid md:grid-cols-2 grid-flow-col gap-2 auto-cols-auto sm:grid-cols-1"> 
                             <div class="relative w-full p-3 rounded-lg shadow-lg bg-white max-w-md" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                                <div class="grid grid-cols-6 gap-3 pt-4">
+                                <div class="grid grid-cols-6 gap-2 pt-4">
                                     <div class="input-group col-span-2" style="justify-content:center">
-                                    <img style="margin-top:20%;" src="{{URL::asset('profile.png')}}" alt="">                     
+                                    <img style="margin-top:20%;width:100%" src="{{URL::asset('profile.png')}}" alt="">                     
                                     </div>
     
                                     <div class="input-group col-span-4">
@@ -419,7 +419,7 @@
             </div>
           
             <div class="form-step">
-                <div class="grid grid-cols-6 gap-4">
+                <div class="grid grid-cols-1 gap-3 md:grid-cols-6 gap-3 xl:grid-cols-6 gap-3">
                     <div class="col-span-1">
                       <div class="input-group">
                         <label for="">Bank</label>
@@ -441,7 +441,7 @@
                 <div class="grid grid-cols-6 gap-3">
                     <div class="input-group col-span-3" style="width:45%;">
                         <label for="supplier_siup">Jangka Waktu Pembayaran</label>
-                            <div class="grid grid-cols-6 gap-3" style="display:flex">
+                            <div class="grid grid-cols-1 gap-3 " style="display:flex">
                                 <div class="col-span-3">
                                     <select name="jangka_waktu" id="jangka_waktu">
                                         <option value="15">15</option>
@@ -548,7 +548,7 @@
             `   
             <div class="container form_address">
                 <div class="input-group" style="float:right">
-                    <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" style="margin:auto" id="btn_pop_address" style="float:right">
+                    <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" style="margin:auto" id="btn_pop_address" style="float:right;postion:fixed">
                         <i class="fas fa-minus"></i>
                     </button>
             </div>
@@ -606,8 +606,8 @@
                     <div class="array_pic_contact relative w-full p-3 rounded-lg shadow-lg bg-white max-w-md" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
                                 <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" style="float:right" id="btn_pop_pic">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
 
                                 </button>
                                 <div class="grid grid-cols-6 gap-3 pt-4">
@@ -844,7 +844,16 @@
             formData.append('termOfPayment',jangka_waktu)
  
         // EndForm Upload
-        // return false;
+        // jika form PIC Kosong maka akan di validasi disini
+        console.log(arr_pic)
+        if(arr_pic == ['', '', '', ''])
+        {
+            toastr['error']('Form PIC kosong, harap isi terlebih dahulu');
+            $('#save').prop('disabled', false)
+            return false;
+        }
+        // End jika form PIC Kosong maka akan di validasi disini
+
 
         // Ajax
     
@@ -868,7 +877,8 @@
                 {
                     printErrorMsg(response.message)
                 }else{
-
+                    toastr['success']('Success,Data saved successfully');
+                    window.location = "{{route('suppliers.index')}}";
                 }
                 $('#save').prop('disabled', false);
                
