@@ -14,7 +14,7 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mb-4 rounded">
+                    <button class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 mb-4 rounded">
                         <a href="{{ route('suppliers.create') }}">
                             <i class="fas fa-solid fa-plus"></i> Supplier
                         </a>
@@ -80,7 +80,7 @@
             </div>
             <div class="mt-4"id="other_address">
                 <div class="p-10 text-white-700 mt-4" style="justify-content: left;max-width:830px" >
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300" open>
+                    <details class="bg-gray-200 open:bg-red-600 duration-300 " open>
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Profil</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <div class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
@@ -130,7 +130,7 @@
 
                         </div>
                     </details>
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300" id="other_address">
+                    <details class="bg-gray-200 open:bg-red-600 duration-300" id="other_address">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Alamat</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <p>
@@ -155,7 +155,7 @@
                             </p>
                         </div>
                     </details>
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300 border border-white-500">
+                    <details class="bg-gray-200 open:bg-red-600 duration-300 border border-white-500">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">PIC</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <table class="table-auto w-full border-collapse" id="supplierPICDetail">
@@ -186,7 +186,7 @@
                             </table>
                         </div>
                     </details>
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300">
+                    <details class="bg-gray-200 open:bg-red-600 duration-300">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Attachment</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <div class="container" id="attachement_id">
@@ -194,7 +194,7 @@
                             </div>
                         </div>
                     </details>
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300">
+                    <details class="bg-gray-200 open:bg-red-600 duration-300">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">ISO</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <p id="supplier_iso"></p>

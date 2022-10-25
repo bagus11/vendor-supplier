@@ -1,6 +1,7 @@
 <style>
     :root{
-        --primary-color:rgb(40, 158, 197);
+        /* --primary-color:rgb(40, 158, 197); */
+        --primary-color:#E0144C;
 
     }
     *,
@@ -247,11 +248,14 @@
                        
                     </div>
                 </div>    
-                
-                <div class="input-group">
-                    <label for="alamat_kantor">Alamat Kantor</label>
-                    <textarea class="shadow appearance-none border rounded w-full py-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor"></textarea>
-                   
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                    <div class="input-group col-span-4">
+                        <div class="input-group">
+                            <label for="alamat_kantor">Alamat Kantor</label>
+                            <textarea class="shadow appearance-none border rounded w-full py-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor"></textarea>
+                        
+                        </div>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
@@ -368,7 +372,7 @@
                         <div class="input-group">
                             <label for="alamat_npwp">Alamat NPWP</label>
                             <div class="textwrapper">
-                                <textarea cols="1" rows="2" id="alamat_npwp"></textarea>
+                                <textarea cols="1" rows="2" id="alamat_npwp" style="border-radius: 5px !important;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -562,15 +566,19 @@
                 <option value="Lainnya">Lainnya</option>
             </select>
         </div>
-            <div class="input-group">
-                    <label for="alamat_lain">Alamat Lain</label>
-                    <div class="textwrapper">
-                        <textarea cols="1" class="alamat_lain" rows="2" id="alamat_lain"></textarea>
+        <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+            <div class="input-group col-span-4">
+                <div class="input-group">
+                        <label for="alamat_lain">Alamat Lain</label>
+                        <div class="textwrapper">
+                            <textarea cols="1" class="alamat_lain" rows="2" id="alamat_lain" style="border-radius: 5px !important;"></textarea>
+                        </div>
+                        <small style="color: red">
+                            Harap cantumin kode pos
+                        </small>
                     </div>
-                    <small style="color: red">
-                        Harap cantumin kode pos
-                    </small>
                 </div>
+            </div>
                 <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3">
                         <label for="no_telp_lain">No Telpon</label>
