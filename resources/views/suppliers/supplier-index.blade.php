@@ -246,6 +246,7 @@
                     name: 'action',
                     orderable: true,
                     searchable: true,
+                    scrollX: true,
                     // width: '25%'
                 }
             ]
