@@ -182,7 +182,7 @@
             </div>
             {{-- Step --}}
             <div class="form-step form-step-active">
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-4">
                         <label for="nama_supplier">Nama Perusahaan</label>
                         <input type="text" name="nama_supplier" id="nama_supplier">
@@ -194,7 +194,7 @@
                        
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-4">
                         <label for="supplier_siup">Jenis Usaha</label>
                         <input type="text" name="jenis_usaha" id="jenis_usaha">
@@ -206,7 +206,7 @@
                        
                     </div>
                 </div>  
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-2">
                         <label for="supplier_siup">Provinsi</label>
                         <select class="select2" name="prov" id="prov"style="width: 100%">
@@ -232,7 +232,7 @@
                        
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                   
                     <div class="input-group col-span-2">
                         <label for="supplier_siup">Kelurahan</label>
@@ -254,7 +254,7 @@
                    
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">No Telpon</label>
                         <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;"name="no_telpon" id="no_telpon">
@@ -266,7 +266,7 @@
                         
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Email</label>
                         <input type="text" name="email" id="email">
@@ -335,7 +335,7 @@
             </div>
             <div class="form-step">
                
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3" style="padding-top:10px">
                         <label for="no_pengukuhan">No Pengukuhan PKP</label>
                         <input type="text" name="no_pengukuhan" id="no_pengukuhan">
@@ -346,7 +346,7 @@
                     </div>
                    
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3" style="padding-top:10px">
                         <label for="no_npwp">No NPWP</label>
                         <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;" name="no_npwp" id="no_npwp">
@@ -357,7 +357,7 @@
                     </div>
                    
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3">
                         <div class="input-group">
                                 <label for="supplier_siup">Nama NPWP</label>
@@ -373,7 +373,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Company Profile</label>
                         <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cp_attachment" placeholder="Enter Supplier NPWP" name="cp_attachment">
@@ -389,7 +389,7 @@
                     <label for="">Kelengkapan ISO</label>
                     <div class="input-group" style="margin-left: 20px">
                         @foreach($master_iso as $row)
-                        <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                        <div class="grid grid-cols-3 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                         <div class="col-span-1">
                             <label for="">{{$row->ISO}}</label>
                             <input type="hidden" value="{{$row->id}}" class="iso_master_id">
@@ -419,7 +419,7 @@
             </div>
           
             <div class="form-step">
-                <div class="grid sm:grid-cols-2 gap-3 md:grid-cols-6 xl:grid-cols-6 xxl:grid-cols-6">
+                <div class="grid sm:grid-cols-2 gap-3 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 xxl:grid-cols-6">
                     <div class="col-span-1">
                       <div class="input-group">
                         <label for="">Bank</label>
@@ -438,7 +438,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-6 gap-3">
+                <div class="grid grid-cols-3 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3" style="width:45%;">
                         <label for="supplier_siup">Jangka Waktu Pembayaran</label>
                             <div class="grid grid-cols-1 gap-3 " style="display:flex">
@@ -571,7 +571,7 @@
                         Harap cantumin kode pos
                     </small>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3">
                         <label for="no_telp_lain">No Telpon</label>
                         <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name="no_telp_lain" class="no_telp_lain" id="no_telp_lain">
@@ -581,7 +581,7 @@
                         <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name="no_fax_lain" class="no_fax_lain" id="no_fax_lain">
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Email</label>
                         <input type="text" name="email_lain" class="email_lain" id="email_lain">
@@ -603,19 +603,19 @@
     });
     $('#add_more').on('click', function(e){
        $('#dynamic_field').append(`
+                               
                     <div class="array_pic_contact relative w-full p-3 rounded-lg shadow-lg bg-white max-w-xl">
-                                <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" style="float:right" id="btn_pop_pic">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-
-                                </button>
                                 <div class="grid grid-cols-6 gap-3 pt-4">
                                     <div class="input-group col-span-2" style="justify-content:center">
                                     <img style="margin-top:25%;" src="{{URL::asset('profile.png')}}" alt="">                     
                                     </div>
     
                                     <div class="input-group col-span-4">
+                                        <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" id="btn_pop_pic"  style="float:right;margin-top:-10%">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </button>
                                             <div class="input-group" style="max-width: 120px">
                                                 <input type="text" name ="dept_pic" placeholder="Departement" class="dept_pic">
                                             </div>
