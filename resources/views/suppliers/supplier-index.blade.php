@@ -99,7 +99,7 @@
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierNumberOfEmployee" name="supplierNumberOfEmployee" readOnly>
                                 </div>
                             </div>   
-                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">Jenis</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierType" name="supplierType" readOnly>
@@ -381,13 +381,13 @@
                         </div>
                         <div class="col-span-1">
                             <label for="cc" style="font-size: 12px">
-                                <input type="checkbox" class="diterapkan" name="diterapkan" ${data.applied =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
+                                <input type="checkbox" style="border-radius: 5px !important;" class="diterapkan" name="diterapkan" ${data.applied =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
                                 Diterapkan                  
                             </label>
                         </div>
                         <div class="col-span-1">
                             <label for="cc" style="font-size: 12px">
-                                <input type="checkbox" class="tersertifikasi" name="tersertifikasi"${data.certified =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
+                                <input type="checkbox" style="border-radius: 5px !important;" class="tersertifikasi" name="tersertifikasi"${data.certified =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
                               Tersertifikasi                  
                             </label>
                         </div>
