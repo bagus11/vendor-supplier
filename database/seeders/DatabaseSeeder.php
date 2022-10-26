@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             CompanyAttachmentSeeder::class,
             SupplierIsoSeeder::class,
             SupplierPaymentSeeder::class,
+            BankSeeder::class,
         ]);
     }
 }

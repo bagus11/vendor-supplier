@@ -21,6 +21,8 @@ use App\Models\Villages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
 
 
 class SupplierDataController extends Controller
@@ -308,6 +310,10 @@ class SupplierDataController extends Controller
                 CompanyAttachment::create($companyAttachment);
             });
         }
+
+        // call function sending email
+        $this->sendMail();
+        
         return response()->json([
             'message'=>'Data berhasil disimpan', 
             'status'=>200,
@@ -352,5 +358,19 @@ class SupplierDataController extends Controller
             'iso'=>$iso,
             'pic'=>$pic
         ]);
+    }
+
+    public function sendMail()
+    {
+        $email = [
+            'irvanmuhammad22@gmail.com',
+            // 'irvansindy@pralon.com'
+        ];
+        $mailData = [
+            'title' => 'Pemberitahuan pendaftaran vendor/supplier',
+            'subject' => 'vendor sukses melakukan pendaftaran sebagai supplier',
+            'footer' => 'Vendor Supplier'
+        ];
+        Mail::to($email)->send(new SendMail($mailData));
     }
 }

@@ -25,9 +25,9 @@ class SupplierAddressSeeder extends Seeder
             'supplierWebsite' => 'cintasejati.com',
             'supplierFax' => '0219998888',
             'supplierProvince' => '11',
-            'supplierCity' => '1101',
-            'supplierDistricts' => '1101010',
-            'supplierVillage' => '1101010001',
+            'supplierCity' => '155',
+            'supplierDistricts' => '1901',
+            'supplierVillage' => '25234',
             'supplierPostalCode' => '23898',
             'supplierAddressType' => 'HO',
         ]);

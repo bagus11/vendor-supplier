@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\IsoController;
 use App\Http\Controllers\SupplierDataController;
+use App\Http\Controllers\MailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,9 @@ Route::get('get_village', [SupplierDataController::class, 'get_village'])->name(
 Route::get('supplierDetail', [SupplierDataController::class, 'supplierDetail'])->name('supplierDetail');
 Route::get('get_kdpos', [SupplierDataController::class, 'get_kdpos'])->name('get_kdpos');
 Route::post('post_supplier', [SupplierDataController::class, 'post_supplier'])->name('post_supplier');
+
+// testing email
+Route::get('sendMail', [MailController::class, 'sendMail'])->name('sendMail');
 
 
 require __DIR__.'/auth.php';

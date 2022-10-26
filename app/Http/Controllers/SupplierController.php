@@ -18,6 +18,10 @@ use Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bank;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMail;
+use App\Http\Controllers\MailController;
+
 class SupplierController extends Controller
 {
     /**
@@ -265,6 +269,8 @@ class SupplierController extends Controller
         ->where('suppliers.id', $id)
         ->where('supplier_addresses.flagMainAddress', 1)
         ->get();
+
+        (new MailController)->sendMail();
 
         return response()->json([
             'supplierDetail'=>$supplier
