@@ -6,15 +6,15 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="max-w-7xl mx-auto px-2 sm:px-8 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg md:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <button class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 mb-4 rounded">
+                    <button class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 mb-4 rounded">
                         <a href="{{ route('suppliers.create') }}">
                             <i class="fas fa-solid fa-plus"></i> Supplier
                         </a>
@@ -80,24 +80,26 @@
             </div>
             <div class="mt-4"id="other_address">
                 <div class="p-10 text-white-700 mt-4" style="justify-content: left;max-width:830px" >
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300" open>
+                    <details class="bg-gray-200 open:bg-red-600 duration-300 " open>
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Profil</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
-                            <div class="grid grid-cols-6 gap-3">
+                            <div class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">Nama</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierName" name="supplierName" readOnly>
                                 </div>
+                                
                                 <div class="input-group col-span-1">
                                     <label for="supplier_siup">Tahun Berdiri</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierYearOfEstablishment" name="supplierYearOfEstablishment" readOnly>
                                 </div>
+
                                 <div class="input-group col-span-1">
                                     <label for="supplier_siup">Jml Karyawan</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierNumberOfEmployee" name="supplierNumberOfEmployee" readOnly>
                                 </div>
                             </div>   
-                            <div class="grid grid-cols-6 gap-3">
+                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">Jenis</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierType" name="supplierType" readOnly>
@@ -108,7 +110,7 @@
                                 </div>
                                
                             </div>   
-                            <div class="grid grid-cols-6 gap-3 mt-2">
+                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">No Rekening</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numberBank" name="numberBank" readOnly>
@@ -118,7 +120,7 @@
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="nameBank" name="nameBank" readOnly>
                                 </div>
                             </div>   
-                            <div class="grid grid-cols-6 gap-3 mt-2">
+                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
                                 <div class="input-group col-span-2">
                                     <label for="supplier_siup">Jangka Waktu Pembayaran</label><br>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="max-width:70px;text-align:center" id="termOfPayment" name="termOfPayment" readOnly>
@@ -128,7 +130,7 @@
 
                         </div>
                     </details>
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300" id="other_address">
+                    <details class="bg-gray-200 open:bg-red-600 duration-300" id="other_address">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Alamat</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <p>
@@ -153,7 +155,7 @@
                             </p>
                         </div>
                     </details>
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300 border border-white-500">
+                    <details class="bg-gray-200 open:bg-red-600 duration-300 border border-white-500">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">PIC</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <table class="table-auto w-full border-collapse" id="supplierPICDetail">
@@ -184,7 +186,7 @@
                             </table>
                         </div>
                     </details>
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300">
+                    <details class="bg-gray-200 open:bg-red-600 duration-300">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Attachment</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <div class="container" id="attachement_id">
@@ -192,7 +194,7 @@
                             </div>
                         </div>
                     </details>
-                    <details class="bg-gray-200 open:bg-amber-200 duration-300">
+                    <details class="bg-gray-200 open:bg-red-600 duration-300">
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">ISO</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <p id="supplier_iso"></p>
@@ -217,6 +219,8 @@
             processing: true,
             serverSide: true,
             searchDelay: 500,
+            autoWidth:false,
+            scrollX:true,
             ajax: {
                 url: '{!! url()->current() !!}',
                 // type: 'post',
@@ -246,10 +250,10 @@
                     name: 'action',
                     orderable: true,
                     searchable: true,
-                    scrollX: true,
                     // width: '25%'
                 }
-            ]
+            ],
+          
         })
     });
 
@@ -371,19 +375,19 @@
         $.each(res,function(i,data){
                     $('#supplier_iso').append(`
 
-                    <div class="grid grid-cols-6 gap-3">
+                    <div class="grid grid-cols-3 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                         <div class="col-span-1">
                             <label for="">${data.iso}</label>
                         </div>
                         <div class="col-span-1">
                             <label for="cc" style="font-size: 12px">
-                                <input type="checkbox" class="diterapkan" name="diterapkan" ${data.applied =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
+                                <input type="checkbox" style="border-radius: 5px !important;" class="diterapkan" name="diterapkan" ${data.applied =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
                                 Diterapkan                  
                             </label>
                         </div>
                         <div class="col-span-1">
                             <label for="cc" style="font-size: 12px">
-                                <input type="checkbox" class="tersertifikasi" name="tersertifikasi"${data.certified =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
+                                <input type="checkbox" style="border-radius: 5px !important;" class="tersertifikasi" name="tersertifikasi"${data.certified =='1'?'checked':''} onclick="return false;" onkeydown="return false;">
                               Tersertifikasi                  
                             </label>
                         </div>
@@ -398,7 +402,7 @@
       
         $('#attachement_id').append(`
 
-        <div class="grid grid-cols-6 gap-3">
+        <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
             <div class="col-span-2">
                 <p>
                     <label for="">File Pengukuhan</label>
@@ -427,7 +431,7 @@
                 </p>
             </div>
         </div>
-        <div class="grid grid-cols-6 gap-3 mt-3">
+        <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
             <div class="col-span-2">
                 <p>
                     <label for="">File Surat Keterangan Terdaftar</label>

@@ -74,9 +74,23 @@
   --tw-bg-opacity: 1;
   background-color: rgb(187 247 208 / var(--tw-bg-opacity));
 }
+.open\:bg-red-600[open] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+.open\:bg-red-200[open] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 202 202 / var(--tw-bg-opacity));
+
+}
 .open\:bg-amber-200[open] {
   --tw-bg-opacity: 1;
   background-color: rgb(253 230 138 / var(--tw-bg-opacity));
+}
+
+table.dataTable thead tr {
+  background-color: #E0144C;
+  color: white;
 }
 </style>
 <script>
