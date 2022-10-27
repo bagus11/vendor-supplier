@@ -54,6 +54,16 @@
     .btn:hover{
         box-shadow: 0 0 0 2px #ffff, 0 0 0 3px var(--primary-color);
     }
+    #add_more:hover{
+        box-shadow: 0 0 0 2px #ffff, 0 0 0 3px #59CE8F;
+    }
+    
+    #btn_pop_address:hover{
+        box-shadow: 0 0 0 2px #ffff, 0 0 0 3px #FF1E00;
+    }
+    #btn_pop_pic:hover{
+        box-shadow: 0 0 0 2px #ffff, 0 0 0 3px #FF1E00;
+    }
     .text-center{
         text-align: center;
     }
@@ -111,6 +121,7 @@
         width: 100%;
         background-color: #dcdcdc;
         counter-reset: step;
+        
     }
     .progress{
         background-color: var(--primary-color);
@@ -183,7 +194,7 @@
             </div>
             {{-- Step --}}
             <div class="form-step form-step-active">
-                <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                <div class="grid xs:grid-cols-1 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-4">
                         <label for="nama_supplier">Nama Perusahaan</label>
                         <input type="text" name="nama_supplier" id="nama_supplier">
@@ -293,10 +304,10 @@
                 </div>
             </div>
             <div class="form-step" >
-              
+               
                 <div class="container">      
-                    <div id="dynamic_field" class ="grid grid justify-items-center md:grid-cols-2 grid-flow-col gap-2 auto-cols-auto sm:grid-cols-1"> 
-                            <div class="relative w-full p-3 rounded-lg shadow-lg bg-white max-w-xl" >
+                    <div id="dynamic_field" class ="grid grid justify-items-center md:grid-cols-2 gap-2 auto-cols-auto sm:grid-cols-1"> 
+                            <div class="relative w-full p-3 rounded-lg shadow-lg bg-white max-w-xl" style="box-shadow: 0 0 0 2px #ffff, 0 0 0 3px #EEEEEE;" >
                                 <div class="grid grid-cols-6 gap-2 pt-4">
                                     <div class="input-group col-span-2" style="justify-content:center">
                                     <img style="margin-top:20%;width:100%" src="{{URL::asset('profile.png')}}" alt="">                     
@@ -322,14 +333,14 @@
                             </div>
                     </div>
                 </div>               
-                    <div class="input-group mt-4">
-                        <button type="button" id="add_more" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                        </button>
-                    </div>
-             
+                 
+                <div class="input-group mt-4">
+                    <button type="button" id="add_more" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                    </button>
+                </div>
               
               
                 <div class="btns-group">
@@ -345,7 +356,7 @@
                         <input type="text" name="no_pengukuhan" id="no_pengukuhan">
                     </div>
                     <div class="input-group col-span-3">
-                        <label for="supplier_siup">Attachment</label>
+                        <label for="supplier_siup">File Pengukuhan</label>
                         <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pengukuhan_attachment" placeholder="Enter Supplier NPWP" name="pengukuhan_attachment">
                     </div>
                    
@@ -356,7 +367,7 @@
                         <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;" name="no_npwp" id="no_npwp">
                     </div>
                     <div class="input-group col-span-3">
-                        <label for="no_npwp_attachment">Attachment</label>
+                        <label for="no_npwp_attachment">File NPWP</label>
                         <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="npwp_attachment" placeholder="Enter Supplier NPWP" name="npwp_attachment">
                     </div>
                    
@@ -553,7 +564,9 @@
             <div class="container form_address">
                 <div class="input-group" style="float:right">
                     <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" style="margin:auto" id="btn_pop_address" style="float:right;postion:fixed">
-                        <i class="fas fa-minus"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
                     </button>
             </div>
             <div class="input-group">
@@ -569,13 +582,11 @@
         <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
             <div class="input-group col-span-4">
                 <div class="input-group">
-                        <label for="alamat_lain">Alamat Lain</label>
+                        <label for="alamat_lain">Alamat</label>
                         <div class="textwrapper">
                             <textarea cols="1" class="alamat_lain" rows="2" id="alamat_lain" style="border-radius: 5px !important;"></textarea>
                         </div>
-                        <small style="color: red">
-                            Harap cantumin kode pos
-                        </small>
+                   
                     </div>
                 </div>
             </div>
@@ -612,14 +623,14 @@
     $('#add_more').on('click', function(e){
        $('#dynamic_field').append(`
                                
-                    <div class="array_pic_contact relative w-full p-3 rounded-lg shadow-lg bg-white max-w-xl">
+                    <div class="array_pic_contact relative w-full p-3 rounded-lg shadow-lg bg-white max-w-xl "style="box-shadow: 0 0 0 2px #ffff, 0 0 0 3px #EEEEEE" >
                                 <div class="grid grid-cols-6 gap-3 pt-4">
                                     <div class="input-group col-span-2" style="justify-content:center">
                                     <img style="margin-top:25%;" src="{{URL::asset('profile.png')}}" alt="">                     
                                     </div>
     
                                     <div class="input-group col-span-4">
-                                        <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" id="btn_pop_pic"  style="float:right;margin-top:-10%">
+                                        <button class="bg-red-500 btn_pop text-white active:bg-red-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button" id="btn_pop_pic"  style="float:right;margin-top:-10%;margin-right:-2%;">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -886,7 +897,7 @@
                     printErrorMsg(response.message)
                 }else{
                     toastr['success']('Success,Data saved successfully');
-                    window.location = "{{route('suppliers.index')}}";
+                    // window.location = "{{route('suppliers.index')}}";
                 }
                 $('#save').prop('disabled', false);
                

@@ -88,7 +88,6 @@ class SupplierDataController extends Controller
         $supplierLast = Suppliers::orderby('created_at','desc')->first();
         $supplierID = $supplierLast->id + 1; 
         // Other Address
-        // dd($arr_address);
         if($arr_address)
         {
             foreach($arr_address as $address)
@@ -257,62 +256,61 @@ class SupplierDataController extends Controller
 
         ]);
 
-        if($validator->fails()){
-        return response()->json([
-            'message'=>$validator->errors(), 
-            'status'=>422
-        ]);
-        }else{
- // store company attachment
-        
-            $fileNPWP = $request->file('npwp_attachment')->hashName();
-            $filePKP = $request->file('pengukuhan_attachment')->hashName();
-            $fileRegistrationCertificate = $request->file('skt_attachment')->hashName();
-            $fileCompanyProfile = $request->file('cp_attachment')->hashName();
+        // if($validator->fails()){
+        // return response()->json([
+        //     'message'=>$validator->errors(), 
+        //     'status'=>422
+        // ]);
+        // }else{
+        //  // store company attachment
+        //     $fileNPWP = $request->file('npwp_attachment')->hashName();
+        //     $filePKP = $request->file('pengukuhan_attachment')->hashName();
+        //     $fileRegistrationCertificate = $request->file('skt_attachment')->hashName();
+        //     $fileCompanyProfile = $request->file('cp_attachment')->hashName();
 
-            $pathNPWP = $request->file('npwp_attachment')->store('public/npwp');
-            $pathSIUP = $request->file('pengukuhan_attachment')->store('public/siup');
-            $pathRegistrationCertificate = $request->file('skt_attachment')->store('public/registrationCertificate');
-            $pathCompanyProfile = $request->file('cp_attachment')->store('public/companyProfile');
+        //     $pathNPWP = $request->file('npwp_attachment')->store('public/npwp');
+        //     $pathSIUP = $request->file('pengukuhan_attachment')->store('public/siup');
+        //     $pathRegistrationCertificate = $request->file('skt_attachment')->store('public/registrationCertificate');
+        //     $pathCompanyProfile = $request->file('cp_attachment')->store('public/companyProfile');
 
-            $companyAttachment =[
-                'numberPKP' => $request->numberPKP,
-                'numberNPWP' => $request->numberNPWP,
-                'nameNPWP' => $request->nameNPWP,
-                'supplierId' => $supplierID,
-                'addressNPWP' => $request->addressNPWP,
-                'fileNPWP' => $fileNPWP,
-                'filePKP' => $filePKP,
-                'fileRegistrationCertificate' => $fileRegistrationCertificate,
-                'fileCompanyProfile' => $fileCompanyProfile,
-            ];
+        //     $companyAttachment =[
+        //         'numberPKP' => $request->numberPKP,
+        //         'numberNPWP' => $request->numberNPWP,
+        //         'nameNPWP' => $request->nameNPWP,
+        //         'supplierId' => $supplierID,
+        //         'addressNPWP' => $request->addressNPWP,
+        //         'fileNPWP' => $fileNPWP,
+        //         'filePKP' => $filePKP,
+        //         'fileRegistrationCertificate' => $fileRegistrationCertificate,
+        //         'fileCompanyProfile' => $fileCompanyProfile,
+        //     ];
            
-            DB::transaction(function() use ($push_iso,$push_pic,$push_address,$supplier,$payment,$companyAttachment,$supplier_address){
-                // Main Address
-            SupplierAddress::create($supplier_address); 
-            if(count($push_iso) > 0)
-                {
-                    IsoSupplier::insert($push_iso);
-                }
-                if(count($push_pic) > 0)
-                {
-                    Pic::insert($push_pic);
-                }
-                if(count($push_address) > 0)
-                {
-                    SupplierAddress::insert($push_address);
-                }
-                // Suppllier 
-                Suppliers::create($supplier);
-                // Payment
-                Payment::create($payment);
-                // Company Attachment
-                CompanyAttachment::create($companyAttachment);
-            });
-        }
+        //     DB::transaction(function() use ($push_iso,$push_pic,$push_address,$supplier,$payment,$companyAttachment,$supplier_address){
+        //         // Main Address
+        //     SupplierAddress::create($supplier_address); 
+        //     if(count($push_iso) > 0)
+        //         {
+        //             IsoSupplier::insert($push_iso);
+        //         }
+        //         if(count($push_pic) > 0)
+        //         {
+        //             Pic::insert($push_pic);
+        //         }
+        //         if(count($push_address) > 0)
+        //         {
+        //             SupplierAddress::insert($push_address);
+        //         }
+        //         // Suppllier 
+        //         Suppliers::create($supplier);
+        //         // Payment
+        //         Payment::create($payment);
+        //         // Company Attachment
+        //         CompanyAttachment::create($companyAttachment);
+        //     });
+        // }
 
         // call function sending email
-        $this->sendMail();
+        $this->sendMail($supplier_address, $supplier);
         
         return response()->json([
             'message'=>'Data berhasil disimpan', 
@@ -360,17 +358,23 @@ class SupplierDataController extends Controller
         ]);
     }
 
-    public function sendMail()
+    public function sendMail($supplier_address, $supplier)
     {
-        $email = [
-            'irvanmuhammad22@gmail.com',
-            // 'irvansindy@pralon.com'
+        $emails = [
+         'bagus.slamet@pralon.com'
         ];
+        $data=[
+            'supplier'=>$supplier,
+            'supplier_address'=>$supplier_address
+        ];
+        $message = view('email.mail',$data);
         $mailData = [
-            'title' => 'Pemberitahuan pendaftaran vendor/supplier',
-            'subject' => 'vendor sukses melakukan pendaftaran sebagai supplier',
-            'footer' => 'Vendor Supplier'
+            'title' => 'Penambahan Supplier Baru',
+            'subject'=>$message,
+            'footer' => 'Email otomatis dari PT.Pralon(ICT Division)'
         ];
-        Mail::to($email)->send(new SendMail($mailData));
+        Mail::to($emails)
+        ->cc('bagus.oetomo11@gmail.com')
+        ->send(new SendMail($mailData));
     }
 }

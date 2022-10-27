@@ -1,3 +1,11 @@
+<style>
+    .add_supplier:hover{
+        box-shadow: 0 0 0 2px #ffff, 0 0 0 3px #59CE8F;
+    }
+    .editPost:hover{
+        box-shadow: 0 0 0 2px #ffff, 0 0 0 3px #5DA7DB;
+    }
+</style>
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -14,7 +22,7 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <button class="bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 mb-4 rounded">
+                    <button class="add_supplier bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 mb-4 rounded">
                         <a href="{{ route('suppliers.create') }}">
                             <i class="fas fa-solid fa-plus"></i> Supplier
                         </a>
@@ -79,8 +87,8 @@
                 </div>
             </div>
             <div class="mt-4"id="other_address">
-                <div class="p-10 text-white-700 mt-4" style="justify-content: left;max-width:830px" >
-                    <details class="bg-gray-200 open:bg-red-600 duration-300 " open>
+                <div class="text-white-700 mt-4" style="justify-content: left;max-width:830px" >
+                    <details class="bg-gray-200 open:bg-red-600 duration-300" open>
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Profil</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
                             <div class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
@@ -203,8 +211,8 @@
     
                 </div>
             </div>
-            <div class="px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button Phone="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm" id="closeSupplierDetail">Close</button>
+            <div class="px-4 py-2 sm:flex sm:flex-row-reverse sm:px-6">
+                <button Phone="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 fg sm:ml-3 sm:w-auto sm:text-sm" id="closeSupplierDetail">Close</button>
             </div>
             </div>
         </div>

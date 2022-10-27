@@ -31,7 +31,7 @@ class SendMail extends Mailable
     {
         // return $this->view('view.name');
         return $this->markdown('sendMail')
-                    ->subject('Vendor Supplier berhasil mendaftar')
+                    ->subject('Penambahan Supplier Baru')
                     ->with('data', $this->mailData);
     }
 }
