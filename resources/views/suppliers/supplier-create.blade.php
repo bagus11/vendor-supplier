@@ -306,7 +306,7 @@
             <div class="form-step" >
                
                 <div class="container">      
-                    <div id="dynamic_field" class ="grid grid justify-items-center md:grid-cols-2 gap-4 auto-cols-auto sm:grid-cols-1"> 
+                    <div id="dynamic_field" class ="grid grid justify-items-center lg:grid-cols-2 gap-4 auto-cols-auto sm:grid-cols-1"> 
                             <div class="relative w-full p-3 rounded-lg shadow-lg bg-white max-w-xl" style="box-shadow: 0 0 0 2px #ffff, 0 0 0 3px #EEEEEE;" >
                                 <div class="grid grid-cols-6 gap-2 pt-4">
                                     <div class="input-group col-span-2" style="justify-content:center">
