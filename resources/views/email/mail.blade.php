@@ -25,7 +25,7 @@
         Website         : {{$supplier_address['supplierWebsite']}}<br>
     </p>
     <p style="font-size:12px">
-        Untuk selengkapnya, silahkan cek di web kami. <br>
+        Untuk selengkapnya, silahkan cek di web kami <a href="{{ route('suppliers.index')}}">disini</a> <br>
         Demikian yang dapat kami sampaikan, terima kasih atas kerjasamanya 
     </p>
 </body>

@@ -29,8 +29,13 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+            public function __construct()
+            {
+                $this->middleware('auth');
+            }
     public function index(Request $request)
     {
+      
         if($request->ajax()) {
             // $data = DB::table('suppliers')
             // ->join('supplier_addresses','supplier_addresses.supplierId','=','suppliers.userId')
@@ -41,7 +46,7 @@ class SupplierController extends Controller
             //     $query->where('flagMainAddress', 1);
             // });
             // $data = Suppliers::query();
-            $data = SupplierAddress::with('supplier')->where('flagMainAddress', 1);
+            $data = SupplierAddress::with('supplier')->where('flagMainAddress', 1)->orderBy('supplierId','DESC');
 
             // dd($data);
             return DataTables::eloquent($data)
