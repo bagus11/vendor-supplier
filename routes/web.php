@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MasterProduct;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SupplierController;
@@ -18,14 +19,11 @@ use App\Http\Controllers\MailController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [DashboardController::class, 'index'])->name('/');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 // Route::get('supplier', SupplierController::class)->name('supplier');
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
 
 Route::resource('suppliers', SupplierController::class);
 Route::resource('products', MasterProduct::class);
@@ -36,7 +34,7 @@ Route::get('get_village', [SupplierDataController::class, 'get_village'])->name(
 Route::get('supplierDetail', [SupplierDataController::class, 'supplierDetail'])->name('supplierDetail');
 Route::get('get_kdpos', [SupplierDataController::class, 'get_kdpos'])->name('get_kdpos');
 Route::post('post_supplier', [SupplierDataController::class, 'post_supplier'])->name('post_supplier');
-
+Route::get('report_supplier/{id}',[SupplierDataController::class, 'report_supplier'])->name('report_supplier.create.id');
 // testing email
 Route::get('sendMail', [MailController::class, 'sendMail'])->name('sendMail');
 
