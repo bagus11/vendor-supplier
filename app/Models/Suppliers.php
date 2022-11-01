@@ -22,6 +22,10 @@ class Suppliers extends Model
         // return $this->hasMany(SupplierAddress::class, 'supplierId', 'id');
         return $this->hasOne(SupplierAddress::class, 'supplierId', 'id');
     }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id');
+    }
     
     public function supplierPic() {
         return $this->hasMany(Pic::class, 'supplierId', 'id');

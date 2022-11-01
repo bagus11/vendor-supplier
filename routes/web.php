@@ -40,5 +40,8 @@ Route::post('post_supplier', [SupplierDataController::class, 'post_supplier'])->
 // testing email
 Route::get('sendMail', [MailController::class, 'sendMail'])->name('sendMail');
 
+// repost
+Route::get('reportSupplier', [SupplierDataController::class, 'reportSupplier'])->name('reportSupplier');
+
 
 require __DIR__.'/auth.php';
