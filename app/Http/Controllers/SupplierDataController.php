@@ -86,7 +86,8 @@ class SupplierDataController extends Controller
         $termOfPayment = $request->termOfPayment;
 
         $supplierLast = Suppliers::orderby('created_at','desc')->first();
-        $supplierID = $supplierLast->id + 1; 
+        $supplierID = $supplierLast!=null? $supplierLast->id + 1: 1; 
+        
         // Other Address
         if($arr_address)
         {
@@ -256,58 +257,58 @@ class SupplierDataController extends Controller
 
         ]);
 
-        // if($validator->fails()){
-        // return response()->json([
-        //     'message'=>$validator->errors(), 
-        //     'status'=>422
-        // ]);
-        // }else{
-        //  // store company attachment
-        //     $fileNPWP = $request->file('npwp_attachment')->hashName();
-        //     $filePKP = $request->file('pengukuhan_attachment')->hashName();
-        //     $fileRegistrationCertificate = $request->file('skt_attachment')->hashName();
-        //     $fileCompanyProfile = $request->file('cp_attachment')->hashName();
+        if($validator->fails()){
+        return response()->json([
+            'message'=>$validator->errors(), 
+            'status'=>422
+        ]);
+        }else{
+         // store company attachment
+            $fileNPWP = $request->file('npwp_attachment')->hashName();
+            $filePKP = $request->file('pengukuhan_attachment')->hashName();
+            $fileRegistrationCertificate = $request->file('skt_attachment')->hashName();
+            $fileCompanyProfile = $request->file('cp_attachment')->hashName();
 
-        //     $pathNPWP = $request->file('npwp_attachment')->store('public/npwp');
-        //     $pathSIUP = $request->file('pengukuhan_attachment')->store('public/siup');
-        //     $pathRegistrationCertificate = $request->file('skt_attachment')->store('public/registrationCertificate');
-        //     $pathCompanyProfile = $request->file('cp_attachment')->store('public/companyProfile');
+            $pathNPWP = $request->file('npwp_attachment')->store('public/npwp');
+            $pathSIUP = $request->file('pengukuhan_attachment')->store('public/siup');
+            $pathRegistrationCertificate = $request->file('skt_attachment')->store('public/registrationCertificate');
+            $pathCompanyProfile = $request->file('cp_attachment')->store('public/companyProfile');
 
-        //     $companyAttachment =[
-        //         'numberPKP' => $request->numberPKP,
-        //         'numberNPWP' => $request->numberNPWP,
-        //         'nameNPWP' => $request->nameNPWP,
-        //         'supplierId' => $supplierID,
-        //         'addressNPWP' => $request->addressNPWP,
-        //         'fileNPWP' => $fileNPWP,
-        //         'filePKP' => $filePKP,
-        //         'fileRegistrationCertificate' => $fileRegistrationCertificate,
-        //         'fileCompanyProfile' => $fileCompanyProfile,
-        //     ];
+            $companyAttachment =[
+                'numberPKP' => $request->numberPKP,
+                'numberNPWP' => $request->numberNPWP,
+                'nameNPWP' => $request->nameNPWP,
+                'supplierId' => $supplierID,
+                'addressNPWP' => $request->addressNPWP,
+                'fileNPWP' => $fileNPWP,
+                'filePKP' => $filePKP,
+                'fileRegistrationCertificate' => $fileRegistrationCertificate,
+                'fileCompanyProfile' => $fileCompanyProfile,
+            ];
            
-        //     DB::transaction(function() use ($push_iso,$push_pic,$push_address,$supplier,$payment,$companyAttachment,$supplier_address){
-        //         // Main Address
-        //     SupplierAddress::create($supplier_address); 
-        //     if(count($push_iso) > 0)
-        //         {
-        //             IsoSupplier::insert($push_iso);
-        //         }
-        //         if(count($push_pic) > 0)
-        //         {
-        //             Pic::insert($push_pic);
-        //         }
-        //         if(count($push_address) > 0)
-        //         {
-        //             SupplierAddress::insert($push_address);
-        //         }
-        //         // Suppllier 
-        //         Suppliers::create($supplier);
-        //         // Payment
-        //         Payment::create($payment);
-        //         // Company Attachment
-        //         CompanyAttachment::create($companyAttachment);
-        //     });
-        // }
+            DB::transaction(function() use ($push_iso,$push_pic,$push_address,$supplier,$payment,$companyAttachment,$supplier_address){
+                // Main Address
+            SupplierAddress::create($supplier_address); 
+            if(count($push_iso) > 0)
+                {
+                    IsoSupplier::insert($push_iso);
+                }
+                if(count($push_pic) > 0)
+                {
+                    Pic::insert($push_pic);
+                }
+                if(count($push_address) > 0)
+                {
+                    SupplierAddress::insert($push_address);
+                }
+                // Suppllier 
+                Suppliers::create($supplier);
+                // Payment
+                Payment::create($payment);
+                // Company Attachment
+                CompanyAttachment::create($companyAttachment);
+            });
+        }
 
         // call function sending email
         $this->sendMail($supplier_address, $supplier);
