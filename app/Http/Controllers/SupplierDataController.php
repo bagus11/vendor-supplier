@@ -397,6 +397,12 @@ class SupplierDataController extends Controller
             'margin_footer' => '2',
         ]);
 
+        // get logo
+        // $document->Image('public/logo.png', 0, 0, 210, 140, 'jpg', '', true, false);
+        $imageLogo = '<img src="'.$_SERVER['DOCUMENT_ROOT'].'/logo.png" width="70px" style="float: right;"/>';
+        $document->WriteHTML($imageLogo);
+        $document->WriteHTML('<br>');
+        $document->WriteHTML('<br>');
         // get data supplier
         $getSupplier = DB::table('suppliers')
         ->join('supplier_addresses', 'suppliers.id', '=', 'supplier_addresses.supplierId')
@@ -426,8 +432,9 @@ class SupplierDataController extends Controller
             ->select('iso_suppliers.applied','iso_suppliers.certified','iso_masters.iso')
             ->where('iso_suppliers.supplierId',$request->id)->get();
             
-
-            // dd($iso);
+        // get company attachment
+        $companyAttachment = CompanyAttachment::where('supplierId', $request->id)->get();
+        // dd($companyAttachment);
         // Set some header informations for output
         $header = [
             'Content-Type' => 'application/pdf',
@@ -452,7 +459,8 @@ class SupplierDataController extends Controller
         $document->WriteHTML(view('suppliers.supplier-report', [
             'otherAddresses' => $otherAddresses,
             'pics' => $pics,
-            'isoes' => $iso
+            'isoes' => $iso,
+            'companyAttachment' => $companyAttachment
         ]));
 
         // Save PDF on your public storage 
