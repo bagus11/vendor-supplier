@@ -385,7 +385,7 @@ class SupplierDataController extends Controller
         // init set timer
         ini_set('max_execution_time', 1800);
         // filename
-        $resultNamePDF = 'report-suppier.pdf';
+        $resultNamePDF = 'report-suppier'.date('Y-m-d H:i:s').'pdf';
 
         // create file pdf
         $document = new PDF([

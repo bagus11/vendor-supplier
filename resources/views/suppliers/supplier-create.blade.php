@@ -723,7 +723,8 @@
     // End Set CC
 
     // Button Submit
-    $('#save').on('click', function(){
+    $('#save').on('click', function(e){
+        e.preventDefault();
         var cc = document.getElementById('cc');
         if(cc.checked == false)
         {
@@ -732,7 +733,7 @@
         }else{
             $('#save').prop('disabled', true);
             $('#cc').prop('disabled', true);
-            save()
+            save(e)
         }
     })
     // End Button Submit
@@ -741,7 +742,7 @@
     function save()
     {
         // Initiating
-
+        
         // Halaman Pertama 
         var nama_supplier = $('#nama_supplier').val();
         var tahun_pendirian = $('#tahun_pendirian').val();
@@ -759,7 +760,7 @@
         var website= $('#website').val();
         var bankName= $('#bankName').val();
         var arr_address=[];
-           
+        let array_alamat =[]
             for (let i = 0; i < alamat_lain.length; i++) {
             let arralamat_lain = alamat_lain[i].value;
             let arrjenis_alamat_lain = jenis_alamat_lain[i].value;
@@ -767,7 +768,8 @@
             let arrno_fax_lain = no_fax_lain[i].value;
             let arremail_lain = email_lain[i].value;
             let arrwebsite_lain = website_lain[i].value;
-            let array_alamat =[
+
+            array_alamat =[
                 arralamat_lain,
                 arrjenis_alamat_lain,
                 arrno_telp_lain,
@@ -782,19 +784,27 @@
         // Halaman Kedua
         var arr_pic=[];
             var arr_iso = []
+            let array =[];
             for (let i = 0; i < dept_pic.length; i++) {
             let arrdept_pic = dept_pic[i].value;
             let arrname_pic = name_pic[i].value;
             let arrphone_pic = phone_pic[i].value;
             let arremail_pic = email_pic[i].value;
-            let array =[
-                arrdept_pic,
-                arrname_pic,
-                arrphone_pic,
-                arremail_pic
-            ]
+                if(arrdept_pic !='' && arrname_pic !='' && arrphone_pic != '' && arremail_pic !=''){
+                    array =[
+                            arrdept_pic,
+                            arrname_pic,
+                            arrphone_pic,
+                            arremail_pic
+                        ]
+                }
             arr_pic.push(array);
         }
+            if(array.length ===0 ){
+                toastr['error']('PIC tidak boleh kosong');
+                $('#save').prop('disabled', false)
+                return false;
+            }
         // End Halaman Kedua
 
         // Halaman Ketiga
@@ -804,17 +814,28 @@
         var alamat_npwp = $('#alamat_npwp').val()
             //End Attachment 
             // ISO
+            var selected_data =[]
             for (let i = 0; i < id.length; i++) {
                     var arr_id = id[i].value;
                     var arr_diterapkan = diterapkan[i].checked == true?'1':'0';
                     var arr_tersertifikasi = tersertifikasi[i].checked == true?'1':'0'
-                    var selected_data =[
-                        arr_id,
-                        arr_diterapkan,
-                        arr_tersertifikasi
-                    ]
+
+             
+                    if(arr_diterapkan != 0 && arr_tersertifikasi !=0 )
+                    {
+                        selected_data =[
+                            arr_id,
+                            arr_diterapkan,
+                            arr_tersertifikasi
+                        ]
+                    }
                     arr_iso.push(selected_data)
                 }
+                if(selected_data.length === 0){
+                        toastr['error']('ISO tidak boleh kosong');
+                        $('#save').prop('disabled', false)
+                        return false
+                    }
             // End ISO
 
         // End Halaman Ketiga
@@ -864,18 +885,11 @@
  
         // EndForm Upload
         // jika form PIC Kosong maka akan di validasi disini
-        console.log(arr_pic)
-        if(arr_pic == ['', '', '', ''])
-        {
-            toastr['error']('Form PIC kosong, harap isi terlebih dahulu');
-            $('#save').prop('disabled', false)
-            return false;
-        }
+
         // End jika form PIC Kosong maka akan di validasi disini
 
-
         // Ajax
-    
+       
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
