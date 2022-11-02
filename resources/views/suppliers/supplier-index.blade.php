@@ -107,11 +107,7 @@
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierNumberOfEmployee" name="supplierNumberOfEmployee" readOnly>
                                 </div>
                             </div>   
-<<<<<<< HEAD
                             <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
-=======
-                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
->>>>>>> b018edbe385aed5338a4367a593774ec3c51b1b8
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">Jenis</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierType" name="supplierType" readOnly>
@@ -122,11 +118,7 @@
                                 </div>
                                
                             </div>   
-<<<<<<< HEAD
                             <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
-=======
-                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
->>>>>>> b018edbe385aed5338a4367a593774ec3c51b1b8
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">No Rekening</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numberBank" name="numberBank" readOnly>
