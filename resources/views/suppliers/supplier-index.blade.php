@@ -91,7 +91,7 @@
                     <details class="bg-gray-200 open:bg-red-600 duration-300" open>
                         <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Profil</summary>
                         <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
-                            <div class="grid grid-cols-2 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                            <div class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">Nama</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierName" name="supplierName" readOnly>
@@ -107,7 +107,11 @@
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierNumberOfEmployee" name="supplierNumberOfEmployee" readOnly>
                                 </div>
                             </div>   
+<<<<<<< HEAD
                             <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
+=======
+                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
+>>>>>>> b018edbe385aed5338a4367a593774ec3c51b1b8
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">Jenis</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierType" name="supplierType" readOnly>
@@ -118,7 +122,11 @@
                                 </div>
                                
                             </div>   
+<<<<<<< HEAD
                             <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
+=======
+                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
+>>>>>>> b018edbe385aed5338a4367a593774ec3c51b1b8
                                 <div class="input-group col-span-3">
                                     <label for="supplier_siup">No Rekening</label>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numberBank" name="numberBank" readOnly>
@@ -128,7 +136,7 @@
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="nameBank" name="nameBank" readOnly>
                                 </div>
                             </div>   
-                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
+                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
                                 <div class="input-group col-span-2">
                                     <label for="supplier_siup">Jangka Waktu Pembayaran</label><br>
                                     <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="max-width:70px;text-align:center" id="termOfPayment" name="termOfPayment" readOnly>
