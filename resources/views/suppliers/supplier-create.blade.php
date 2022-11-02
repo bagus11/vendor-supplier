@@ -737,7 +737,9 @@
         }
     })
     // End Button Submit
-
+    function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+    }
     // Function here
     function save()
     {
@@ -814,24 +816,27 @@
         var alamat_npwp = $('#alamat_npwp').val()
             //End Attachment 
             // ISO
-            var selected_data =[]
+            var select_data_2 =[]
             for (let i = 0; i < id.length; i++) {
                     var arr_id = id[i].value;
-                    var arr_diterapkan = diterapkan[i].checked == true?'1':'0';
-                    var arr_tersertifikasi = tersertifikasi[i].checked == true?'1':'0'
+                    var arr_diterapkan = diterapkan[i].checked == true?1:0;
+                    var arr_tersertifikasi = tersertifikasi[i].checked == true?1:0
 
              
-                    if(arr_diterapkan != 0 && arr_tersertifikasi !=0 )
+                    if(arr_diterapkan === 0 && arr_tersertifikasi ===0 )
                     {
-                        selected_data =[
+                       
+                    }else{
+                        select_data_2 =[
                             arr_id,
                             arr_diterapkan,
                             arr_tersertifikasi
                         ]
                     }
-                    arr_iso.push(selected_data)
+                    arr_iso.push(select_data_2)
+                    var select_data = arr_iso.filter(onlyUnique)
                 }
-                if(selected_data.length === 0){
+                if(select_data_2.length === 0){
                         toastr['error']('ISO tidak boleh kosong');
                         $('#save').prop('disabled', false)
                         return false
@@ -884,12 +889,7 @@
             formData.append('termOfPayment',jangka_waktu)
  
         // EndForm Upload
-        // jika form PIC Kosong maka akan di validasi disini
-
-        // End jika form PIC Kosong maka akan di validasi disini
-
         // Ajax
-       
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
