@@ -34,7 +34,7 @@ Route::get('get_village', [SupplierDataController::class, 'get_village'])->name(
 Route::get('supplierDetail', [SupplierDataController::class, 'supplierDetail'])->name('supplierDetail');
 Route::get('get_kdpos', [SupplierDataController::class, 'get_kdpos'])->name('get_kdpos');
 Route::post('post_supplier', [SupplierDataController::class, 'post_supplier'])->name('post_supplier');
-Route::get('report_supplier/{id}',[SupplierDataController::class, 'report_supplier'])->name('report_supplier.create.id');
+Route::get('report_supplier/{number}',[SupplierDataController::class, 'report_supplier']);
 // testing email
 Route::get('sendMail', [MailController::class, 'sendMail'])->name('sendMail');
 
