@@ -416,7 +416,7 @@ class SupplierDataController extends Controller
             ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
             ->join('banks', 'banks.id', '=', 'payments.bankId')
             ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'tbl_provinsi.provinsi as province_name', 'tbl_kabkot.kabupaten_kota as regency_name', 'tbl_kecamatan.kecamatan as district_name', 'tbl_kelurahan.kelurahan as village_name','tbl_kelurahan.kd_pos as postal_code' ,'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
-            // ->where('suppliers.id', $request->id)
+            ->where('suppliers.id', $request->id)
             ->where('supplier_addresses.flagMainAddress', 1)
             ->get();
             
@@ -434,22 +434,20 @@ class SupplierDataController extends Controller
                 ->join('iso_masters', 'iso_masters.id','=','iso_suppliers.isoId')
                 ->select('iso_suppliers.applied','iso_suppliers.certified','iso_masters.iso')
                 ->where('iso_suppliers.supplierId',$request->id)->get();
-                
+
             // get company attachment
             $companyAttachment = CompanyAttachment::where('supplierId', $request->id)->get();
-            // dd($companyAttachment);
+            
             // Set some header informations for output
-            // ob_clean();
-            // flush();
             $header = [
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' => 'inline; filename="'.$resultNamePDF.'"',
-                'Content-Transfer-Encoding: binary',
-                'Accept-Ranges: bytes'
+                'Content-Transfer-Encoding' => 'binary',
+                'Accept-Ranges' => 'bytes'
             ];
 
             // content
-            // $document->SetDisplayMode('fullpage');
+            $document->SetDisplayMode('fullpage');
 
             $document->WriteHTML('<center><h1 style="text-align:center">'.$getSupplier[0]->supplierName.'</h1></center>');
             $document->WriteHTML('<span>Email : '.$getSupplier[0]->supplierEmail.'</span>');
@@ -470,14 +468,11 @@ class SupplierDataController extends Controller
                 'companyAttachment' => $companyAttachment
             ]));
 
-            
             // Save PDF on your public storage
-            Storage::disk('public')->put($resultNamePDF, $document->Output($resultNamePDF));
+            Storage::disk('public')->put($resultNamePDF, $document->Output($resultNamePDF, "S"));
+            // dd($result);
             // Get file back from storage with the give header informations
             return Storage::disk('public')->download($resultNamePDF, 'Request', $header);
-            // error_reporting(E_ERROR | E_PARSE);
-            // $document->debug = true;
-            // $document->Output($resultNamePDF, "F"); 
 
         } catch (\Mpdf\MpdfException $e) {
             // Process the exception, log, print etc.

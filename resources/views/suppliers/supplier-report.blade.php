@@ -27,13 +27,43 @@
         background-color: #f2f2f2;
         }
 
+        /* card */
+        .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+        width: 40%;
+        }
+
+        .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        .container {
+        padding: 2px 16px;
+        }
+
+
     </style>
 </head>
 <body>
     <div>
         <h3>Other Address</h3>
+        @forelse ($otherAddresses as $otherAddress)
+            <div class="card">
+                <div class="container">
+                    <h4><b>{{ $otherAddress->supplierAddress }}</b></h4> 
+                    <p>{{ $otherAddress->supplierPhone }}</p> 
+                    <p>{{ $otherAddress->supplierFax }}</p> 
+                    <p>{{ $otherAddress->supplierEmail }}</p> 
+                    <p>{{ $otherAddress->supplierWebsite }}</p> 
+                </div>
+            </div>
+        @empty
+            <p>-</p>
+        @endforelse
+        
         {{-- <h1 class="text-3xl font-bold underline">Other Address</h1> --}}
-        <table class="table-auto w-full">
+        {{-- <table class="table-auto w-full">
             <thead>
                 <tr class="bg-gray-100">
                     <th class="border px-4 py-2">Address</th>
@@ -58,7 +88,7 @@
                 </tr>
                 @endforelse
             </tbody>
-        </table>
+        </table> --}}
     </div>
     <div>
         <h3>PIC</h3>
