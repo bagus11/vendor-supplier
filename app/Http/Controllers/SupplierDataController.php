@@ -382,91 +382,107 @@ class SupplierDataController extends Controller
 
     public function reportSupplier(Request $request)
     {
-        // init set timer
-        ini_set('max_execution_time', 1800);
-        // filename
-        $resultNamePDF = 'report-suppier'.date('Y-m-d H:i:s').'pdf';
+        try {
+            // require_once __DIR__ . '/vendor/autoload.php';
+            // init set timer
+            ini_set('max_execution_time', 1800);
+            // filename
+            // $resultNamePDF = 'report-suppier'.date('Y-m-d H:i:s').'pdf';
+            $resultNamePDF = 'report-suppier.pdf';
 
-        // create file pdf
-        $document = new PDF([
-            'mode' => 'utf-8',
-            'format' => 'A4',
-            'margin_header' => '3',
-            'margin_top' => '20',
-            'margin_bottom' => '20',
-            'margin_footer' => '2',
-        ]);
+            // create file pdf
+            $document = new PDF([
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'margin_header' => '3',
+                'margin_top' => '20',
+                'margin_bottom' => '20',
+                'margin_footer' => '2',
+            ]);
 
-        // get logo
-        // $document->Image('public/logo.png', 0, 0, 210, 140, 'jpg', '', true, false);
-        $imageLogo = '<img src="'.$_SERVER['DOCUMENT_ROOT'].'/logo.png" width="70px" style="float: right;"/>';
-        $document->WriteHTML($imageLogo);
-        $document->WriteHTML('<br>');
-        $document->WriteHTML('<br>');
-        // get data supplier
-        $getSupplier = DB::table('suppliers')
-        ->join('supplier_addresses', 'suppliers.id', '=', 'supplier_addresses.supplierId')
-        ->join('tbl_provinsi', 'supplier_addresses.supplierProvince', '=', 'tbl_provinsi.id')
-        ->join('tbl_kabkot', 'supplier_addresses.supplierCity', '=', 'tbl_kabkot.id')
-        ->join('tbl_kecamatan', 'supplier_addresses.supplierDistricts', '=', 'tbl_kecamatan.id')
-        ->join('tbl_kelurahan', 'supplier_addresses.supplierVillage', '=', 'tbl_kelurahan.id')
-        ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
-        ->join('banks', 'banks.id', '=', 'payments.bankId')
-        ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'tbl_provinsi.provinsi as province_name', 'tbl_kabkot.kabupaten_kota as regency_name', 'tbl_kecamatan.kecamatan as district_name', 'tbl_kelurahan.kelurahan as village_name','tbl_kelurahan.kd_pos as postal_code' ,'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
-        // ->where('suppliers.id', $request->id)
-        ->where('supplier_addresses.flagMainAddress', 1)
-        ->get();
-        
-        // get data other address
-        $otherAddresses = SupplierAddress::
-        where('supplierId', $request->id)
-        ->where('flagMainAddress', 2)
-        ->get();
-
-        // get data PIC
-        $pics = Pic::where('supplierId', $request->id)->get();
-        
-        // get data ISO
-        $iso = DB::table('iso_suppliers')
-            ->join('iso_masters', 'iso_masters.id','=','iso_suppliers.isoId')
-            ->select('iso_suppliers.applied','iso_suppliers.certified','iso_masters.iso')
-            ->where('iso_suppliers.supplierId',$request->id)->get();
+            // get logo
+            // $document->Image('public/logo.png', 0, 0, 210, 140, 'jpg', '', true, false);
+            $imageLogo = '<img src="'.$_SERVER['DOCUMENT_ROOT'].'/logo.png" width="70px" style="float: right;"/>';
+            $document->WriteHTML($imageLogo);
+            $document->WriteHTML('<br>');
+            $document->WriteHTML('<br>');
+            // get data supplier
+            $getSupplier = DB::table('suppliers')
+            ->join('supplier_addresses', 'suppliers.id', '=', 'supplier_addresses.supplierId')
+            ->join('tbl_provinsi', 'supplier_addresses.supplierProvince', '=', 'tbl_provinsi.id')
+            ->join('tbl_kabkot', 'supplier_addresses.supplierCity', '=', 'tbl_kabkot.id')
+            ->join('tbl_kecamatan', 'supplier_addresses.supplierDistricts', '=', 'tbl_kecamatan.id')
+            ->join('tbl_kelurahan', 'supplier_addresses.supplierVillage', '=', 'tbl_kelurahan.id')
+            ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
+            ->join('banks', 'banks.id', '=', 'payments.bankId')
+            ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'tbl_provinsi.provinsi as province_name', 'tbl_kabkot.kabupaten_kota as regency_name', 'tbl_kecamatan.kecamatan as district_name', 'tbl_kelurahan.kelurahan as village_name','tbl_kelurahan.kd_pos as postal_code' ,'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
+            // ->where('suppliers.id', $request->id)
+            ->where('supplier_addresses.flagMainAddress', 1)
+            ->get();
             
-        // get company attachment
-        $companyAttachment = CompanyAttachment::where('supplierId', $request->id)->get();
-        // dd($companyAttachment);
-        // Set some header informations for output
-        $header = [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="'.$resultNamePDF.'"'
-        ];
+            // get data other address
+            $otherAddresses = SupplierAddress::
+            where('supplierId', $request->id)
+            ->where('flagMainAddress', 2)
+            ->get();
 
-        // content
-        $document->SetDisplayMode('fullpage');
+            // get data PIC
+            $pics = Pic::where('supplierId', $request->id)->get();
+            
+            // get data ISO
+            $iso = DB::table('iso_suppliers')
+                ->join('iso_masters', 'iso_masters.id','=','iso_suppliers.isoId')
+                ->select('iso_suppliers.applied','iso_suppliers.certified','iso_masters.iso')
+                ->where('iso_suppliers.supplierId',$request->id)->get();
+                
+            // get company attachment
+            $companyAttachment = CompanyAttachment::where('supplierId', $request->id)->get();
+            // dd($companyAttachment);
+            // Set some header informations for output
+            // ob_clean();
+            // flush();
+            $header = [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="'.$resultNamePDF.'"',
+                'Content-Transfer-Encoding: binary',
+                'Accept-Ranges: bytes'
+            ];
 
-        $document->WriteHTML('<center><h1 style="text-align:center">'.$getSupplier[0]->supplierName.'</h1></center>');
-        $document->WriteHTML('<span>Email : '.$getSupplier[0]->supplierEmail.'</span>');
-        $document->WriteHTML('<span>Phone : '.$getSupplier[0]->supplierPhone.'</span>');
-        $document->WriteHTML('<span>Fax : '.$getSupplier[0]->supplierFax.'</span>');
-        $document->WriteHTML('<span>Website : '.$getSupplier[0]->supplierWebsite.'</span>');
-        $document->WriteHTML('<p>Alamat :</p>');
-        $document->WriteHTML('<span>'.$getSupplier[0]->supplierAddress.', '.$getSupplier[0]->village_name.', '.$getSupplier[0]->district_name.', '.$getSupplier[0]->regency_name.', '.$getSupplier[0]->province_name.' - '.$getSupplier[0]->postal_code.'</span>');
-        // $document->writeHTML('<br/>');
-        $document->WriteHTML('<hr/>');
+            // content
+            // $document->SetDisplayMode('fullpage');
+
+            $document->WriteHTML('<center><h1 style="text-align:center">'.$getSupplier[0]->supplierName.'</h1></center>');
+            $document->WriteHTML('<span>Email : '.$getSupplier[0]->supplierEmail.'</span>');
+            $document->WriteHTML('<span>Phone : '.$getSupplier[0]->supplierPhone.'</span>');
+            $document->WriteHTML('<span>Fax : '.$getSupplier[0]->supplierFax.'</span>');
+            $document->WriteHTML('<span>Website : '.$getSupplier[0]->supplierWebsite.'</span>');
+            $document->WriteHTML('<p>Alamat :</p>');
+            $document->WriteHTML('<span>'.$getSupplier[0]->supplierAddress.', '.$getSupplier[0]->village_name.', '.$getSupplier[0]->district_name.', '.$getSupplier[0]->regency_name.', '.$getSupplier[0]->province_name.' - '.$getSupplier[0]->postal_code.'</span>');
+            // $document->writeHTML('<br/>');
+            $document->WriteHTML('<hr/>');
+            
+            $document->simpleTables = true;
+            
+            $document->WriteHTML(view('suppliers.supplier-report', [
+                'otherAddresses' => $otherAddresses,
+                'pics' => $pics,
+                'isoes' => $iso,
+                'companyAttachment' => $companyAttachment
+            ]));
+
+            
+            // Save PDF on your public storage
+            Storage::disk('public')->put($resultNamePDF, $document->Output($resultNamePDF));
+            // Get file back from storage with the give header informations
+            return Storage::disk('public')->download($resultNamePDF, 'Request', $header);
+            // error_reporting(E_ERROR | E_PARSE);
+            // $document->debug = true;
+            // $document->Output($resultNamePDF, "F"); 
+
+        } catch (\Mpdf\MpdfException $e) {
+            // Process the exception, log, print etc.
+            echo $e->getMessage();
+        }
         
-        $document->simpleTables = true;
-        
-        $document->WriteHTML(view('suppliers.supplier-report', [
-            'otherAddresses' => $otherAddresses,
-            'pics' => $pics,
-            'isoes' => $iso,
-            'companyAttachment' => $companyAttachment
-        ]));
-
-        // Save PDF on your public storage 
-        Storage::disk('public')->put($resultNamePDF, $document->Output($resultNamePDF, "S"));
-        // Get file back from storage with the give header informations
-        return Storage::disk('public')->download($resultNamePDF, 'Request', $header);
-        // dd($getSupplier);
     }
 }
