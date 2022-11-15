@@ -51,9 +51,16 @@ class SupplierController extends Controller
             // dd($data);
             return DataTables::eloquent($data)
             ->addColumn('action', function($row){
-                $btn = '<button class="editPost bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"data-id="'.$row->id.'" >
-                Detail
-              </button>';
+                $btn = '<button title="Detail" class="editPost bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"data-id="'.$row->id.'" >
+                <i class="fas fa-solid fa-eye"></i>
+              </button>
+              <a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded"href="'.url('report_supplier/'.$row->id).'" target="_blank" title="Print PDF">
+              <i class="fas fa-solid fa-print"></i>
+              </a>
+              '
+              
+              
+              ;
                 
                 return $btn;
             })->toJson();

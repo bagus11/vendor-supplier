@@ -25,7 +25,7 @@
         Website         : {{$supplier_address['supplierWebsite']}}<br>
     </p>
     <p style="font-size:12px">
-        Untuk selengkapnya, silahkan cek di web kami  <a href="{{ url('report_supplier/'.$supplier_address['supplierId'])}}">disini</a> <br>
+        Untuk cetak report, silahkan klik link <a href="{{ url('report_supplier/'.$supplier_address['supplierId'])}}">disini</a> <br>
         Demikian yang dapat kami sampaikan, terima kasih atas kerjasamanya 
     </p>
 </body>

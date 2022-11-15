@@ -158,10 +158,9 @@
         background-color:white; 
         border: 1px solid #cccccc;
     }
-
-  
-
- 
+    .error_message{
+        font-size: 12px;
+    }
 </style>
 
 <x-app-layout>
@@ -196,25 +195,26 @@
             <div class="form-step form-step-active">
                 <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-4">
-                        <label for="nama_supplier">Nama Perusahaan</label>
-                        <input type="text" name="nama_supplier" id="nama_supplier">
-                      
+                        <label for="supplierName">Nama Perusahaan</label>
+                        <input type="text" name="supplierName" id="supplierName">
+                        <span  style="color:red;" class="message_error text-red block supplierName_error"></span>
                     </div>
                     <div class="input-group col-span-2">
-                        <label for="tahun_pendirian">Tahun Pendirian</label>
-                        <input type="number" min="1800"  name="tahun_pendirian" id="tahun_pendirian">
-                       
+                        <label for="supplierYearOfEstablishment">Tahun Pendirian</label>
+                        <input type="number" min="1800"  name="supplierYearOfEstablishment" id="supplierYearOfEstablishment">
+                        <span  style="color:red;" class="message_error text-red block supplierYearOfEstablishment_error"></span>
                     </div>
                 </div>
                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-4">
                         <label for="supplier_siup">Jenis Usaha</label>
-                        <input type="text" name="jenis_usaha" id="jenis_usaha">
-                      
+                        <input type="text" name="supplierType" id="supplierType">
+                        <span  style="color:red;" class="message_error text-red block supplierType_error"></span>
                     </div>
                     <div class="input-group col-span-2">
-                        <label for="jml_karyawan">Jumlah Karyawan</label>
-                        <input type="number" name="jml_karyawan" id="jml_karyawan">
+                        <label for="supplierNumberOfEmployee">Jumlah Karyawan</label>
+                        <input type="number" name="supplierNumberOfEmployee" id="supplierNumberOfEmployee">
+                        <span  style="color:red;" class="message_error text-red block supplierNumberOfEmployee_error"></span>
                        
                     </div>
                 </div>  
@@ -262,9 +262,10 @@
                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-4">
                         <div class="input-group">
-                            <label for="alamat_kantor">Alamat Kantor</label>
-                            <textarea class="shadow appearance-none border rounded w-full py-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="alamat_kantor"name="alamat_kantor"></textarea>
-                        
+                            <label for="supplierAddress">Alamat Kantor</label>
+                            <textarea class="shadow appearance-none border rounded w-full py-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierAddress"name="supplierAddress"></textarea>
+                            <span  style="color:red;" class="message_error text-red block supplierAddress_error"></span>
+                       
                         </div>
                     </div>
                 </div>
@@ -272,25 +273,26 @@
                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">No Telpon</label>
-                        <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;"name="no_telpon" id="no_telpon">
-                       
+                        <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;"name="supplierPhone" id="supplierPhone">
+                        <span  style="color:red;" class="message_error text-red block supplierPhone_error"></span>
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Fax</label>
-                        <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name="no_fax" id="no_fax">
+                        <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name="supplierFax" id="supplierFax">
+                        <span  style="color:red;" class="message_error text-red block supplierFax_error"></span>
                         
                     </div>
                 </div>
                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Email</label>
-                        <input type="text" name="email" id="email">
-                       
+                        <input type="text" name="supplierEmail" id="supplierEmail">
+                        <span  style="color:red;" class="message_error text-red block supplierEmail_error"></span>
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Website</label>
-                        <input type="text" name="website" id="website">
-                        
+                        <input type="text" name="supplierWebsite" id="supplierWebsite">
+                        <span  style="color:red;" class="message_error text-red block supplierWebsite_error"></span>
                     </div>
                 </div>
                 <div class="another_address"></div>
@@ -352,23 +354,27 @@
                
                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3" style="padding-top:10px">
-                        <label for="no_pengukuhan">No Pengukuhan PKP</label>
-                        <input type="text" name="no_pengukuhan" id="no_pengukuhan">
+                        <label for="numberPKP">No Pengukuhan PKP</label>
+                        <input type="text" name="numberPKP" id="numberPKP">
+                        <span  style="color:red;" class="message_error text-red block numberPKP_error"></span>
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">File Pengukuhan</label>
                         <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="pengukuhan_attachment" placeholder="Enter Supplier NPWP" name="pengukuhan_attachment">
+                        <span  style="color:red;" class="message_error text-red block pengukuhan_attachment_error"></span>
                     </div>
                    
                 </div>
                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-3" style="padding-top:10px">
-                        <label for="no_npwp">No NPWP</label>
-                        <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;" name="no_npwp" id="no_npwp">
+                        <label for="numberNPWP">No NPWP</label>
+                        <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;" name="numberNPWP" id="numberNPWP">
+                        <span  style="color:red;" class="message_error text-red block numberNPWP_error"></span>
                     </div>
                     <div class="input-group col-span-3">
-                        <label for="no_npwp_attachment">File NPWP</label>
+                        <label for="numberNPWP_attachment">File NPWP</label>
                         <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="npwp_attachment" placeholder="Enter Supplier NPWP" name="npwp_attachment">
+                        <span  style="color:red;" class="message_error text-red block npwp_attachment_error"></span>
                     </div>
                    
                 </div>
@@ -376,15 +382,17 @@
                     <div class="input-group col-span-3">
                         <div class="input-group">
                                 <label for="supplier_siup">Nama NPWP</label>
-                                <input type="text" name="nama_npwp" id="nama_npwp">
+                                <input type="text" name="nameNPWP" id="nameNPWP">
+                                <span  style="color:red;" class="message_error text-red block nameNPWP_error"></span>
                         </div>
                     </div>
                     <div class="input-group col-span-3">
                         <div class="input-group">
-                            <label for="alamat_npwp">Alamat NPWP</label>
+                            <label for="addressNPWP">Alamat NPWP</label>
                             <div class="textwrapper">
-                                <textarea cols="1" rows="2" id="alamat_npwp" style="border-radius: 5px !important;"></textarea>
+                                <textarea cols="1" rows="2" id="addressNPWP" style="border-radius: 5px !important;"></textarea>
                             </div>
+                            <span  style="color:red;" class="message_error text-red block addressNPWP_error"></span>
                         </div>
                     </div>
                 </div>
@@ -392,10 +400,12 @@
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Company Profile</label>
                         <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="cp_attachment" placeholder="Enter Supplier NPWP" name="cp_attachment">
+                        <span  style="color:red;" class="message_error text-red block cp_attachment_error"></span>
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Surat Keterangan Terdaftar</label>
                         <input type="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="skt_attachment" placeholder="Enter Supplier NPWP" name="skt_attachment">
+                        <span  style="color:red;" class="message_error text-red block skt_attachment_error"></span>
                     </div>
                    
                 </div>
@@ -429,51 +439,74 @@
 
                 <div class="btns-group">
                     <a href="#" class="btn btn-prev">Previous</a>
-                    <a href="#" class="btn btn-next">Next</a>
+                    <a href="#" class="btn btn-next" id="next_3">Next</a>
                 </div>
             </div>
           
             <div class="form-step">
-                <div class="grid sm:grid-cols-2 gap-3 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 xxl:grid-cols-6">
+                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="col-span-1">
-                      <div class="input-group">
-                        <label for="">Bank</label>
-                        <select name="bankName" id="bankName" class="select2" style="width: 100%;">
-                            <option value="">Pilih Bank</option>
-                            @foreach($master_bank as $row)
-                                <option value="{{$row->id}}">{{$row->nameBank}}</option>
-                            @endforeach
+                        <label for="">Metode</label>
+                        <select name="metode" id="metode">
+                            <option value="1">Cash</option>
+                            <option value="2">Transfer</option>
                         </select>
-                      </div>
-                    </div>
-                    <div class="col-span-2">
-                        <div class="input-group">
-                            <label for="bank_account">No Rekening</label>
-                            <input type="number" name="bank_account" id="bank_account">
+                    </div>   
+                </div>   
+             
+                <div id="tf_methode">
+                    <div class="grid sm:grid-cols-2 gap-3 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 xxl:grid-cols-6" >
+                        <div class="col-span-1">
+                          <div class="input-group">
+                            <label for="">Bank</label>
+                            <select name="bankName" id="bankName" class="select2" style="width: 100%;">
+                                <option value="">Pilih Bank</option>
+                                @foreach($master_bank as $row)
+                                    <option value="{{$row->id}}">{{$row->nameBank}}</option>
+                                @endforeach
+                            </select>
+                          </div>
                         </div>
-                    </div>
-                </div>
-                <div class="grid grid-cols-3 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
-                    <div class="input-group col-span-3" style="width:45%;">
-                        <label for="supplier_siup">Jangka Waktu Pembayaran</label>
-                            <div class="grid grid-cols-1 gap-3 " style="display:flex">
-                                <div class="col-span-3">
-                                    <select name="jangka_waktu" id="jangka_waktu">
-                                        <option value="15">15</option>
-                                        <option value="30">30</option>
-                                        <option value="45">45</option>
-                                        <option value="60">60</option>
-                                        <option value="90">90</option>
-                                    </select>
-                                </div>
-                                <div class="col-span-3 mt-2">
-                                    <label for="">Hari</label>
-                                </div>
+                        <div class="col-span-2">
+                            <div class="input-group">
+                                <label for="numberBank">No Rekening</label>
+                                <input type="number" name="numberBank" id="numberBank">
+                               
                             </div>
-                           
                         </div>
+                    </div>
+                    <div class="grid grid-cols-3 lg:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                        <div class="input-group col-span-3" style="width:45%;" >
+                            <label for="supplier_siup">Jangka Waktu Pembayaran</label>
+                                <div class="grid grid-cols-1 gap-3 " style="display:flex">
+                                    <div class="col-span-3">
+                                        <select name="termOfPayment" id="termOfPayment">
+                                            <option value="15">15</option>
+                                            <option value="30">30</option>
+                                            <option value="45">45</option>
+                                            <option value="60">60</option>
+                                            <option value="90">90</option>
+                                            <option value="120">120</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-span-3 mt-2">
+                                        <label for="">Hari</label>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
                     
                 </div>
+                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
+                    <div class="col-span-1">
+                        <label for="">Penanggung Jawab</label>
+                        <select name="penanggung_jawab" class="select2" id="penanggung_jawab">
+                            <option value="1">Cash</option>
+                            <option value="2">Transfer</option>
+                        </select>
+                    </div>   
+                </div>  
                
                 <div class="input-group">
                     <label for="cc" style="font-size: 12px">
@@ -487,7 +520,7 @@
                         <br>
                         Dan saya sebagai Penyedia Eksternal menyatakan kesediaan mengikuti aturan administrasi yang telah ditentukan dan berlaku di PT. Pralon.
                         <br>
-                        Demikian surat pernyataan ini saya buat dengan sadar dab tanpa paksaan untuk dapat dipergunakan sebagaimana mestinya.
+                        Demikian surat pernyataan ini saya buat dengan sadar dan tanpa paksaan untuk dapat dipergunakan sebagaimana mestinya.
                     </p>
                 </div>
                 <div class="btns-group">
@@ -512,7 +545,24 @@
     // };
 
     // End for Closing Tab
-    
+    $('#tf_methode').hide()
+    $('#metode').on('change', function(){
+        $('#metode').val() == 2 ? $('#tf_methode').show() : $('#tf_methode').hide()
+    })
+    // ketuka diklik, maka akan nampilin PIC sebagai penanggung jawab
+    $('#next_3').on('click', function(){
+        $('#penanggung_jawab').empty();
+        $('#penanggung_jawab').append('<option value ="">Pilih Penanggun Jawab</option>');
+        var arr_pic=[];
+            var arr_iso = []
+            var array =[];
+            for (var i = 0; i < dept_pic.length; i++) {
+            var arrname_pic = name_pic[i].value;
+                if(arrname_pic !=''){
+                        $('#penanggung_jawab').append('<option value ="'+arrname_pic+'">'+arrname_pic+'</option>')
+                }
+        }
+    })
     const prevBtn   = document.querySelectorAll('.btn-prev');
     const nextBtn   = document.querySelectorAll('.btn-next');
     const progress  = document.getElementById('progress');
@@ -597,7 +647,7 @@
                     </div>
                     <div class="input-group col-span-3">
                         <label for="supplier_siup">Fax</label>
-                        <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name="no_fax_lain" class="no_fax_lain" id="no_fax_lain">
+                        <input type="number"  pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==13) return false;" name="supplierFax_lain" class="supplierFax_lain" id="supplierFax_lain">
                     </div>
                 </div>
                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
@@ -667,7 +717,7 @@
     var jenis_alamat_lain =document.getElementsByClassName('jenis_alamat_lain');
     var alamat_lain =document.getElementsByClassName('alamat_lain');
     var no_telp_lain =document.getElementsByClassName('no_telp_lain');
-    var no_fax_lain =document.getElementsByClassName('no_fax_lain');
+    var supplierFax_lain =document.getElementsByClassName('supplierFax_lain');
     var email_lain =document.getElementsByClassName('email_lain');
     var website_lain =document.getElementsByClassName('website_lain');
 
@@ -746,20 +796,20 @@
         // Initiating
         
         // Halaman Pertama 
-        var nama_supplier = $('#nama_supplier').val();
-        var tahun_pendirian = $('#tahun_pendirian').val();
-        var jenis_usaha = $('#jenis_usaha').val();
-        var jml_karyawan = $('#jml_karyawan').val();
+        var supplierName = $('#supplierName').val();
+        var supplierYearOfEstablishment = $('#supplierYearOfEstablishment').val();
+        var supplierType = $('#supplierType').val();
+        var supplierNumberOfEmployee = $('#supplierNumberOfEmployee').val();
         var prov = $('#prov').val();
         var kab = $('#kab').val();
         var kec = $('#kec').val();
         var kel = $('#kel').val();
         var kode_pos = $('#kode_pos').val();
-        var alamat_kantor = $('#alamat_kantor').val();
-        var no_telpon = $('#no_telpon').val();
-        var no_fax = $('#no_fax').val();
-        var email = $('#email').val();
-        var website= $('#website').val();
+        var supplierAddress = $('#supplierAddress').val();
+        var supplierPhone = $('#supplierPhone').val();
+        var supplierFax = $('#supplierFax').val();
+        var email = $('#supplierEmail').val();
+        var supplierWebsite= $('#supplierWebsite').val();
         var bankName= $('#bankName').val();
         var arr_address=[];
         let array_alamat =[]
@@ -767,7 +817,7 @@
             let arralamat_lain = alamat_lain[i].value;
             let arrjenis_alamat_lain = jenis_alamat_lain[i].value;
             let arrno_telp_lain = no_telp_lain[i].value;
-            let arrno_fax_lain = no_fax_lain[i].value;
+            let arrsupplierFax_lain = supplierFax_lain[i].value;
             let arremail_lain = email_lain[i].value;
             let arrwebsite_lain = website_lain[i].value;
 
@@ -775,7 +825,7 @@
                 arralamat_lain,
                 arrjenis_alamat_lain,
                 arrno_telp_lain,
-                arrno_fax_lain,
+                arrsupplierFax_lain,
                 arremail_lain,
                 arrwebsite_lain
             ]
@@ -807,13 +857,14 @@
                 $('#save').prop('disabled', false)
                 return false;
             }
+          
         // End Halaman Kedua
 
         // Halaman Ketiga
-        var no_pengukuhan = $('#no_pengukuhan').val()
-        var no_npwp = $('#no_npwp').val()
-        var nama_npwp = $('#nama_npwp').val()
-        var alamat_npwp = $('#alamat_npwp').val()
+        var numberPKP = $('#numberPKP').val()
+        var numberNPWP = $('#numberNPWP').val()
+        var nameNPWP = $('#nameNPWP').val()
+        var addressNPWP = $('#addressNPWP').val()
             //End Attachment 
             // ISO
             var select_data_2 =[]
@@ -836,6 +887,7 @@
                     arr_iso.push(select_data_2)
                     var select_data = arr_iso.filter(onlyUnique)
                 }
+              
                 if(select_data_2.length === 0){
                         toastr['error']('ISO tidak boleh kosong');
                         $('#save').prop('disabled', false)
@@ -845,8 +897,8 @@
 
         // End Halaman Ketiga
         // Halaman Keempat
-            var bank_account = $('#bank_account').val()
-            var jangka_waktu = $('#jangka_waktu').val()
+            var numberBank = $('#numberBank').val()
+            var termOfPayment = $('#termOfPayment').val()
         // End Halaman Keempat
 
         // End Initiating
@@ -863,30 +915,30 @@
             formData.append('npwp_attachment',npwp_attachment)
             formData.append('cp_attachment',cp_attachment)
             formData.append('skt_attachment',skt_attachment)
-            formData.append('supplierName',nama_supplier)
-            formData.append('supplierYearOfEstablishment',tahun_pendirian)
-            formData.append('supplierType',jenis_usaha)
-            formData.append('supplierNumberOfEmployee',jml_karyawan)
+            formData.append('supplierName',supplierName)
+            formData.append('supplierYearOfEstablishment',supplierYearOfEstablishment)
+            formData.append('supplierType',supplierType)
+            formData.append('supplierNumberOfEmployee',supplierNumberOfEmployee)
             formData.append('supplierProvince',prov)
             formData.append('supplierCity',kab)
             formData.append('supplierDistricts',kec)
             formData.append('supplierVillage',kel)
             formData.append('supplierPostalCode',kode_pos)
-            formData.append('supplierAddress',alamat_kantor)
-            formData.append('supplierPhone',no_telpon)
-            formData.append('supplierFax',no_fax)
+            formData.append('supplierAddress',supplierAddress)
+            formData.append('supplierPhone',supplierPhone)
+            formData.append('supplierFax',supplierFax)
             formData.append('supplierEmail',email)
-            formData.append('supplierWebsite',website)
+            formData.append('supplierWebsite',supplierWebsite)
             formData.append('arr_address',JSON.stringify(arr_address))
             formData.append('arr_pic',JSON.stringify(arr_pic))
-            formData.append('numberPKP',no_pengukuhan)
-            formData.append('numberNPWP',no_npwp)
-            formData.append('nameNPWP',nama_npwp)
-            formData.append('addressNPWP',alamat_npwp)
-            formData.append('arr_iso',JSON.stringify(arr_iso))
-            formData.append('numberBank',bank_account)
+            formData.append('numberPKP',numberPKP)
+            formData.append('numberNPWP',numberNPWP)
+            formData.append('nameNPWP',nameNPWP)
+            formData.append('addressNPWP',addressNPWP)
+            formData.append('arr_iso',JSON.stringify(select_data))
+            formData.append('numberBank',numberBank)
             formData.append('bankName',bankName)
-            formData.append('termOfPayment',jangka_waktu)
+            formData.append('termOfPayment',termOfPayment)
  
         // EndForm Upload
         // Ajax
@@ -906,14 +958,27 @@
             },
             success: function(response) {
                 swal.close();
+                $('#save').prop('disabled', true);
+                $('.message_error').html('')
                 if(response.status==422)
                 {
-                    printErrorMsg(response.message)
-                }else{
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Error Message',
+                    text: 'Mohon, koreksi kembali inputan sebelum data dikirim',
+                    })
+                  
+                    $.each(response.message, (key, val) => 
+                    {
+                       $('span.'+key+'_error').text(val[0])
+                    });
+                    $('#save').prop('disabled', false);
+                    return false;
+                }
+                else{
                     toastr['success']('Success,Data saved successfully');
                     // window.location = "{{route('suppliers.index')}}";
                 }
-                $('#save').prop('disabled', false);
                
 
             },

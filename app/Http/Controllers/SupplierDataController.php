@@ -9,6 +9,7 @@ use App\Models\CompanyAttachment;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\ResponseFormatter;
 use DataTables;
+use App\Helpers\FunctionHelper;
 use App\Models\Provinces;
 use App\Models\Regencies;
 use App\Models\Districts;
@@ -136,11 +137,13 @@ class SupplierDataController extends Controller
         }
 
         // Array ISO
+        $iso_array=[];
+      
         if($arr_iso)
         {
             foreach($arr_iso as $iso)
             {
-                if($iso[1] ==0 && $iso[2]==0)
+                if($iso==[])
                 {
     
                 }else{
@@ -151,6 +154,7 @@ class SupplierDataController extends Controller
                         'certified' => $iso[2],
                         'created_at'=>date('Y-m-d H:i:s')
                     ];
+                 
                     array_push($push_iso, $iso_array);
                 }
             }
@@ -208,15 +212,15 @@ class SupplierDataController extends Controller
             'numberNPWP' => 'required|string',
             'nameNPWP' => 'required',
             'addressNPWP' => 'required',
-            'npwp_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
-            'pengukuhan_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
-            'skt_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
-            'cp_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:21000',
+            'npwp_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:10000',
+            'pengukuhan_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:10000',
+            'skt_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:10000',
+            'cp_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:10000',
 
             // payment supplier
-            'numberBank' => 'required',
-            'bankName' => 'required',
-            'termOfPayment' => 'required|numeric',
+            // 'numberBank' => 'required',
+            // 'bankName' => 'required',
+            // 'termOfPayment' => 'required|numeric',
         ],[
             'supplierName.required'=>'Nama supplier tidak boleh kosong',
             'supplierType.required'=>'Jenis usaha tidak boleh kosong',
@@ -251,9 +255,9 @@ class SupplierDataController extends Controller
             'cp_attachment.mimes'=>'File Company Profile harus berupa format : PDF,PNG,JPG,JPEG',
             'cp_attachment.max'=>'File Company Profile max 21MB',
 
-            'numberBank.required'=>'No Rekening tidak boleh kosong',
-            'bankName.required'=>'Nama Bank tidak boleh kosong',
-            'termOfPayment.required'=>'Jangka Waktu Pembayaran tidak boleh kosong',
+            // 'numberBank.required'=>'No Rekening tidak boleh kosong',
+            // 'bankName.required'=>'Nama Bank tidak boleh kosong',
+            // 'termOfPayment.required'=>'Jangka Waktu Pembayaran tidak boleh kosong',
 
 
         ]);
@@ -308,11 +312,11 @@ class SupplierDataController extends Controller
                 Payment::create($payment);
                 // Company Attachment
                 CompanyAttachment::create($companyAttachment);
+                
+                // call function sending email
+                $this->sendMail($supplier_address, $supplier);
             });
         }
-
-        // call function sending email
-        $this->sendMail($supplier_address, $supplier);
         
         return response()->json([
             'message'=>'Data berhasil disimpan', 
@@ -419,7 +423,7 @@ class SupplierDataController extends Controller
             ->where('suppliers.id', $request->id)
             ->where('supplier_addresses.flagMainAddress', 1)
             ->get();
-            
+          
             // get data other address
             $otherAddresses = SupplierAddress::
             where('supplierId', $request->id)
@@ -448,7 +452,7 @@ class SupplierDataController extends Controller
 
             // content
             $document->SetDisplayMode('fullpage');
-
+          
             $document->WriteHTML('<center><h1 style="text-align:center">'.$getSupplier[0]->supplierName.'</h1></center>');
             $document->WriteHTML('<span>Email : '.$getSupplier[0]->supplierEmail.'</span>');
             $document->WriteHTML('<span>Phone : '.$getSupplier[0]->supplierPhone.'</span>');
@@ -482,21 +486,57 @@ class SupplierDataController extends Controller
     }
 
     public function report_supplier($id){
+        try {
+            // require_once __DIR__ . '/vendor/autoload.php';
             // init set timer
             ini_set('max_execution_time', 1800);
             // filename
-            $resultNamePDF = 'report-suppier'.date('Y-m-d-H-i-s').'pdf';
-    
+            // $resultNamePDF = 'report-suppier'.date('Y-m-d H:i:s').'pdf';
+            $resultNamePDF = 'report-suppier.pdf';
+
             // create file pdf
             $document = new PDF([
                 'mode' => 'utf-8',
                 'format' => 'A4',
-                'margin_header' => '3',
-                'margin_top' => '20',
-                'margin_bottom' => '20',
+                'margin_header' => '5',
+                'margin_top' => '5',
+                'margin_bottom' => '5',
                 'margin_footer' => '2',
+                'margin_left' => '5',
+                'margin_right' => '5',
             ]);
-    
+
+            // get logo
+            // $document->Image('public/logo.png', 0, 0, 210, 140, 'jpg', '', true, false);
+            $imageLogo = '<img src="'.$_SERVER['DOCUMENT_ROOT'].'/logo.png" width="70px" style="float: right;"/>';
+            // $document->WriteHTML("
+            // <table style='width:100%'>
+            // <tr>
+            //     <td style='width:90%'>
+            //         <p style='font-size:9px'>PT Pralon <br>
+            //     Synergy Building #08-08 <br>
+            //     Tangerang 15143 - Indonesia<br>
+            //     +62 21 304 38808<br>
+            //     www.pralon.com</p>
+            //     </td>
+            //     <td style='float:right'>
+            //     $imageLogo
+            //     </td>
+            // </tr>
+            // </table>");
+          
+            $headers='';
+            $headers .= '<table width="100%">
+            <tr>
+            <td style="padding-left:10px;"><span style="font-size: 16px; font-weight: bold;">PT PRALON</span><br><span style="font-size:9px;">Synergy Building #08-08
+            Tangerang 15143 - Indonesia
+            +62 21 304 38808</span></td>
+            <td style="width:33%"></td>
+                <td style="width: 50px; text-align:right;">'.$imageLogo.'</td>
+            </tr>
+             
+        </table><br>';
+        $document->WriteHTML($headers);
             // get data supplier
             $getSupplier = DB::table('suppliers')
             ->join('supplier_addresses', 'suppliers.id', '=', 'supplier_addresses.supplierId')
@@ -506,17 +546,23 @@ class SupplierDataController extends Controller
             ->join('tbl_kelurahan', 'supplier_addresses.supplierVillage', '=', 'tbl_kelurahan.id')
             ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
             ->join('banks', 'banks.id', '=', 'payments.bankId')
-            ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'tbl_provinsi.provinsi as province_name', 'tbl_kabkot.kabupaten_kota as regency_name', 'tbl_kecamatan.kecamatan as district_name', 'tbl_kelurahan.kelurahan as village_name','tbl_kelurahan.kd_pos as postal_code' ,'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
-            // ->where('suppliers.id', $id)
+            ->select('suppliers.*', 'supplier_addresses.supplierAddressType','supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'tbl_provinsi.provinsi as province_name', 'tbl_kabkot.kabupaten_kota as regency_name', 'tbl_kecamatan.kecamatan as district_name', 'tbl_kelurahan.kelurahan as village_name','tbl_kelurahan.kd_pos as postal_code' ,'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
+            ->where('suppliers.id', $id)
             ->where('supplier_addresses.flagMainAddress', 1)
             ->get();
-            // dd($getSupplier);
+            $footer = '<table width="100%" style="font-size: 10px;">
+            <tr>
+             
+                <td width="64%" align="center"></td>
+                <td width="33%" style="text-align: right;">Halaman : {PAGENO}</td>
+            </tr>
+             </table>';
             // get data other address
             $otherAddresses = SupplierAddress::
             where('supplierId', $id)
             ->where('flagMainAddress', 2)
             ->get();
-    
+
             // get data PIC
             $pics = Pic::where('supplierId', $id)->get();
             
@@ -525,40 +571,49 @@ class SupplierDataController extends Controller
                 ->join('iso_masters', 'iso_masters.id','=','iso_suppliers.isoId')
                 ->select('iso_suppliers.applied','iso_suppliers.certified','iso_masters.iso')
                 ->where('iso_suppliers.supplierId',$id)->get();
-                
-    
-                // dd($iso);
+
+            // get company attachment
+            $companyAttachment = CompanyAttachment::where('supplierId', $id)->get();
+            $payment = DB::table('payments')
+                        ->join('banks', 'banks.id','=','payments.bankId')
+                        ->select('payments.*', 'banks.nameBank')
+                        ->where('payments.supplierId', $id)->get();
             // Set some header informations for output
             $header = [
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'inline; filename="'.$resultNamePDF.'"'
+                'Content-Disposition' => 'inline; filename="'.$resultNamePDF.'"',
+                'Content-Transfer-Encoding' => 'binary',
+                'Accept-Ranges' => 'bytes'
             ];
-          
+
             // content
-            $document->SetDisplayMode('fullpage');
-    
-            $document->WriteHTML('<center><h1 style="text-align:center">'.$getSupplier->supplierName.'</h1></center>');
-            $document->WriteHTML('<span>Email : '.$getSupplier->supplierEmail.'</span>');
-            $document->WriteHTML('<span>Phone : '.$getSupplier->supplierPhone.'</span>');
-            $document->WriteHTML('<span>Fax : '.$getSupplier->supplierFax.'</span>');
-            $document->WriteHTML('<span>Website : '.$getSupplier->supplierWebsite.'</span>');
-            $document->WriteHTML('<p>Alamat :</p>');
-            $document->WriteHTML('<span>'.$getSupplier->supplierAddress.', '.$getSupplier->village_name.', '.$getSupplier->district_name.', '.$getSupplier->regency_name.', '.$getSupplier->province_name.' - '.$getSupplier->postal_code.'</span>');
+            // $document->SetDisplayMode('fullpage');
+            $document->WriteHTML('<center><h4 style="text-align:center;text-decoration: underline; ">Form Data Penyedia Eksternal</h4></center>');
             // $document->writeHTML('<br/>');
-            $document->WriteHTML('<hr/>');
+
             
             $document->simpleTables = true;
-            
+            $document->SetHTMLFooter($footer);
+            $document->SetHTMLHeader($headers);
             $document->WriteHTML(view('suppliers.supplier-report', [
                 'otherAddresses' => $otherAddresses,
                 'pics' => $pics,
-                'isoes' => $iso
+                'isoes' => $iso,
+                'getSupplier'=>$getSupplier,
+                'payment'=>$payment,
+                'tgl'=>FunctionHelper::tgl_indo(date('Y-m-d')),
+                'companyAttachment' => $companyAttachment
             ]));
-    
-            // Save PDF on your public storage 
+
+            // Save PDF on your public storage
             Storage::disk('public')->put($resultNamePDF, $document->Output($resultNamePDF, "S"));
+            // dd($result);
             // Get file back from storage with the give header informations
             return Storage::disk('public')->download($resultNamePDF, 'Request', $header);
-            // dd($getSupplier);
+
+        } catch (\Mpdf\MpdfException $e) {
+            // Process the exception, log, print etc.
+            echo $e->getMessage();
+        }
     }
 }

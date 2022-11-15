@@ -22,11 +22,21 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-                    <button class="add_supplier bg-green-500 hover:bg-green-800 text-white font-bold py-2 px-4 mb-4 rounded">
-                        <a href="{{ route('suppliers.create') }}">
-                            <i class="fas fa-solid fa-plus"></i> Supplier
-                        </a>
-                    </button>
+                    <div class="grid grid-cols-2 mb-4">
+                            <div class="col-span-1">
+                                <button class="add_supplier h-10 px-5  m-2 text-green-100 transition-colors duration-150 bg-green-500 rounded-lg focus:shadow-outline hover:bg-green-500 text-white">
+                                    <a href="{{ route('suppliers.create') }}">
+                                        <i class="fas fa-solid fa-plus"></i> Supplier
+                                    </a>
+                                </button>
+                            </div>
+                            <div class="col-span-1">
+                                <button class="h-10 px-5 py-2 m-2 text-blue-100 transition-colors duration-150 bg-blue-700 rounded-lg focus:shadow-outline hover:bg-blue-800 import_file" style="float:right">
+                                    <i class="fas fa-solid fa-file-import"></i>
+                                    Import
+                                </button>
+                            </div>
+                    </div>
                     <table class="table-auto w-full bg-blue-500 supplier-datatable">
                         <thead>
                             <tr class="bg-gray-100">
@@ -47,176 +57,296 @@
     </div>
 
     <div class="relative z-auto overflow-y-auto hidden ease-out duration-400" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="dataModalSupplierDetail">
-        <!--x`
-        Background backdrop, show/hide based on modal state.
-    
-        Entering: "ease-out duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-        Leaving: "ease-in duration-200"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
-        <div class="fixed inset-0 transition-opacity">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
-    
-        <div class="fixed inset-0 z-10 overflow-y-auto">
-        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <!--
-            Modal panel, show/hide based on modal state.
-    
-            Entering: "ease-out duration-300"
-                From: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                To: "opacity-100 translate-y-0 sm:scale-100"
-            Leaving: "ease-in duration-200"
-                From: "opacity-100 translate-y-0 sm:scale-100"
-                To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            -->
-            <div class="relative w-full max-w-4xl h-full md:h-auto overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
-            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                <div class="sm:flex sm:items-start">
-                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                        <h2 class="text-xl font-medium leading-6 text-gray-900" id="modal-title"></h2>
-                        <div class="mt-2">
-                        <!--body-->
-                       
-                       
-                    </div>
-                    
-                </div>
+            <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
-            <div class="mt-4"id="other_address">
-                <div class="text-white-700 mt-4" style="justify-content: left;max-width:830px" >
-                    <details class="bg-gray-200 open:bg-red-600 duration-300" open>
-                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Profil</summary>
-                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
-                            <div class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
-                                <div class="input-group col-span-3">
-                                    <label for="supplier_siup">Nama</label>
-                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierName" name="supplierName" readOnly>
+            <div class="fixed inset-0 z-10 overflow-y-auto">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div class="relative w-full max-w-4xl h-full md:h-auto overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    <h2 class="text-xl font-medium leading-6 text-gray-900" id="modal-title"></h2>
+                                    <div class="mt-2">
                                 </div>
                                 
-                                <div class="input-group col-span-1">
-                                    <label for="supplier_siup">Tahun Berdiri</label>
-                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierYearOfEstablishment" name="supplierYearOfEstablishment" readOnly>
-                                </div>
-
-                                <div class="input-group col-span-1">
-                                    <label for="supplier_siup">Jml Karyawan</label>
-                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierNumberOfEmployee" name="supplierNumberOfEmployee" readOnly>
-                                </div>
-                            </div>   
-                            <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
-                                <div class="input-group col-span-3">
-                                    <label for="supplier_siup">Jenis</label>
-                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierType" name="supplierType" readOnly>
-                                </div>
-                                <div class="input-group col-span-1">
-                                    <label for="supplier_siup">Kategori</label>
-                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierCategory" name="supplierCategory" readOnly>
-                                </div>
-                               
-                            </div>   
-                            <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
-                                <div class="input-group col-span-3">
-                                    <label for="supplier_siup">No Rekening</label>
-                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numberBank" name="numberBank" readOnly>
-                                </div>
-                                <div class="input-group col-span-1">
-                                    <label for="supplier_siup">Nama Bank</label>
-                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="nameBank" name="nameBank" readOnly>
-                                </div>
-                            </div>   
-                            <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
-                                <div class="input-group col-span-2">
-                                    <label for="supplier_siup">Jangka Waktu Pembayaran</label><br>
-                                    <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="max-width:70px;text-align:center" id="termOfPayment" name="termOfPayment" readOnly>
-                                    <label class="ml-3">Hari</label>
-                                </div>
-                            </div>   
-
-                        </div>
-                    </details>
-                    <details class="bg-gray-200 open:bg-red-600 duration-300" id="other_address">
-                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Alamat</summary>
-                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
-                            <p>
-                        
-                                <div class="flex justify-start">
-                                    <div class="relative w-full p-6 rounded-lg shadow-lg bg-white max-w-4xl">
-                                     <strong class="text-green-500">
-                                        Alamat Utama
-                                     </strong>
-                                      <p class="ml-4 mt-2">
-                                        Alamat : <span id="supplierAddress"></span><br>
-                                        No Hp / No Fax: <span id="supplierPhoneNumber"></span> / <span id="supplierFax"></span>
-                                        <br>
-                                        Email : <span id="supplierEmail"></span>
-                                        <br>
-                                        Website : <span id="supplierWebsite"></span>
-                                        <br>
-                                    </p>
-                                    </div>
-                                  </div>                             
-                                <p id="alamat_lain"></p>
-                            </p>
-                        </div>
-                    </details>
-                    <details class="bg-gray-200 open:bg-red-600 duration-300 border border-white-500">
-                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">PIC</summary>
-                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
-                            <table class="table-auto w-full border-collapse" id="supplierPICDetail">
-                                <thead>
-                                    <tr class="border">
-                                        <th>PIC Name</th>
-                                        <th>PIC Departement</th>
-                                        <th>PIC Phone</th>
-                                        <th>PIC Email</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="border">
-                                        <td>
-                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picName"></span></p>
-                                        </td>
-                                        <td>
-                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picDepartement"></span></p>
-                                        </td>
-                                        <td>
-                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picPhone"></span></p>
-                                        </td>
-                                        <td>
-                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picEmail"></span></p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
-                    <details class="bg-gray-200 open:bg-red-600 duration-300">
-                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Attachment</summary>
-                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
-                            <div class="container" id="attachement_id">
-
                             </div>
                         </div>
-                    </details>
-                    <details class="bg-gray-200 open:bg-red-600 duration-300">
-                        <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">ISO</summary>
-                        <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
-                            <p id="supplier_iso"></p>
+                        <div class="mt-4"id="other_address">
+                            <div class="text-white-700 mt-4" style="justify-content: left;max-width:830px" >
+                                <details class="bg-gray-200 open:bg-red-600 duration-300" open>
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Profil</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <div class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                                            <div class="input-group col-span-3">
+                                                <label for="supplier_siup">Nama</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierName" name="supplierName" readOnly>
+                                            </div>
+                                            
+                                            <div class="input-group col-span-1">
+                                                <label for="supplier_siup">Tahun Berdiri</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierYearOfEstablishment" name="supplierYearOfEstablishment" readOnly>
+                                            </div>
+
+                                            <div class="input-group col-span-1">
+                                                <label for="supplier_siup">Jml Karyawan</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierNumberOfEmployee" name="supplierNumberOfEmployee" readOnly>
+                                            </div>
+                                        </div>   
+                                        <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
+                                            <div class="input-group col-span-3">
+                                                <label for="supplier_siup">Jenis</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierType" name="supplierType" readOnly>
+                                            </div>
+                                            <div class="input-group col-span-1">
+                                                <label for="supplier_siup">Kategori</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierCategory" name="supplierCategory" readOnly>
+                                            </div>
+                                        
+                                        </div>   
+                                        <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
+                                            <div class="input-group col-span-3">
+                                                <label for="supplier_siup">No Rekening</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numberBank" name="numberBank" readOnly>
+                                            </div>
+                                            <div class="input-group col-span-1">
+                                                <label for="supplier_siup">Nama Bank</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="nameBank" name="nameBank" readOnly>
+                                            </div>
+                                        </div>   
+                                        <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
+                                            <div class="input-group col-span-2">
+                                                <label for="supplier_siup">Jangka Waktu Pembayaran</label><br>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="max-width:70px;text-align:center" id="termOfPayment" name="termOfPayment" readOnly>
+                                                <label class="ml-3">Hari</label>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                </details>
+                                <details class="bg-gray-200 open:bg-red-600 duration-300" id="other_address">
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Alamat</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <p>
+                                    
+                                            <div class="flex justify-start">
+                                                <div class="relative w-full p-6 rounded-lg shadow-lg bg-white max-w-4xl">
+                                                    <strong class="text-green-500">
+                                                        Alamat Utama
+                                                    </strong>
+                                                    <p class="ml-4 mt-2">
+                                                            Alamat : <span id="supplierAddress"></span><br>
+                                                            No Hp / No Fax: <span id="supplierPhoneNumber"></span> / <span id="supplierFax"></span>
+                                                        <br>
+                                                            Email : <span id="supplierEmail"></span>
+                                                        <br>
+                                                            Website : <span id="supplierWebsite"></span>
+                                                        <br>
+                                                    </p>
+                                                </div>
+                                            </div>                             
+                                            <p id="alamat_lain"></p>
+                                        </p>
+                                    </div>
+                                </details>
+                                <details class="bg-gray-200 open:bg-red-600 duration-300 border border-white-500">
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">PIC</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <table class="table-auto w-full border-collapse" id="supplierPICDetail">
+                                            <thead>
+                                                <tr class="border">
+                                                    <th>PIC Name</th>
+                                                    <th>PIC Departement</th>
+                                                    <th>PIC Phone</th>
+                                                    <th>PIC Email</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="border">
+                                                    <td>
+                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picName"></span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picDepartement"></span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picPhone"></span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picEmail"></span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </details>
+                                <details class="bg-gray-200 open:bg-red-600 duration-300">
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Attachment</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <div class="container" id="attachement_id">
+
+                                        </div>
+                                    </div>
+                                </details>
+                                <details class="bg-gray-200 open:bg-red-600 duration-300">
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">ISO</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <p id="supplier_iso"></p>
+                                    </div>
+                                </details>
+                            </div>
                         </div>
-                    </details>
-    
+                        <div class="px-4 py-2 sm:flex sm:flex-row-reverse sm:px-6">
+                            <button Phone="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 fg sm:ml-3 sm:w-auto sm:text-sm" id="closeSupplierDetail">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="px-4 py-2 sm:flex sm:flex-row-reverse sm:px-6">
-                <button Phone="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 fg sm:ml-3 sm:w-auto sm:text-sm" id="closeSupplierDetail">Close</button>
+    </div>
+    <div class="relative z-auto overflow-y-auto hidden ease-out duration-400" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="import">
+            <div class="fixed inset-0 transition-opacity">
+                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
+            <div class="fixed inset-0 z-10 overflow-y-auto">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                    <div class="relative w-full max-w-4xl h-full md:h-auto overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
+                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                                    <h2 class="text-xl font-medium leading-6 text-gray-900" id="modal-title"></h2>
+                                    <div class="mt-2">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="mt-4"id="other_address">
+                            <div class="text-white-700 mt-4" style="justify-content: left;max-width:830px" >
+                                <details class="bg-gray-200 open:bg-red-600 duration-300" open>
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Profil</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <div class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-3 ">
+                                            <div class="input-group col-span-3">
+                                                <label for="supplier_siup">Nama</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierName" name="supplierName" readOnly>
+                                            </div>
+                                            
+                                            <div class="input-group col-span-1">
+                                                <label for="supplier_siup">Tahun Berdiri</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierYearOfEstablishment" name="supplierYearOfEstablishment" readOnly>
+                                            </div>
+
+                                            <div class="input-group col-span-1">
+                                                <label for="supplier_siup">Jml Karyawan</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierNumberOfEmployee" name="supplierNumberOfEmployee" readOnly>
+                                            </div>
+                                        </div>   
+                                        <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
+                                            <div class="input-group col-span-3">
+                                                <label for="supplier_siup">Jenis</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="supplierType" name="supplierType" readOnly>
+                                            </div>
+                                            <div class="input-group col-span-1">
+                                                <label for="supplier_siup">Kategori</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="supplierCategory" name="supplierCategory" readOnly>
+                                            </div>
+                                        
+                                        </div>   
+                                        <div class="grid xs:grid-cols-1 sm:grid-cols-6 gap-3 ">
+                                            <div class="input-group col-span-3">
+                                                <label for="supplier_siup">No Rekening</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numberBank" name="numberBank" readOnly>
+                                            </div>
+                                            <div class="input-group col-span-1">
+                                                <label for="supplier_siup">Nama Bank</label>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="text-align:center" id="nameBank" name="nameBank" readOnly>
+                                            </div>
+                                        </div>   
+                                        <div class="grid grid-cols-1 lg:grid-cols-6 md:grid-cols-6 xl:grid-cols-6 gap-3 mt-2">
+                                            <div class="input-group col-span-2">
+                                                <label for="supplier_siup">Jangka Waktu Pembayaran</label><br>
+                                                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" style="max-width:70px;text-align:center" id="termOfPayment" name="termOfPayment" readOnly>
+                                                <label class="ml-3">Hari</label>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                </details>
+                                <details class="bg-gray-200 open:bg-red-600 duration-300" id="other_address">
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Alamat</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <p>
+                                    
+                                            <div class="flex justify-start">
+                                                <div class="relative w-full p-6 rounded-lg shadow-lg bg-white max-w-4xl">
+                                                    <strong class="text-green-500">
+                                                        Alamat Utama
+                                                    </strong>
+                                                    <p class="ml-4 mt-2">
+                                                            Alamat : <span id="supplierAddress"></span><br>
+                                                            No Hp / No Fax: <span id="supplierPhoneNumber"></span> / <span id="supplierFax"></span>
+                                                        <br>
+                                                            Email : <span id="supplierEmail"></span>
+                                                        <br>
+                                                            Website : <span id="supplierWebsite"></span>
+                                                        <br>
+                                                    </p>
+                                                </div>
+                                            </div>                             
+                                            <p id="alamat_lain"></p>
+                                        </p>
+                                    </div>
+                                </details>
+                                <details class="bg-gray-200 open:bg-red-600 duration-300 border border-white-500">
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">PIC</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <table class="table-auto w-full border-collapse" id="supplierPICDetail">
+                                            <thead>
+                                                <tr class="border">
+                                                    <th>PIC Name</th>
+                                                    <th>PIC Departement</th>
+                                                    <th>PIC Phone</th>
+                                                    <th>PIC Email</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="border">
+                                                    <td>
+                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picName"></span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picDepartement"></span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picPhone"></span></p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400"><span id="picEmail"></span></p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </details>
+                                <details class="bg-gray-200 open:bg-red-600 duration-300">
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">Attachment</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <div class="container" id="attachement_id">
+
+                                        </div>
+                                    </div>
+                                </details>
+                                <details class="bg-gray-200 open:bg-red-600 duration-300">
+                                    <summary class="bg-inherit px-5 py-3 text-lg cursor-pointer">ISO</summary>
+                                    <div class="bg-white px-5 py-3 border border-gray-300 text-sm ">
+                                        <p id="supplier_iso"></p>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                        <div class="px-4 py-2 sm:flex sm:flex-row-reverse sm:px-6">
+                            <button Phone="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 fg sm:ml-3 sm:w-auto sm:text-sm" id="closeSupplierDetail">Close</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        </div>
     </div>
 
 </x-app-layout>
@@ -264,6 +394,9 @@
           
         })
     });
+    $('.import_file').on('click', function(){
+        $('#import').show()
+    })
 
     $('.supplier-datatable').on('click', '.editPost', function () {
         $('#supplierPICDetail').DataTable().clear();
@@ -399,7 +532,7 @@
                               Tersertifikasi                  
                             </label>
                         </div>
-                        </div>
+                    </div>
                               
                     `);
                 });
