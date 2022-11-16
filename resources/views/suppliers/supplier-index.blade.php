@@ -32,8 +32,10 @@
                             </div>
                             <div class="col-span-1">
                                 <button class="h-10 px-5 py-2 m-2 text-blue-100 transition-colors duration-150 bg-blue-700 rounded-lg focus:shadow-outline hover:bg-blue-800 import_file" style="float:right">
+                                    <a href="{{ route('supplier_import') }}">
                                     <i class="fas fa-solid fa-file-import"></i>
                                     Import
+                                    </a>
                                 </button>
                             </div>
                     </div>

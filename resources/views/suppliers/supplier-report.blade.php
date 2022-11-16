@@ -310,7 +310,7 @@
         {{$getSupplier[0]->supplierName}}</p>
         <br>
         <br>
-        <p>{{$pics[0]->picName}}</p>
+        <p>{{$getSupplier[0]->penanggungJawab}}</p>
     </div>
     
 </body>

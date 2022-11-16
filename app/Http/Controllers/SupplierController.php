@@ -37,29 +37,19 @@ class SupplierController extends Controller
     {
       
         if($request->ajax()) {
-            // $data = DB::table('suppliers')
-            // ->join('supplier_addresses','supplier_addresses.supplierId','=','suppliers.userId')
-            // ->select('suppliers.supplierName','supplier_addresses.supplierPhone','supplier_addresses.supplierFax','supplier_addresses.supplierEmail','suppliers.id')
-            // ->where('supplier_addresses.flagMainAddress',1)->get();
-            
-            // $data = Suppliers::with(['supplierAddress'])->whereHas('supplierAddress', function($query){
-            //     $query->where('flagMainAddress', 1);
-            // });
-            // $data = Suppliers::query();
             $data = SupplierAddress::with('supplier')->where('flagMainAddress', 1)->orderBy('supplierId','DESC');
-
+          
             // dd($data);
             return DataTables::eloquent($data)
             ->addColumn('action', function($row){
-                $btn = '<button title="Detail" class="editPost bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"data-id="'.$row->id.'" >
+                $import_modal ="import_modal";
+                $btn = '<button title="Detail" class="editPost bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"data-id="'.$row->id.'" onclick="toggleModal('.$import_modal.')" >
                 <i class="fas fa-solid fa-eye"></i>
               </button>
               <a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded"href="'.url('report_supplier/'.$row->id).'" target="_blank" title="Print PDF">
               <i class="fas fa-solid fa-print"></i>
               </a>
               '
-              
-              
               ;
                 
                 return $btn;

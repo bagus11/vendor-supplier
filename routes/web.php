@@ -7,6 +7,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\IsoController;
 use App\Http\Controllers\SupplierDataController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\SupplierImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::get('supplierDetail', [SupplierDataController::class, 'supplierDetail'])-
 Route::get('get_kdpos', [SupplierDataController::class, 'get_kdpos'])->name('get_kdpos');
 Route::post('post_supplier', [SupplierDataController::class, 'post_supplier'])->name('post_supplier');
 Route::get('report_supplier/{number}',[SupplierDataController::class, 'report_supplier']);
+Route::get('supplier_import', [SupplierImportController::class, 'index'])->name('supplier_import');
 // testing email
 Route::get('sendMail', [MailController::class, 'sendMail'])->name('sendMail');
 

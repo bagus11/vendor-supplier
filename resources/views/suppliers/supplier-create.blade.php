@@ -501,10 +501,11 @@
                 <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="col-span-1">
                         <label for="">Penanggung Jawab</label>
-                        <select name="penanggung_jawab" class="select2" id="penanggung_jawab">
+                        <select name="penanggung_jawab" class="select2 penanggung_jawab" id="penanggung_jawab">
                             <option value="1">Cash</option>
                             <option value="2">Transfer</option>
                         </select>
+                        <span  style="color:red;" class="message_error text-red block penanggung_jawab_error"></span>
                     </div>   
                 </div>  
                
@@ -552,7 +553,7 @@
     // ketuka diklik, maka akan nampilin PIC sebagai penanggung jawab
     $('#next_3').on('click', function(){
         $('#penanggung_jawab').empty();
-        $('#penanggung_jawab').append('<option value ="">Pilih Penanggun Jawab</option>');
+        $('#penanggung_jawab').append('<option value ="">Pilih Penanggung Jawab</option>');
         var arr_pic=[];
             var arr_iso = []
             var array =[];
@@ -776,6 +777,17 @@
     $('#save').on('click', function(e){
         e.preventDefault();
         var cc = document.getElementById('cc');
+        var metode = $('#metode').val();
+        var bankName = $('#bankName').val();
+        var numberBank = $('#numberBank').val();
+        if(metode == 2)
+        {
+            if(bankName == null ||bankName == '' || numberBank == null || numberBank=='')
+            {
+                toastr.error('Nama Bank / No Rekening tidak boleh kosong .')
+                return false
+            }
+        }
         if(cc.checked == false)
         {
             toastr.error('Please checklist Term & Condition before click the submit button')
@@ -785,6 +797,8 @@
             $('#cc').prop('disabled', true);
             save(e)
         }
+
+       
     })
     // End Button Submit
     function onlyUnique(value, index, self) {
@@ -811,6 +825,7 @@
         var email = $('#supplierEmail').val();
         var supplierWebsite= $('#supplierWebsite').val();
         var bankName= $('#bankName').val();
+        var metode= $('#metode').val();
         var arr_address=[];
         let array_alamat =[]
             for (let i = 0; i < alamat_lain.length; i++) {
@@ -899,6 +914,7 @@
         // Halaman Keempat
             var numberBank = $('#numberBank').val()
             var termOfPayment = $('#termOfPayment').val()
+            var penanggung_jawab = $('#penanggung_jawab').val()
         // End Halaman Keempat
 
         // End Initiating
@@ -939,6 +955,8 @@
             formData.append('numberBank',numberBank)
             formData.append('bankName',bankName)
             formData.append('termOfPayment',termOfPayment)
+            formData.append('metode',metode)
+            formData.append('penanggung_jawab',penanggung_jawab)
  
         // EndForm Upload
         // Ajax

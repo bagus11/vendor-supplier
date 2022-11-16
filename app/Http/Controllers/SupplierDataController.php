@@ -80,6 +80,7 @@ class SupplierDataController extends Controller
         $numberNPWP = $request->numberNPWP;
         $nameNPWP = $request->nameNPWP;
         $addressNPWP = $request->addressNPWP;
+        $metode = $request->metode;
         // Array ISO
         $arr_iso = json_decode($_POST['arr_iso']);
         $push_iso = [];
@@ -164,13 +165,14 @@ class SupplierDataController extends Controller
             'supplierType' => $request->supplierType,
             'supplierCategory' => 'PKP',
             'userId' => Auth::user()->id,
+            'penanggungJawab' => $request->penanggung_jawab,
             'supplierYearOfEstablishment' => $request->supplierYearOfEstablishment,
             'supplierNumberOfEmployee' => $request->supplierNumberOfEmployee,
         ];
         $payment=[
-            'bankId' => '1',
+            'bankId' => $metode ==1?'99':$bankName,
             'supplierId' =>$supplierID,
-            'numberBank' => $numberBank,
+            'numberBank' => $metode ==1 ?'':$numberBank ,
             'termOfPayment' => $termOfPayment,
         ];
 
@@ -216,7 +218,7 @@ class SupplierDataController extends Controller
             'pengukuhan_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:10000',
             'skt_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:10000',
             'cp_attachment' => 'required|mimes:pdf,png,jpg,jpeg|max:10000',
-
+            'penanggung_jawab'=>'required'
             // payment supplier
             // 'numberBank' => 'required',
             // 'bankName' => 'required',
@@ -231,6 +233,7 @@ class SupplierDataController extends Controller
             'numberNPWP.required'=>'No NPWP tidak boleh kosong',
             'nameNPWP.required'=>'Nama NPWP tidak boleh kosong',
             'addressNPWP.required'=>'Alamat NPWP tidak boleh kosong',
+            'penanggung_jawab.required'=>'Penanggung Jawab tidak boleh kosong',
             // Address
             'supplierAddress.required'=>'Alamat Utama tidak boleh kosong',
             'supplierPhone.required'=>'No HP tidak boleh kosong',
