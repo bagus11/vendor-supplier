@@ -827,7 +827,16 @@
         var bankName= $('#bankName').val();
         var metode= $('#metode').val();
         var arr_address=[];
-        let array_alamat =[]
+        // let array_alamat =[];
+        //     for (let i = 0; i < alamat_lain.length; i++) {
+        //     var arralamat_lain = push(alamat_lain[i].value);
+        //     var arrjenis_alamat_lain = push(jenis_alamat_lain[i].value);
+        //     var arrno_telp_lain = push(no_telp_lain[i].value);
+        //     var arrsupplierFax_lain = push(supplierFax_lain[i].value);
+        //     var arremail_lain = push(email_lain[i].value);
+        //     var arrwebsite_lain = push(website_lain[i].value);
+        //     }
+            let array_alamat =[]
             for (let i = 0; i < alamat_lain.length; i++) {
             let arralamat_lain = alamat_lain[i].value;
             let arrjenis_alamat_lain = jenis_alamat_lain[i].value;
@@ -926,7 +935,8 @@
         var npwp_attachment = $('#npwp_attachment')[0].files[0];
         var cp_attachment = $('#cp_attachment')[0].files[0];
         var skt_attachment = $('#skt_attachment')[0].files[0];
-        
+          
+            
             formData.append('pengukuhan_attachment',pengukuhan_attachment)
             formData.append('npwp_attachment',npwp_attachment)
             formData.append('cp_attachment',cp_attachment)
@@ -957,7 +967,14 @@
             formData.append('termOfPayment',termOfPayment)
             formData.append('metode',metode)
             formData.append('penanggung_jawab',penanggung_jawab)
- 
+            // Array request
+            // formData.append('jenis_alamat_lain',arralamat_lain)
+            // formData.append('alamat_lain',arrjenis_alamat_lain)
+            // formData.append('no_telp_lain',arrno_telp_lain)
+            // formData.append('supplierFax_lain',arrsupplierFax_lain)
+            // formData.append('email_lain',arremail_lain)
+            // formData.append('website_lain',arrwebsite_lain)
+
         // EndForm Upload
         // Ajax
         $.ajax({

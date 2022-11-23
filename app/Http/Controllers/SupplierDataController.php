@@ -90,7 +90,17 @@ class SupplierDataController extends Controller
 
         $supplierLast = Suppliers::orderby('created_at','desc')->first();
         $supplierID = $supplierLast!=null? $supplierLast->id + 1: 1; 
-        
+
+        // Array Alamat
+        // $jenis_alamat_lain = $request->jenis_alamat_lain;
+        // $alamat_lain = json_decode($_POST['alamat_lain']);
+        // $no_telp_lain = json_decode($_POST['no_telp_lain']);
+        // $supplierFax_lain = json_decode($_POST['supplierFax_lain']);
+        // $email_lain = json_decode($_POST['email_lain']);
+        // $website_lain = json_decode($_POST['website_lain']);
+
+       
+
         // Other Address
         if($arr_address)
         {
@@ -170,10 +180,12 @@ class SupplierDataController extends Controller
             'supplierNumberOfEmployee' => $request->supplierNumberOfEmployee,
         ];
         $payment=[
-            'bankId' => $metode ==1?'99':$bankName,
+            'bankId' => $metode ==1?'0':$bankName,
             'supplierId' =>$supplierID,
-            'numberBank' => $metode ==1 ?'':$numberBank ,
-            'termOfPayment' => $termOfPayment,
+            'numberBank' => $metode ==1 ?'0':$numberBank ,
+            'termOfPayment' =>  $metode ==1 ?'0':$termOfPayment,
+            'payment_type'=>$metode,
+            'payment_status'=>'LUNAS'
         ];
 
        
@@ -265,6 +277,11 @@ class SupplierDataController extends Controller
 
         ]);
 
+        // $validasi_array = Validator::make($request->arr_address,[
+        //     'no_telp_lain.*'=>'required|number',
+
+        // ]);
+
         if($validator->fails()){
         return response()->json([
             'message'=>$validator->errors(), 
@@ -343,6 +360,7 @@ class SupplierDataController extends Controller
         ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
         ->join('banks', 'banks.id', '=', 'payments.bankId')
         ->select('suppliers.*', 'supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'tbl_provinsi.provinsi as province_name', 'tbl_kabkot.kabupaten_kota as regency_name', 'tbl_kecamatan.kecamatan as district_name', 'tbl_kelurahan.kelurahan as village_name', 'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
+        // ->select('*')
         ->where('suppliers.id', $request->id)
         ->where('supplier_addresses.flagMainAddress', 1)
         ->get();

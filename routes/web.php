@@ -37,6 +37,8 @@ Route::get('get_kdpos', [SupplierDataController::class, 'get_kdpos'])->name('get
 Route::post('post_supplier', [SupplierDataController::class, 'post_supplier'])->name('post_supplier');
 Route::get('report_supplier/{number}',[SupplierDataController::class, 'report_supplier']);
 Route::get('supplier_import', [SupplierImportController::class, 'index'])->name('supplier_import');
+Route::post('import_supplier', [SupplierImportController::class, 'import_supplier'])->name('import_supplier');
+
 // testing email
 Route::get('sendMail', [MailController::class, 'sendMail'])->name('sendMail');
 
