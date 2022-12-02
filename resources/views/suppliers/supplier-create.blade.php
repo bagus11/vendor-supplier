@@ -208,7 +208,13 @@
                <div class="grid xs:grid-cols-1 md:grid-cols-6 gap-3 ">
                     <div class="input-group col-span-4">
                         <label for="supplier_siup">Jenis Usaha</label>
-                        <input type="text" name="supplierType" id="supplierType">
+                        <select name="jenis_usaha_option" id="jenis_usaha_option">
+                            <option value="">Pilih Jenis Usaha</option>
+                           @foreach( $master_jenis_usaha as $row)
+                            <option value="{{$row->jenis_usaha}}"> {{$row->jenis_usaha}}</option>
+                           @endforeach
+                        </select>
+                        <input type="hidden" name="supplierType" id="supplierType">
                         <span  style="color:red;" class="message_error text-red block supplierType_error"></span>
                     </div>
                     <div class="input-group col-span-2">
@@ -450,6 +456,7 @@
                         <select name="metode" id="metode">
                             <option value="1">Cash</option>
                             <option value="2">Transfer</option>
+                            <option value="3">Giro</option>
                         </select>
                     </div>   
                 </div>   
@@ -549,6 +556,10 @@
     $('#tf_methode').hide()
     $('#metode').on('change', function(){
         $('#metode').val() == 2 ? $('#tf_methode').show() : $('#tf_methode').hide()
+    })
+    $('#jenis_usaha_option').on('change', function(){
+        var jenis_usaha_option= $('#jenis_usaha_option').val();
+        $('#supplierType').val(jenis_usaha_option);
     })
     // ketuka diklik, maka akan nampilin PIC sebagai penanggung jawab
     $('#next_3').on('click', function(){

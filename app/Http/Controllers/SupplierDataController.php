@@ -88,7 +88,7 @@ class SupplierDataController extends Controller
         $bankName = $request->bankName;
         $termOfPayment = $request->termOfPayment;
 
-        $supplierLast = Suppliers::orderby('created_at','desc')->first();
+        $supplierLast = Suppliers::orderby('id','desc')->first();
         $supplierID = $supplierLast!=null? $supplierLast->id + 1: 1; 
 
         // Array Alamat
@@ -289,10 +289,16 @@ class SupplierDataController extends Controller
         ]);
         }else{
          // store company attachment
-            $fileNPWP = $request->file('npwp_attachment')->hashName();
-            $filePKP = $request->file('pengukuhan_attachment')->hashName();
-            $fileRegistrationCertificate = $request->file('skt_attachment')->hashName();
-            $fileCompanyProfile = $request->file('cp_attachment')->hashName();
+            $fileNPWP_ext = $request->file('npwp_attachment')->getClientOriginalExtension(); 
+            $fileNPWP = $request->file('npwp_attachment')->storeAs('NPWP_'.$supplierID.'.'.$fileNPWP_ext,'');
+            
+            $filePKP_ext = $request->file('pengukuhan_attachment')->getClientOriginalExtension(); 
+            $filePKP = $request->file('pengukuhan_attachment')->storeAs('Pengukuhan_'.$supplierID.'.'.$filePKP_ext,'');
+            
+            $fileRegistrationCertificatefilePKP_ext = $request->file('skt_attachment')->getClientOriginalExtension(); 
+            $fileRegistrationCertificate = $request->file('skt_attachment')->storeAs('SKT_'.$supplierID.'.'.$fileRegistrationCertificatefilePKP_ext,'');
+            $fileCompanyProfile_ext = $request->file('cp_attachment')->getClientOriginalExtension(); 
+            $fileCompanyProfile = $request->file('cp_attachment')->storeAs('CP_'.$supplierID.'.'.$fileCompanyProfile_ext,'');
 
             $pathNPWP = $request->file('npwp_attachment')->store('public/npwp');
             $pathSIUP = $request->file('pengukuhan_attachment')->store('public/siup');
@@ -310,7 +316,7 @@ class SupplierDataController extends Controller
                 'fileRegistrationCertificate' => $fileRegistrationCertificate,
                 'fileCompanyProfile' => $fileCompanyProfile,
             ];
-           
+          
             DB::transaction(function() use ($push_iso,$push_pic,$push_address,$supplier,$payment,$companyAttachment,$supplier_address){
                 // Main Address
             SupplierAddress::create($supplier_address); 
@@ -510,7 +516,7 @@ class SupplierDataController extends Controller
         try {
             // require_once __DIR__ . '/vendor/autoload.php';
             // init set timer
-            ini_set('max_execution_time', 1800);
+            // ini_set('max_execution_time', 1800);
             // filename
             // $resultNamePDF = 'report-suppier'.date('Y-m-d H:i:s').'pdf';
             $resultNamePDF = 'report-suppier.pdf';
@@ -529,7 +535,7 @@ class SupplierDataController extends Controller
 
             // get logo
             // $document->Image('public/logo.png', 0, 0, 210, 140, 'jpg', '', true, false);
-            $imageLogo = '<img src="'.$_SERVER['DOCUMENT_ROOT'].'/logo.png" width="70px" style="float: right;"/>';
+            $imageLogo = '<img src="'.public_path('logo.png').'" width="70px" style="float: right;"/>';
             // $document->WriteHTML("
             // <table style='width:100%'>
             // <tr>
@@ -567,7 +573,7 @@ class SupplierDataController extends Controller
             ->join('tbl_kelurahan', 'supplier_addresses.supplierVillage', '=', 'tbl_kelurahan.id')
             ->join('payments', 'suppliers.id', '=', 'payments.supplierId')
             ->join('banks', 'banks.id', '=', 'payments.bankId')
-            ->select('suppliers.*', 'supplier_addresses.supplierAddressType','supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'tbl_provinsi.provinsi as province_name', 'tbl_kabkot.kabupaten_kota as regency_name', 'tbl_kecamatan.kecamatan as district_name', 'tbl_kelurahan.kelurahan as village_name','tbl_kelurahan.kd_pos as postal_code' ,'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank')
+            ->select('suppliers.*', 'supplier_addresses.supplierAddressType','supplier_addresses.supplierAddress', 'supplier_addresses.flagMainAddress', 'supplier_addresses.supplierPhone', 'supplier_addresses.supplierEmail', 'supplier_addresses.supplierWebsite', 'supplier_addresses.supplierFax', 'supplier_addresses.supplierPostalCode', 'supplier_addresses.supplierAddressType', 'tbl_provinsi.provinsi as province_name', 'tbl_kabkot.kabupaten_kota as regency_name', 'tbl_kecamatan.kecamatan as district_name', 'tbl_kelurahan.kelurahan as village_name','tbl_kelurahan.kd_pos as postal_code' ,'payments.numberBank', 'payments.termOfPayment', 'banks.nameBank','payments.payment_status', 'payments.payment_type')
             ->where('suppliers.id', $id)
             ->where('supplier_addresses.flagMainAddress', 1)
             ->get();

@@ -282,6 +282,13 @@
                 <td style="width: 79%"></td>
             </tr>
         </table>
+        <table>
+            <tr>
+                <td style="width: 20%"><p> Metode</p></td>
+                <td style="width: 1%">:</td>
+                <td style="width: 79%">{{$payment[0]->payment_type == 1 ? 'Cash':'Transfer'}}</td>
+            </tr>
+        </table>
         <table style="width:100%">
             <tr>
                 <td style="width: 21%">Bank Account</td>

@@ -21,6 +21,7 @@ use App\Models\Bank;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendMail;
 use App\Http\Controllers\MailController;
+use App\Models\MasterJenisUsaha;
 
 class SupplierController extends Controller
 {
@@ -70,12 +71,14 @@ class SupplierController extends Controller
         $provinces = Provinces::all();
         $master_iso = IsoMaster::all();
         $master_bank = Bank::all();
+        $master_jenis_usaha = MasterJenisUsaha::where('flg_aktif', 1)->get();
         return view('suppliers.supplier-create', 
         [
             'products' => $products,
             'provinces' => $provinces,
             'master_iso' => $master_iso,
             'master_bank' => $master_bank,
+            'master_jenis_usaha' => $master_jenis_usaha,
         ]);
     }
 
