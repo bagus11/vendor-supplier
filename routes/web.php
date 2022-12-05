@@ -7,8 +7,8 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\IsoController;
 use App\Http\Controllers\SupplierDataController;
 use App\Http\Controllers\MailController;
-use App\Http\Controllers\MasterAspek;
 use App\Http\Controllers\MasterAspekController;
+use App\Http\Controllers\MasterPertanyaanController;
 use App\Http\Controllers\MenusController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SupplierImportController;
@@ -86,8 +86,28 @@ Route::post('update_roles_user', [UserAccess::class, 'update_roles_user'])->name
 
 // Master Aspek
 Route::get('master_aspek', [MasterAspekController::class, 'index'])->name('master_aspek');
-
+Route::get('get_aspek', [MasterAspekController::class, 'get_aspek'])->name('get_aspek');
+Route::post('add_aspek', [MasterAspekController::class, 'add_aspek'])->name('add_aspek');
+Route::post('update_aspek', [MasterAspekController::class, 'update_aspek'])->name('update_aspek');
+Route::get('get_departement', [MasterAspekController::class, 'get_departement'])->name('get_departement');
+Route::post('add_departement', [MasterAspekController::class, 'add_departement'])->name('add_departement');
+Route::get('delete_aspek', [MasterAspekController::class, 'delete_aspek'])->name('delete_aspek');
+Route::get('detail_departement', [MasterAspekController::class, 'detail_departement'])->name('detail_departement');
+Route::post('update_departement', [MasterAspekController::class, 'update_departement'])->name('update_departement');
+Route::get('delete_departement', [MasterAspekController::class, 'delete_departement'])->name('delete_departement');
 //End Master Aspek
+// Master Pertanyaan
+Route::get('master_pertanyaan', [MasterPertanyaanController::class, 'index'])->name('master_pertanyaan');
+Route::get('get_data_pertanyaan', [MasterPertanyaanController::class, 'get_data_pertanyaan'])->name('get_data_pertanyaan');
+Route::get('get_aspek_name', [MasterPertanyaanController::class, 'get_aspek_name'])->name('get_aspek_name');
+Route::post('save_pertanyaan', [MasterPertanyaanController::class, 'save_pertanyaan'])->name('save_pertanyaan');
+Route::post('update_status_pertanyaan', [MasterPertanyaanController::class, 'update_status_pertanyaan'])->name('update_status_pertanyaan');
+Route::get('detail_pertanyaan', [MasterPertanyaanController::class, 'detail_pertanyaan'])->name('detail_pertanyaan');
+Route::post('update_pertanyaan', [MasterPertanyaanController::class, 'update_pertanyaan'])->name('update_pertanyaan');
+Route::get('delete_pertanyaan', [MasterPertanyaanController::class, 'delete_pertanyaan'])->name('delete_pertanyaan');
+
+// End Master Pertanyaan
+
 
 // report
 Route::get('reportSupplier', [SupplierDataController::class, 'reportSupplier'])->name('reportSupplier');

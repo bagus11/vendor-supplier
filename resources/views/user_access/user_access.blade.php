@@ -365,10 +365,10 @@
     $('#role_permission_table').on('click', '.listPermission', function() {
         var id = $(this).data('id');
         $('#addRolePermissionModal').show()
-        $('#table_pemission_innactive').DataTable().clear();
-        $('#table_pemission_innactive').DataTable().destroy();
         $('#delete_role_permission').show()
         $('#save_add_role_permission').hide()
+        $('#table_pemission_innactive').DataTable().clear();
+        $('#table_pemission_innactive').DataTable().destroy();
         $.ajax({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

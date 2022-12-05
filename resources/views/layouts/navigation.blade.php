@@ -30,7 +30,15 @@
                         </x-nav-link>
                     @else
                     @php
-                        $submenus = DB::table('submenuses')->select('*')->where('submenuses.id_menus', $item->id)->where('submenuses.status', 1)->get();
+                        $submenus = DB::table('submenuses')->select('submenuses.*')
+                                        ->join('permissions','permissions.name','=','submenuses.permission_name')
+                                        ->join('role_has_permissions', 'role_has_permissions.permission_id', '=', 'permissions.id')
+                                        ->join('roles', 'roles.id','role_has_permissions.role_id')
+                                        ->join('model_has_roles', 'model_has_roles.role_id', 'roles.id')
+                                        ->where('submenuses.id_menus', $item->id)
+                                        ->where('submenuses.status', 1)
+                                        ->where('model_has_roles.model_id', auth()->user()->id)
+                                        ->get();
                     @endphp
                       <div class="hidden sm:flex sm:items-center sm:ml-6">
                         <x-dropdown align="left" width="48">
