@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMasterjawabansTable extends Migration
+class CreateMasterFormPenilaiansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateMasterjawabansTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_jawabans', function (Blueprint $table) {
+        Schema::create('master_form_penilaians', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->integer('aspek_id');
-            $table->integer('pertanyaan_id');
             $table->integer('departement_id');
-            $table->integer('form_id');
-            $table->integer('a');
-            $table->integer('b');
-            $table->integer('c');
-            $table->integer('d');
-            $table->integer('e');
+            $table->integer('pertanyaan_id');
+            $table->integer('flg_aktif');
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ class CreateMasterjawabansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('masterjawabans');
+        Schema::dropIfExists('master_form_penilaians');
     }
 }

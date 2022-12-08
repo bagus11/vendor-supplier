@@ -8,10 +8,12 @@ use App\Http\Controllers\IsoController;
 use App\Http\Controllers\SupplierDataController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MasterAspekController;
+use App\Http\Controllers\MasterPenilaianController;
 use App\Http\Controllers\MasterPertanyaanController;
 use App\Http\Controllers\MenusController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SupplierImportController;
+use App\Http\Controllers\SurveySupplierController;
 use App\Http\Controllers\UserAccess;
 
 /*
@@ -105,10 +107,20 @@ Route::post('update_status_pertanyaan', [MasterPertanyaanController::class, 'upd
 Route::get('detail_pertanyaan', [MasterPertanyaanController::class, 'detail_pertanyaan'])->name('detail_pertanyaan');
 Route::post('update_pertanyaan', [MasterPertanyaanController::class, 'update_pertanyaan'])->name('update_pertanyaan');
 Route::get('delete_pertanyaan', [MasterPertanyaanController::class, 'delete_pertanyaan'])->name('delete_pertanyaan');
-
 // End Master Pertanyaan
-
-
+// Penilaian 
+Route::get('form_penilaian', [MasterPenilaianController::class, 'index'])->name('form_penilaian');
+Route::get('get_supplier_name', [MasterPenilaianController::class, 'get_supplier_name'])->name('get_supplier_name');
+Route::get('get_pertanyaan', [MasterPenilaianController::class, 'get_pertanyaan'])->name('get_pertanyaan');
+Route::post('save_form_penilaian', [MasterPenilaianController::class, 'save_form_penilaian'])->name('save_form_penilaian');
+Route::get('get_penilaian_headers', [MasterPenilaianController::class, 'get_penilaian_headers'])->name('get_penilaian_headers');
+Route::post('update_status_penilaian_header', [MasterPenilaianController::class, 'update_status_penilaian_header'])->name('update_status_penilaian_header');
+// End Penilaian
+// Form Survey
+Route::get('survey_supplier/{number}', [SurveySupplierController::class, 'index'])->name('survey_supplier');
+Route::post('save_survey', [SurveySupplierController::class, 'save_survey'])->name('save_survey');
+Route::get('report_survey_supplier/{number}', [SurveySupplierController::class, 'report_survey_supplier'])->name('report_survey_supplier');
+// End Form Survey
 // report
 Route::get('reportSupplier', [SupplierDataController::class, 'reportSupplier'])->name('reportSupplier');
 

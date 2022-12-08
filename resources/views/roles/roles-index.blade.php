@@ -151,6 +151,7 @@
                                                     <option value="add">Add</option>
                                                     <option value="update">Update</option>
                                                     <option value="delete">Delete</option>
+                                                    <option value="print">Print</option>
                                                   </select>
                                                 </div>
                                             </div>

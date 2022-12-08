@@ -513,6 +513,12 @@ class SupplierDataController extends Controller
     }
 
     public function report_supplier($id){
+        $validasi_1 = Suppliers::where('id',$id)->count();
+        if($validasi_1 == 0)
+        {
+            return "Supplier Tidak ada";
+        }
+
         try {
             // require_once __DIR__ . '/vendor/autoload.php';
             // init set timer

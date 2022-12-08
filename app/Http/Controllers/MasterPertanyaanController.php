@@ -15,7 +15,13 @@ class MasterPertanyaanController extends Controller
         return view('master_pertanyaan.pertanyaan-index');
     }
     public function get_data_pertanyaan(Request $request){
-        $data_pertanyaan = DB :: table('master_pertanyaans')->select('master_pertanyaans.*','master_aspeks.name as aspek_name','master_departements.name as departement_name')->join('master_aspeks','master_aspeks.id','=','master_pertanyaans.aspek_id')->join('master_departements','master_departements.id', '=','master_pertanyaans.departement_id')->where('master_pertanyaans.id','like','%'.$request->select_departement.'%')->where('master_aspeks.id','like','%'.$request->select_aspek.'%')->get();
+        $data_pertanyaan = DB :: table('master_pertanyaans')
+        ->select('master_pertanyaans.*','master_aspeks.name as aspek_name','master_departements.name as departement_name')
+        ->join('master_aspeks','master_aspeks.id','=','master_pertanyaans.aspek_id')
+        ->join('master_departements','master_departements.id', '=','master_pertanyaans.departement_id')
+        ->where('master_pertanyaans.departement_id','like','%'.$request->select_departement.'%')
+        ->where('master_pertanyaans.aspek_id','like','%'.$request->select_aspek.'%')
+        ->get();
         // dd($data_pertanyaan);
         return response()->json([
             'data_pertanyaan'=>$data_pertanyaan,

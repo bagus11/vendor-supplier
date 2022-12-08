@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menus;
-use App\Models\Permission;
+use Spatie\Permission\Models\Permission;
 use App\Models\Role;
 use App\Models\Submenus;
 use Illuminate\Http\Request;
