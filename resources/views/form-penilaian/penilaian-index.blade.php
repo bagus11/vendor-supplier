@@ -2,6 +2,9 @@
     .message_error{
         font-size: 10px;
     }
+    .table_detail{
+        background: #404258
+    }
 </style>
 <x-app-layout>
     <x-slot name="header">
@@ -28,12 +31,6 @@
                             <input type="date" name="tgl_to" id="tgl_to" value="{{date('Y-m-d')}}">
                         </div>
 
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 mt-4">
-                        <div class="col-span-2">
-                           <span>Departement :</span>
-                            <select  id="select_departement" class="select2" style="width:50%"></select>
-                        </div>
                     </div>
                 </div>
             </details>
@@ -234,9 +231,6 @@ get_departement();
     var supplier_name = $('#supplier_name').val();
     $('#supplier_id').val(supplier_name);
  })
- $('#select_departement').on('change', function(){
-    get_penilaian_headers()
- })
  $('#departement_name').on('change', function(){
     var departement_name = $('#departement_name').val();
     $('#departement_id').val(departement_name);
@@ -336,8 +330,7 @@ get_departement();
             async: true,
             data:{
                 'tgl_from':$('#tgl_from').val(),
-                'tgl_to':$('#tgl_to').val(),
-                'departement_id':$('#select_departement').val(),
+                'tgl_to':$('#tgl_to').val()
             },
             beforeSend: function() {
                 SwalLoading('Please wait ...');
@@ -363,7 +356,7 @@ get_departement();
                                 <td style="text-align: left;">${response.data[i]['supplier_name']==null?'':response.data[i]['supplier_name']}</td>
                                 <td class="supplier_id" style="text-align: center;">${response.data[i]['supplier_id']==null?'':response.data[i]['supplier_id']}</td>
                                 <td style="width:20%;text-align:center">
-                                    <a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded"href="report_survey_supplier/${response.data[i]['id']}" target="_blank" title="Print Survey">
+                                    <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"href="report_survey_supplier/${response.data[i]['id']}" target="_blank" title="Print Survey">
                                                 <i class="fas fa-print"></i>
                                             </a>
                                 </td>
@@ -436,8 +429,9 @@ get_departement();
                         $('.table_detail tbody').append(``);
                             row+= `<tr class="table-light">
                                         <td style="text-align: center;"> <input type="checkbox" id="check" name="check" class="is_checked" style="border-radius: 5px !important;" value="${response.data[i].id}"  data-flg_aktif="${response.data[i].flg_aktif}" data-id="${response.data[i].id}" ${response.data[i].flg_aktif == 1 ?'checked':'' }></td>
+                                        <td>${response.data[i].rating_code}</td>
                                         <td>${response.data[i].flg_aktif==1?'Active':'Innactive'}</td>
-                                        <td>${response.data[i].departement_name}</td>
+                                        <td style="text-align:left">${response.data[i].departement_name}</td>
                                         <td>${response.data[i].status}</td>
                                         <td>${response.data[i].created_at}</td>
                                         <td>${response.data[i].updated_at}</td>
@@ -456,16 +450,18 @@ get_departement();
 
                     }
                     callback($(`
-                      <table class="table_detail" style="width:80%;text-align:center;float:right">
+                      <table class="table_detail" style="width:80%;text-align:center;float:right;background:#404258">
+                        <div style="color: darkblue; font-weight: 600;"><i class="fas fa-history"></i> Detail </div>
                         <thead>
                             <tr>
-                                <th></th>
-                                <th>Status</th>
-                                <th>Departement</th>
-                                <th>Prses</th>
-                                <th>Tanggal Buat</th>
-                                <th>Tanggal Update</th>
-                                <th>Action</th>
+                                <th style="text-align:center"></th>
+                                <th style="text-align:center">Status</th>
+                                <th style="text-align:center">Form Code</th>
+                                <th style="text-align:center">Departement</th>
+                                <th style="text-align:center">Proses</th>
+                                <th style="text-align:center">Tanggal Buat</th>
+                                <th style="text-align:center">Tanggal Update</th>
+                                <th style="text-align:center">Action</th>
                             </tr>
                         </thead>
                       <tbody class="table-bordered">${row}</tbody>

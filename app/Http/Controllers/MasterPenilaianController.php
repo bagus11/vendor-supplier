@@ -24,6 +24,7 @@ class MasterPenilaianController extends Controller
                     ->where('master_departements.id','like','%'.$request->departement_id.'%')
                     ->whereBetween(DB::raw('DATE(master_form_penilaian_headers.created_at)'), [$request->tgl_from, $request->tgl_to])
                     ->groupBy('master_form_penilaian_headers.supplier_id')
+                    ->orderBy('master_form_penilaian_headers.id','desc')
                     ->get();
         return response()->json([
             'data'=>$data,
