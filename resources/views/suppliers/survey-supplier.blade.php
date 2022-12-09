@@ -94,8 +94,9 @@
                                         ->select('master_pertanyaans.name as pertanyaan_name','master_jawabans.a', 'master_jawabans.b','master_jawabans.c','master_jawabans.d','master_jawabans.e','master_aspeks.name as aspek_name')
                                         ->join('master_aspeks','master_aspeks.id','=','master_form_penilaians.aspek_id')
                                         ->join('master_pertanyaans','master_pertanyaans.id','=','master_form_penilaians.pertanyaan_id')
-                                        ->join('master_jawabans','master_jawabans.pertanyaan_id','=','master_form_penilaians.pertanyaan_id')
+                                        ->join('master_jawabans','master_jawabans.penilaian_id','=','master_form_penilaians.id')
                                         ->where('master_form_penilaians.aspek_id',$item->aspek_id)
+                                        ->where('master_form_penilaians.departement_id',$master_header->departement_id)
                                         ->where('master_form_penilaians.form_id',$master_header->id)
                                         ->get();
                                         // dd($form_penilaian);

@@ -52,7 +52,7 @@
                                 ->join('master_pertanyaans', 'master_pertanyaans.id','=','master_form_penilaians.pertanyaan_id')
                                 ->join('master_aspeks','master_aspeks.id','=','master_pertanyaans.aspek_id')
                                 ->join('master_departements','master_departements.id','=','master_pertanyaans.departement_id')
-                                ->select('master_pertanyaans.name as pertanyaan_name','master_pertanyaans.id','master_aspeks.name as aspek_name')
+                                ->select('master_pertanyaans.name as pertanyaan_name','master_pertanyaans.id','master_aspeks.name as aspek_name','master_form_penilaians.id as penilaian_id')
                                 ->where('master_form_penilaians.form_id',$survey_header[0]->id)
                                 ->where('master_form_penilaians.aspek_id',$item->id)
                                 ->get();
@@ -62,6 +62,7 @@
                                 <div class="col-span-3">
                                     <span>{{$item->pertanyaan_name}}</span>
                                     <input type="hidden" class="pertanyaan_id" value="{{$item->id}}">
+                                    <input type="hidden" class="penilaian_id" value="{{$item->penilaian_id}}">
                                 </div>
                                 <div class="col-span-3">
                                     <label for="cc" style="font-size: 12px">
@@ -144,6 +145,7 @@
     return self.indexOf(value) === index;
     }
     var pertanyaan_id = document.getElementsByClassName('pertanyaan_id');
+    var penilaian_id = document.getElementsByClassName('penilaian_id');
     var buruk = document.getElementsByClassName('buruk');
     var biasa = document.getElementsByClassName('biasa');
     var bagus = document.getElementsByClassName('bagus');
@@ -156,6 +158,7 @@
         for (let i = 0; i < pertanyaan_id.length; i++) 
             {
                     var arr_id = pertanyaan_id[i].value;
+                    var arr_penilaian_id = penilaian_id[i].value;
                     var arr_buruk = buruk[i].checked == true?1:0;
                     var arr_biasa = biasa[i].checked == true?1:0;
                     var arr_bagus = bagus[i].checked == true?1:0
@@ -173,6 +176,7 @@
                             arr_bagus,
                             arr_sangat_bagus,
                             arr_sangat_bagus_sekali,
+                            arr_penilaian_id,
                         ]
                     arr_jawaban.push(select_data_2)
                     var select_data = arr_jawaban.filter(onlyUnique)

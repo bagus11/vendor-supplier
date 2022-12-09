@@ -23,6 +23,18 @@ class MasterPenilaianController extends Controller
                     ->join('master_departements','master_departements.id','=','master_form_penilaian_headers.departement_id')
                     ->where('master_departements.id','like','%'.$request->departement_id.'%')
                     ->whereBetween(DB::raw('DATE(master_form_penilaian_headers.created_at)'), [$request->tgl_from, $request->tgl_to])
+                    ->groupBy('master_form_penilaian_headers.supplier_id')
+                    ->get();
+        return response()->json([
+            'data'=>$data,
+        ]);
+    }
+    public function get_penilaian_log(Request $request)
+    {
+        $data = DB::table('master_form_penilaian_headers')
+                    ->select('master_form_penilaian_headers.*','master_departements.name as departement_name')
+                    ->join('master_departements','master_departements.id','=','master_form_penilaian_headers.departement_id')
+                    ->where('master_form_penilaian_headers.supplier_id', $request->supplier_id)
                     ->get();
         return response()->json([
             'data'=>$data,

@@ -60,15 +60,12 @@
          
             <div class="py-3 px-6 border-t border-gray-300 text-gray-600">
                 <div class="container">
-                    <table class="table-auto w-full bg-blue-500 supplier-datatable" id="penilaian_headers_table">
+                    <table class="table-auto w-full bg-blue-500 datatable-collapse" id="penilaian_headers_table">
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2"></th>
-                                <th class="px-4 py-2">Status</th>
-                                <th class="px-4 py-2">Kode Form Penilaian</th>
-                                <th class="px-4 py-2">Departement</th>
-                                <th class="px-4 py-2">Supplier</th>
-                                <th class="px-4 py-2">Status</th>
+                                <th class="px-4 py-2">Nama Supplier</th>
+                                <th class="px-4 py-2">ID Supplier</th>
                                 <th class="px-4 py-2">Action</th>
                             </tr>
                         </thead>
@@ -121,7 +118,7 @@
                                     </div>
                                     <br>
                                     <div class="grid grid-cols-1">
-                                        <table class="table-auto w-full border-collapse" id="table_pertanyaan">
+                                        <table class="table-auto w-full datatable-collapse" id="table_pertanyaan">
                                             <thead>
                                                 <tr class="border">
                                                     <th style="text-align: left"><input type="checkbox" id="check_all" name="check_all" class="check_all" style="border-radius: 5px !important;"></th>
@@ -254,7 +251,7 @@ get_departement();
  $('#table_pertanyaan').hide()
  $('#check_all').on('click', function(){
       // Get all rows with search applied
-        var table = $('#table_pertanyaan').DataTable( {
+        var table_pertanyaan = $('#table_pertanyaan').DataTable( {
                 "destroy": true,
                 "scrollX": true,
                 "autoWidth" : false,
@@ -263,7 +260,7 @@ get_departement();
               
             } );
 
-      var rows = table.rows({ 'search': 'applied' }).nodes();
+      var rows = table_pertanyaan.rows({ 'search': 'applied' }).nodes();
       // Check/uncheck checkboxes for all rows in the table
       $('input[type="checkbox"]', rows).prop('checked', this.checked);
    });
@@ -347,66 +344,141 @@ get_departement();
             },
             success: function(response) {
                 swal.close();
-                var data=''
-                for(i = 0; i < response.data.length; i++ )
-                {
-                    var isi_survey =``;
-                    var report_survey =``;
-                    var akeses =``;
-                    if(response.data[i]['status'] != 'DONE'&& response.data[i]['flg_aktif']==1 ){
-                        isi_survey =`<a class="bg-green-300 hover:bg-green-500 text-white font-bold py-1 px-3 rounded"href="survey_supplier/${response.data[i]['id']}" target="_blank" title="Isi Survey">
-                                            <i class="fas fa-arrow-right"></i>
-                                        </a>`;
-                    }
-                    if(response.data[i]['status']=='DONE'&& response.data[i]['flg_aktif']==1 ){
-                        report_survey =`<a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded"href="report_survey_supplier/${response.data[i]['id']}" target="_blank" title="Print Survey">
-                                            <i class="fas fa-print"></i>
-                                        </a>`;
-                    }
-                    if(isi_survey == '' && report_survey ==''){
-                        akeses =` <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Status Innactive</span>`
-                    }else{
-                        akeses =``;
-                    }
-                    data += `<tr style="text-align: center;">
-                                <td style="text-align: center;"> <input type="checkbox" id="check" name="check" class="is_checked" style="border-radius: 5px !important;" value="${response.data[i]['id']}"  data-flg_aktif="${response.data[i]['flg_aktif']}" data-id="${response.data[i]['id']}" ${response.data[i]['flg_aktif'] == 1 ?'checked':'' }></td>
-                                <td style="text-align: center;">${response.data[i]['flg_aktif']==1?'Active':'Innactive'}</td>
-                                <td style="text-align: center;">${response.data[i]['rating_code']==null?'':response.data[i]['rating_code']}</td>
-                                <td style="text-align: left;">${response.data[i]['departement_name']==null?'':response.data[i]['departement_name']}</td>
-                                <td style="text-align: left;">${response.data[i]['supplier_name']==null?'':response.data[i]['supplier_name']}</td>
-                                <td style="text-align: left;">${response.data[i]['status']==null?'':response.data[i]['status']}</td>
-                                <td style="width:20%;text-align:center">
-                                        @can('print-form_penilaian')       
-                                        ${report_survey}
-                                        @else
-                                        <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">No Access</span>      
-                                        @endcan
-                                        @can('update-form_penilaian')
-                                        ${isi_survey}
-                                        @endcan
-                                        ${akeses}
-                                    </td>
-                            </tr>
-                            `;
-                }
-                    $('#penilaian_headers_table > tbody:first').html(data);
-                        $(document).ready(function() 
-                        {
-                            $('#penilaian_headers_table').DataTable( {
-                                "destroy": true,
-                                "scrollX": true,
-                                "autoWidth" : false,
-                                "searching": true,
-                                "aaSorting" : false
-                        });
-
-
-                } );
+                mapping_data(response)
                 
             },
             error: function(xhr, status, error) {
                 swal.close();
                 toastr['error']('Failed to get data, please contact ICT Developer');
+            }
+        });
+    }
+    function mapping_data(response){
+        var data=''
+                for(i = 0; i < response.data.length; i++ )
+                {
+
+                    data += `<tr style="text-align: center;">
+                                <td class='details-control'></td>
+                                <td style="text-align: left;">${response.data[i]['supplier_name']==null?'':response.data[i]['supplier_name']}</td>
+                                <td class="supplier_id" style="text-align: center;">${response.data[i]['supplier_id']==null?'':response.data[i]['supplier_id']}</td>
+                                <td style="width:20%;text-align:center">
+                                    <a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded"href="report_survey_supplier/${response.data[i]['id']}" target="_blank" title="Print Survey">
+                                                <i class="fas fa-print"></i>
+                                            </a>
+                                </td>
+                            </tr>
+                            `;
+                }
+                    $('#penilaian_headers_table > tbody:first').html(data);
+                  
+                    let table = $('#penilaian_headers_table').DataTable
+                    ({
+                        "destroy": true,
+                        "scrollX": true,
+                        "autoWidth" : false,
+                        "searching": false,
+                        "aaSorting" : [],
+                    });
+                    $('#penilaian_headers_table tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest("tr");
+                    var row =   table.row( tr );
+                    if ( row.child.isShown() ) {
+                        // This row is already open - close it
+                        row.child.hide();
+                        tr.removeClass( 'shown' );
+                    }
+                    else {
+                        // Open this row
+                        detail_log(row.child,$(this).parents("tr").find('td.supplier_id').text()) ;
+                        tr.addClass( 'shown' );
+                    }
+                } );   
+    }
+    function detail_log( callback, supplier_id){
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{route('get_penilaian_log')}}",
+            type: "get",
+            dataType: 'json',
+            data: {
+                'supplier_id': supplier_id
+            },
+            beforeSend: function () {
+              $('#loading').show();
+            },
+            success : function(response) {
+                // alert(response.length);
+                $('#loading').hide();
+                if(response){
+                    let row = '';
+                    for(let i = 0; i < response.data.length; i++){
+                    var isi_survey =``;
+                    var report_survey =``;
+                    var akeses =``;
+                        if(response.data[i]['status'] != 'DONE'&& response.data[i]['flg_aktif']==1 ){
+                        isi_survey =`<a class="bg-green-300 hover:bg-green-500 text-white font-bold py-1 px-3 rounded"href="survey_supplier/${response.data[i]['id']}" target="_blank" title="Isi Survey">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </a>`;
+                        }
+                        if(response.data[i]['status']=='DONE'&& response.data[i]['flg_aktif']==1 ){
+                            report_survey =`<a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded"href="report_survey_supplier/${response.data[i]['id']}" target="_blank" title="Print Survey">
+                                                <i class="fas fa-print"></i>
+                                            </a>`;
+                        }
+                        if(isi_survey == '' && report_survey ==''){
+                            akeses =` <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Status Innactive</span>`
+                        }else{
+                            akeses =``;
+                        }
+                        $('.table_detail tbody').append(``);
+                            row+= `<tr class="table-light">
+                                        <td style="text-align: center;"> <input type="checkbox" id="check" name="check" class="is_checked" style="border-radius: 5px !important;" value="${response.data[i].id}"  data-flg_aktif="${response.data[i].flg_aktif}" data-id="${response.data[i].id}" ${response.data[i].flg_aktif == 1 ?'checked':'' }></td>
+                                        <td>${response.data[i].flg_aktif==1?'Active':'Innactive'}</td>
+                                        <td>${response.data[i].departement_name}</td>
+                                        <td>${response.data[i].status}</td>
+                                        <td>${response.data[i].created_at}</td>
+                                        <td>${response.data[i].updated_at}</td>
+                                        <td>
+                                            @can('print-form_penilaian')       
+                                                ${report_survey}
+                                                @else
+                                                <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">No Access</span>      
+                                                @endcan
+                                                @can('update-form_penilaian')
+                                                ${isi_survey}
+                                                @endcan
+                                            ${akeses}
+                                        </td>
+                                    </tr>`;
+
+                    }
+                    callback($(`
+                      <table class="table_detail" style="width:80%;text-align:center;float:right">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Status</th>
+                                <th>Departement</th>
+                                <th>Prses</th>
+                                <th>Tanggal Buat</th>
+                                <th>Tanggal Update</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                      <tbody class="table-bordered">${row}</tbody>
+                    </table>`)).show();
+                }else{
+                    toastr["error"]('Data tidak ada')
+                    $('#loading').hide();
+                }
+            },
+            error : function(response) {
+                console.log('failed :' + response);
+                alert('Gagal Get Data, Tidak Ada Data / Mohon Coba Kembali Beberapa Saat Lagi');
+                $('#loading').hide();
             }
         });
     }

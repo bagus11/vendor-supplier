@@ -56,11 +56,12 @@ class SurveySupplierController extends Controller
                 'c'=>$row[3],
                 'd'=>$row[4],
                 'e'=>$row[5],
+                'penilaian_id'=>$row[6],
                 'created_at'=>date('Y-m-d H:i:s')
             ];
             array_push($arr_post,$post);
         }
-       
+    //    dd($arr_post);
        if(count($arr_post) > 0){
         DB::transaction(function() use($arr_post,$keterangan,$survey_id) {
           $insert = Masterjawaban::insert($arr_post);

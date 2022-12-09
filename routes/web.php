@@ -115,6 +115,7 @@ Route::get('get_pertanyaan', [MasterPenilaianController::class, 'get_pertanyaan'
 Route::post('save_form_penilaian', [MasterPenilaianController::class, 'save_form_penilaian'])->name('save_form_penilaian');
 Route::get('get_penilaian_headers', [MasterPenilaianController::class, 'get_penilaian_headers'])->name('get_penilaian_headers');
 Route::post('update_status_penilaian_header', [MasterPenilaianController::class, 'update_status_penilaian_header'])->name('update_status_penilaian_header');
+Route::get('get_penilaian_log', [MasterPenilaianController::class, 'get_penilaian_log'])->name('get_penilaian_log');
 // End Penilaian
 // Form Survey
 Route::get('survey_supplier/{number}', [SurveySupplierController::class, 'index'])->name('survey_supplier');
