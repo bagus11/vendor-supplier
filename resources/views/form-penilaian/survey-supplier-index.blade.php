@@ -64,7 +64,7 @@
                                     <input type="hidden" class="pertanyaan_id" value="{{$item->id}}">
                                     <input type="hidden" class="penilaian_id" value="{{$item->penilaian_id}}">
                                 </div>
-                                <div class="col-span-3">
+                                <div class="col-span-4">
                                     <label for="cc" style="font-size: 12px">
                                         <input type="checkbox" class="buruk" name="jawaban_{{$item->id}}[]">
                                         Buruk                  

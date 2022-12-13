@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MasterFormPenilaianHeader;
 use App\Models\Masterjawaban;
 use App\Models\MasterPertanyaan;
+use App\Models\Suppliers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \Mpdf\Mpdf as PDF;
@@ -46,6 +47,18 @@ class SurveySupplierController extends Controller
        
         foreach($arr_jawaban as $row){
             $aspek_id = MasterPertanyaan::find($row[0]);
+            $score =0;
+            if($row[1]==1 && $row[2]==0 && $row[3]==0 && $row[4]==0 && $row[5]==0){
+                $score =1;
+            }else if($row[1]==0 && $row[2]==1 && $row[3]==0 && $row[4]==0 && $row[5]==0){
+                $score =2;
+            }else if($row[1]==0 && $row[2]==0 && $row[3]==1 && $row[4]==0 && $row[5]==0){
+                $score =3;
+            }else if($row[1]==0 && $row[2]==0 && $row[3]==0 && $row[4]==1 && $row[5]==0){
+                $score =4;
+            }elseif($row[1]==0 && $row[2]==0 && $row[3]==0 && $row[4]==0 && $row[5]==1){
+                $score =5;
+            }
             $post=[
                 'aspek_id'=>$aspek_id->aspek_id ==null?'test':$aspek_id->aspek_id,
                 'pertanyaan_id'=>$row[0],
@@ -56,6 +69,7 @@ class SurveySupplierController extends Controller
                 'c'=>$row[3],
                 'd'=>$row[4],
                 'e'=>$row[5],
+                'score'=>$score,
                 'penilaian_id'=>$row[6],
                 'created_at'=>date('Y-m-d H:i:s')
             ];
@@ -169,6 +183,89 @@ class SurveySupplierController extends Controller
             // Process the exception, log, print etc.
             echo $e->getMessage();
         }
-    
+    }
+    public function report_evaluasi_supplier($id)
+    {
+        $validasi_1 = Suppliers::where('id',$id)->count();
+        if($validasi_1 == 0)
+        {
+            return "Supplier Tidak ada";
+        }
+        try {
+            $resultNamePDF = 'report_survey_supplier'.date("YmdHis").'.pdf';
+
+            // create file pdf
+            $document = new PDF([
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'margin_header' => '5',
+                'margin_top' => '5',
+                'margin_bottom' => '5',
+                'margin_footer' => '2',
+                'margin_left' => '5',
+                'margin_right' => '5',
+            ]);
+            $imageLogo = '<img src="'.public_path('logo.png').'" width="70px" style="float: right;"/>';
+            $headers='';
+            $headers .= '<table width="100%">
+            <tr>
+            <td style="padding-left:10px;"><span style="font-size: 16px; font-weight: bold;">PT PRALON</span><br><span style="font-size:9px;">Synergy Building #08-08
+            Tangerang 15143 - Indonesia
+            +62 21 304 38808</span></td>
+            <td style="width:33%"></td>
+                <td style="width: 50px; text-align:right;">'.$imageLogo.'</td>
+            </tr>
+             
+        </table><br>';
+        $document->WriteHTML($headers);
+            // get data supplier
+          
+            $footer = '<table width="100%" style="font-size: 10px;">
+            <tr>
+             
+                <td width="64%" align="center"></td>
+                <td width="33%" style="text-align: right;">Halaman : {PAGENO}</td>
+            </tr>
+             </table>';
+        
+            // Set some header informations for output
+            $header = [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'inline; filename="'.$resultNamePDF.'"',
+                'Content-Transfer-Encoding' => 'binary',
+                'Accept-Ranges' => 'bytes'
+            ];
+
+            // content
+            // $document->SetDisplayMode('fullpage');
+            $document->WriteHTML('<center><h4 style="text-align:center;">Form Evaluasi Suppleir</h4></center>');
+            // $document->writeHTML('<br/>');
+            $master_header = Suppliers::find($id);
+            $master_aspek =DB::table('master_form_penilaians')
+                            ->select('master_aspeks.name as aspek_name','master_aspeks.id as aspekId')
+                            ->join('master_aspeks','master_aspeks.id','master_form_penilaians.aspek_id')
+                            ->join('master_form_penilaian_headers','master_form_penilaian_headers.id','=','master_form_penilaians.form_id')
+                            ->where('master_form_penilaian_headers.supplier_id',$id)
+                            ->groupBy('master_aspeks.name')
+                            ->orderBy('master_aspeks.id','asc')
+                            ->get();
+            $document->simpleTables = true;
+            $document->SetHTMLFooter($footer);
+            $document->SetHTMLHeader($headers);
+            $document->WriteHTML(view('suppliers.evaluasi-supplier', [
+              'master_header'=> $master_header,
+              'master_aspek'=> $master_aspek,
+            ]));
+            // Save PDF on your public storage
+            Storage::disk('public')->put($resultNamePDF, $document->Output($resultNamePDF, "S"));
+            // dd($result);
+            // Get file back from storage with the give header informations
+            return Storage::disk('public')->download($resultNamePDF, 'Request', $header);
+
+
+        } catch (\Mpdf\MpdfException $e) {
+            // Process the exception, log, print etc.
+            echo $e->getMessage();
+        }
     }
 }

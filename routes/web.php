@@ -121,6 +121,7 @@ Route::get('get_penilaian_log', [MasterPenilaianController::class, 'get_penilaia
 Route::get('survey_supplier/{number}', [SurveySupplierController::class, 'index'])->name('survey_supplier');
 Route::post('save_survey', [SurveySupplierController::class, 'save_survey'])->name('save_survey');
 Route::get('report_survey_supplier/{number}', [SurveySupplierController::class, 'report_survey_supplier'])->name('report_survey_supplier');
+Route::get('report_evaluasi_supplier/{number}', [SurveySupplierController::class, 'report_evaluasi_supplier'])->name('report_evaluasi_supplier');
 // End Form Survey
 // report
 Route::get('reportSupplier', [SupplierDataController::class, 'reportSupplier'])->name('reportSupplier');

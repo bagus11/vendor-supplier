@@ -91,16 +91,24 @@
         
                 @php
                     $form_penilaian = DB::table('master_form_penilaians')
-                                        ->select('master_pertanyaans.name as pertanyaan_name','master_jawabans.a', 'master_jawabans.b','master_jawabans.c','master_jawabans.d','master_jawabans.e','master_aspeks.name as aspek_name')
+                                        ->select('master_pertanyaans.name as pertanyaan_name','master_jawabans.a', 'master_jawabans.b','master_jawabans.c','master_jawabans.d','master_jawabans.e','master_aspeks.name as aspek_name','master_form_penilaians.id as penilaian_id','master_jawabans.score')
                                         ->join('master_aspeks','master_aspeks.id','=','master_form_penilaians.aspek_id')
                                         ->join('master_pertanyaans','master_pertanyaans.id','=','master_form_penilaians.pertanyaan_id')
                                         ->join('master_jawabans','master_jawabans.penilaian_id','=','master_form_penilaians.id')
                                         ->where('master_form_penilaians.aspek_id',$item->aspek_id)
                                         ->where('master_form_penilaians.departement_id',$master_header->departement_id)
                                         ->where('master_form_penilaians.form_id',$master_header->id)
+                                        ->groupBy('master_form_penilaians.id')
                                         ->get();
-                                        // dd($form_penilaian);
-                  
+                    $data =        DB::table('master_jawabans')
+                                        ->where('master_jawabans.form_id',$master_header->id)
+                                        ->where('master_form_penilaians.aspek_id',$item->aspek_id)
+                                        ->where('master_form_penilaians.departement_id',$master_header->departement_id)
+                                        ->join('master_form_penilaians','master_jawabans.penilaian_id','=','master_form_penilaians.id');
+                                        // ->groupBy('master_form_penilaians.id');
+                    $count = $data->get();              
+                    $total_score = $data->sum('score');
+                    $avg_per_aspek = $total_score / count($count);
                 @endphp     
                 <div>
                    <table>
@@ -141,14 +149,14 @@
                                 <thead>
                                     <tr>
                                         <th>Score</th>
-                                        <th>Present</th>
+                                        <th>Persent</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($form_penilaian as $row)
+                                    @forelse ($form_penilaian as $item)
                                     <tr>
-                                        <td class="border px-4 py-2" style="text-align: center">3.0</td>
-                                        <td class="border px-4 py-2" style="text-align: center">30</td>
+                                        <td class="border px-4 py-2" style="text-align: center">{{$item->score}}</td>
+                                        <td class="border px-4 py-2" style="text-align: center"></td>
                                     </tr>
                                     @empty
                                     <tr>
@@ -157,6 +165,14 @@
                                     @endforelse
                                 </tbody>
                            </table>
+                           <p style="font-size:10px">
+                            <table >
+                                <tr>
+                                    <td style="text-align:center">{{ number_format((float)$avg_per_aspek, 2, '.', '')}}</td>
+                                    <td style="text-align:center">{{number_format((float)$avg_per_aspek/100*5, 2, '.', '')}}</td>
+                                </tr>
+                            </table>
+                        </p>
                         </td>
                     </tr>
                    </table>
@@ -169,7 +185,21 @@
                 <td style="width: 75%"></td>
                 <td>
                     <p style="font-size:10px">
-                        <strong>Total Score Sementara</strong>: 1,45 <br>
+                        @php
+                            $total_score = DB::table('master_jawabans')
+                                            ->where('master_jawabans.form_id',$master_header->id)
+                                            ->join('master_form_penilaians','master_jawabans.penilaian_id','=','master_form_penilaians.id')
+                                            ->sum('score');
+                                            // ->get();
+                            $count_score = DB::table('master_jawabans')
+                                            ->where('master_jawabans.form_id',$master_header->id)
+                                            ->join('master_form_penilaians','master_jawabans.penilaian_id','=','master_form_penilaians.id')
+                                            ->groupBy('master_form_penilaians.id')
+                                            ->get();
+                                            $avg = $total_score / count($count_score);
+                            // dd($count_score);
+                        @endphp 
+                        <strong>Total Score Sementara</strong> {{ number_format((float)$avg, 2, '.', '')}} <br>
                         <strong>Data yang terkumpul</strong>: 50% <br>
                     </p>
                 </td>

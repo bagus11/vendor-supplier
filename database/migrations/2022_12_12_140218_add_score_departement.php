@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStatusOnMasterFormPenilaianHeaders extends Migration
+class AddScoreDepartement extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddStatusOnMasterFormPenilaianHeaders extends Migration
     public function up()
     {
         Schema::table('master_form_penilaian_headers', function (Blueprint $table) {
-            $table->string('status');
+            $table->smallInteger('score');  
         });
     }
 

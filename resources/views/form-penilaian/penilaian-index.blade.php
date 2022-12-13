@@ -57,7 +57,7 @@
          
             <div class="py-3 px-6 border-t border-gray-300 text-gray-600">
                 <div class="container">
-                    <table class="table-auto w-full bg-blue-500 datatable-collapse" id="penilaian_headers_table">
+                    <table class="table-auto w-full bg-blue-500 datatable-collapse" id="penilaian_headers_table" style="width:100%">
                         <thead>
                             <tr class="bg-gray-100">
                                 <th class="px-4 py-2"></th>
@@ -356,7 +356,7 @@ get_departement();
                                 <td style="text-align: left;">${response.data[i]['supplier_name']==null?'':response.data[i]['supplier_name']}</td>
                                 <td class="supplier_id" style="text-align: center;">${response.data[i]['supplier_id']==null?'':response.data[i]['supplier_id']}</td>
                                 <td style="width:20%;text-align:center">
-                                    <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"href="report_survey_supplier/${response.data[i]['id']}" target="_blank" title="Print Survey">
+                                    <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"href="report_evaluasi_supplier/${response.data[i]['supplier_id']}" target="_blank" title="Print Survey">
                                                 <i class="fas fa-print"></i>
                                             </a>
                                 </td>
@@ -429,8 +429,8 @@ get_departement();
                         $('.table_detail tbody').append(``);
                             row+= `<tr class="table-light">
                                         <td style="text-align: center;"> <input type="checkbox" id="check" name="check" class="is_checked" style="border-radius: 5px !important;" value="${response.data[i].id}"  data-flg_aktif="${response.data[i].flg_aktif}" data-id="${response.data[i].id}" ${response.data[i].flg_aktif == 1 ?'checked':'' }></td>
-                                        <td>${response.data[i].rating_code}</td>
                                         <td>${response.data[i].flg_aktif==1?'Active':'Innactive'}</td>
+                                        <td>${response.data[i].rating_code}</td>
                                         <td style="text-align:left">${response.data[i].departement_name}</td>
                                         <td>${response.data[i].status}</td>
                                         <td>${response.data[i].created_at}</td>
@@ -655,7 +655,7 @@ get_departement();
                     return false
                 }else{
                     toastr['success'](response.message);
-                    // window.location = "{{route('form_penilaian')}}";
+                    window.location = "{{route('form_penilaian')}}";
                 }
                 
             },
