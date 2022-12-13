@@ -33,8 +33,9 @@ class MasterPenilaianController extends Controller
     public function get_penilaian_log(Request $request)
     {
         $data = DB::table('master_form_penilaian_headers')
-                    ->select('master_form_penilaian_headers.*','master_departements.name as departement_name')
+                    ->select('master_form_penilaian_headers.*','master_departements.name as departement_name','users.name as user_name')
                     ->join('master_departements','master_departements.id','=','master_form_penilaian_headers.departement_id')
+                    ->join('users','users.id','=','master_form_penilaian_headers.user_id')
                     ->where('master_form_penilaian_headers.supplier_id', $request->supplier_id)
                     ->get();
         return response()->json([
@@ -89,10 +90,11 @@ class MasterPenilaianController extends Controller
                 'name'=>$departement_name->name.' '.$supplier_name->supplierName.' '.FunctionHelper::tgl_indo(date('Y-m-d')),
                 'supplier_name'=>$supplier_name->supplierName,
                 'rating_code'=>$supplier_id.date('YmdHis').$departement_id,
-                'flg_aktif'=>0,
+                'flg_aktif'=>1,
                 'departement_id'=>$departement_id,
                 'supplier_id'=>$supplier_id,
                 'status'=>'WAITING',
+                'user_id'=>$request->user_id,
                 'created_at'=>date('Y-m-d H:i:s')
             ];
         }
@@ -133,5 +135,5 @@ class MasterPenilaianController extends Controller
             'message'=>$message,
         ]);
     }
-    
+
 }

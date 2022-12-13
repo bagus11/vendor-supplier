@@ -12,11 +12,16 @@ use \Mpdf\Mpdf as PDF;
 use Illuminate\Support\Facades\Storage;
 class SurveySupplierController extends Controller
 {
-    public function index($id){
+    public function index($id,$user_id){
+        // Validasi selain user ID yg tercantum, tidak bisa buka halaman ini
+        if(auth()->user()->id != $user_id)
+        {
+            abort(403,'Anda tidak dapat mengakses halaman Survey ini');
+        }
         // Validasi, jika data ID yg dikirim tidak tercantum di Form Penilaian, di catch false
         $validasi_1 = MasterFormPenilaianHeader::where('id',$id)->count();
         if($validasi_1 == 0){
-            return 'Form Survey Supplier tidak ada';
+            abort(403,'Form Survey Supplier Tidak ada');
         }
         $survey_header = DB::table('master_form_penilaian_headers')
                             ->select('master_form_penilaian_headers.*','master_departements.name as departement_name')

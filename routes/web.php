@@ -8,6 +8,7 @@ use App\Http\Controllers\IsoController;
 use App\Http\Controllers\SupplierDataController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MasterAspekController;
+use App\Http\Controllers\MasterBobotController;
 use App\Http\Controllers\MasterPenilaianController;
 use App\Http\Controllers\MasterPertanyaanController;
 use App\Http\Controllers\MenusController;
@@ -118,11 +119,20 @@ Route::post('update_status_penilaian_header', [MasterPenilaianController::class,
 Route::get('get_penilaian_log', [MasterPenilaianController::class, 'get_penilaian_log'])->name('get_penilaian_log');
 // End Penilaian
 // Form Survey
-Route::get('survey_supplier/{number}', [SurveySupplierController::class, 'index'])->name('survey_supplier');
+Route::get('survey_supplier/{number}/{userId}', [SurveySupplierController::class, 'index'])->name('survey_supplier');
 Route::post('save_survey', [SurveySupplierController::class, 'save_survey'])->name('save_survey');
 Route::get('report_survey_supplier/{number}', [SurveySupplierController::class, 'report_survey_supplier'])->name('report_survey_supplier');
 Route::get('report_evaluasi_supplier/{number}', [SurveySupplierController::class, 'report_evaluasi_supplier'])->name('report_evaluasi_supplier');
 // End Form Survey
+
+// Master Bobot
+Route::get('master_bobot', [MasterBobotController::class, 'index'])->name('master_bobot');
+Route::get('get_bobot', [MasterBobotController::class, 'get_bobot'])->name('get_bobot');
+Route::post('save_bobot', [MasterBobotController::class, 'save_bobot'])->name('save_bobot');
+Route::get('get_detail_bobot', [MasterBobotController::class, 'get_detail_bobot'])->name('get_detail_bobot');
+Route::post('udpate_bobot', [MasterBobotController::class, 'udpate_bobot'])->name('udpate_bobot');
+Route::get('delete_bobot', [MasterBobotController::class, 'delete_bobot'])->name('delete_bobot');
+//End Master Bobot
 // report
 Route::get('reportSupplier', [SupplierDataController::class, 'reportSupplier'])->name('reportSupplier');
 

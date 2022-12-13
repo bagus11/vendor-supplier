@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DeleteScoreMasterJawabans extends Migration
+class CreateMasterBobotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class DeleteScoreMasterJawabans extends Migration
      */
     public function up()
     {
-        Schema::table('master_jawabans', function (Blueprint $table) {
-           $table->smallInteger('score');
+        Schema::create('master_bobot', function (Blueprint $table) {
+            $table->id();
+            $table->string('aspek_id');
+            $table->string('departement_id');
+            $table->integer('score');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class DeleteScoreMasterJawabans extends Migration
      */
     public function down()
     {
-        Schema::table('master_jawabans', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('master_bobot');
     }
 }

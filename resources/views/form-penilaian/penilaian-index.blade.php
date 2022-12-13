@@ -94,6 +94,17 @@
                                 <div class="container px-6">
                                     <div class="grid grid-cols-4">
                                         <div class="col-span-1 mt-2">
+                                            <label  for="">User</label>
+                                        </div>
+                                        <div class="col-span-3">
+                                            <select name="user_name" id="user_name" class="select2" style="width: 100%"></select>
+                                          <input type="hidden" id="user_id" class="w-full" name="user_id">
+                                            <span  style="color:red;" class="message_error text-red block user_id_error"></span>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="grid grid-cols-4">
+                                        <div class="col-span-1 mt-2">
                                             <label  for="">Supplier</label>
                                         </div>
                                         <div class="col-span-3">
@@ -103,6 +114,7 @@
                                         </div>
                                     </div>
                                     <br>
+                                   
                                     <div class="grid grid-cols-4">
                                         <div class="col-span-1 mt-2">
                                             <label  for="">Departement</label>
@@ -114,6 +126,7 @@
                                         </div>
                                     </div>
                                     <br>
+                                  
                                     <div class="grid grid-cols-1">
                                         <table class="table-auto w-full datatable-collapse" id="table_pertanyaan">
                                             <thead>
@@ -143,72 +156,7 @@
         </div>
     </div>
     {{--End Add Aspek --}}
-     {{-- Edit Aspek --}}
-     <div class="relative z-auto overflow-y-auto hidden ease-out duration-400" aria-labelledby="modal-title" role="dialog" aria-modal="true" id="editPertanyaanModal">
-        <div class="fixed inset-0 transition-opacity">
-            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-        </div>
-        <div class="fixed inset-0 z-10 overflow-y-auto">
-            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                <div class="relative w-full max-w-xl h-full md:h-auto overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
-                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4  border-b border-gray-300">
-                        <div class="sm:flex sm:items-start">
-                            <h4>Form Edit Pertanyaan</h4>
-                        </div>
-                       
-                    </div>
-                    <div class="mt-4 px-8 border-b border-gray-300"id="other_address">
-                        <div class="text-white-700 mt-4" style="justify-content: left;max-width:830px" >
-                            <div class="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                                <div class="container px-6">
-                                    <div class="grid grid-cols-4">
-                                        <div class="col-span-1 mt-2">
-                                            <label  for="">Departement</label>
-                                        </div>
-                                        <div class="col-span-3">
-                                            <select name="departement_name_update" id="departement_name_update" class="select2" style="width: 100%"></select>
-                                          <input type="hidden" id="pertanyaan_id" class="w-full" name="pertanyaan_id">
-                                          <input type="hidden" id="departement_id_update" class="w-full" name="departement_id_update">
-                                            <span  style="color:red;" class="message_error text-red block departement_name_update_error"></span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="grid grid-cols-4">
-                                        <div class="col-span-1 mt-2">
-                                            <label  for="">Aspek</label>
-                                        </div>
-                                        <div class="col-span-3">
-                                            <select name="aspek_name_update" id="aspek_name_update" class="select2" style="width: 100%"></select>
-                                          <input type="hidden" id="aspek_id_update" class="w-full" name="aspek_id_update">
-                                            <span  style="color:red;" class="message_error text-red block aspek_id_update_error"></span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="grid grid-cols-4">
-                                        <div class="col-span-1 mt-2">
-                                            <label  for="">Pertanyaan</label>
-                                        </div>
-                                        <div class="col-span-3">
-                                            <textarea cols="1" rows="2" id="pertanyaan_name_update" class="w-full" style="border-radius: 5px !important;"></textarea>
-                                            <span  style="color:red;" class="message_error text-red block pertanyaan_name_update_error"></span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="px-4 py-2 sm:flex sm:flex-row-reverse sm:px-6">
-                        <button Phone="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-green-400 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-500 fg sm:ml-3 sm:w-auto sm:text-sm" id="save_update_pertanyaan">Save</button>
-                        <button Phone="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 fg sm:ml-3 sm:w-auto sm:text-sm" id="close_update_pertanyaan">  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{--End Edit Aspek --}}
+
 </x-app-layout>
 <script>
 $('.select2').select2()
@@ -222,6 +170,7 @@ get_departement();
     $('#table_pertanyaan').DataTable().destroy();
     $('#table_pertanyaan').hide()
     get_supplier_name()
+    get_username()
     
  })
  $('#close_add_pertanyaan').on('click', function(){
@@ -235,6 +184,10 @@ get_departement();
     var departement_name = $('#departement_name').val();
     $('#departement_id').val(departement_name);
     get_pertanyaan()
+ })
+ $('#user_name').on('change', function(){
+    var user_name = $('#user_name').val();
+    $('#user_id').val(user_name);
  })
  $('#tgl_from').on('change', function(){
     get_penilaian_headers()
@@ -279,6 +232,7 @@ get_departement();
         'pertanyaan_array':checkArray,
         'departement_id':$('#departement_id').val(),
         'supplier_id':$('#supplier_id').val(),
+        'user_id':$('#user_id').val(),
 
     }
     save_form_penilaian(data)
@@ -412,7 +366,7 @@ get_departement();
                     var report_survey =``;
                     var akeses =``;
                         if(response.data[i]['status'] != 'DONE'&& response.data[i]['flg_aktif']==1 ){
-                        isi_survey =`<a class="bg-green-300 hover:bg-green-500 text-white font-bold py-1 px-3 rounded"href="survey_supplier/${response.data[i]['id']}" target="_blank" title="Isi Survey">
+                        isi_survey =`<a class="bg-green-300 hover:bg-green-500 text-white font-bold py-1 px-3 rounded"href="survey_supplier/${response.data[i]['id']}/${response.data[i]['user_id']}" target="_blank" title="Isi Survey">
                                             <i class="fas fa-arrow-right"></i>
                                         </a>`;
                         }
@@ -435,6 +389,7 @@ get_departement();
                                         <td>${response.data[i].status}</td>
                                         <td>${response.data[i].created_at}</td>
                                         <td>${response.data[i].updated_at}</td>
+                                        <td style="text-align:left">${response.data[i].user_name}</td>
                                         <td>
                                             @can('print-form_penilaian')       
                                                 ${report_survey}
@@ -450,7 +405,7 @@ get_departement();
 
                     }
                     callback($(`
-                      <table class="table_detail" style="width:80%;text-align:center;float:right;background:#404258">
+                      <table class="table_detail" style="width:100%;text-align:center;float:right;background:#404258">
                         <div style="color: darkblue; font-weight: 600;"><i class="fas fa-history"></i> Detail </div>
                         <thead>
                             <tr>
@@ -461,6 +416,7 @@ get_departement();
                                 <th style="text-align:center">Proses</th>
                                 <th style="text-align:center">Tanggal Buat</th>
                                 <th style="text-align:center">Tanggal Update</th>
+                                <th style="text-align:center">User</th>
                                 <th style="text-align:center">Action</th>
                             </tr>
                         </thead>
@@ -565,6 +521,41 @@ get_departement();
                 $('#supplier_name').append('<option value ="">Pilih Supplier</option>');
                 $.each(response.supplier_name,function(i,data){
                     $('#supplier_name').append('<option value="'+data.id+'">' + data.supplierName +'</option>');
+                });
+
+                $('#departement_name').empty();
+                $('#departement_name').append('<option value ="">Pilih Departement</option>');
+                $.each(response.departement_name,function(i,data){
+                    $('#departement_name').append('<option value="'+data.id+'">' + data.name +'</option>');
+                });
+
+
+                
+            },
+            error: function(xhr, status, error) {
+                swal.close();
+                toastr['error']('Failed to get data, please contact ICT Developer');
+            }
+        });
+    }
+    function get_username(){
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{route('get_username')}}",
+            type: "get",
+            dataType: 'json',
+            async: true,
+            beforeSend: function() {
+                SwalLoading('Please wait ...');
+            },
+            success: function(response) {
+                swal.close();
+                $('#user_name').empty();
+                $('#user_name').append('<option value ="">Pilih User</option>');
+                $.each(response.data,function(i,data){
+                    $('#user_name').append('<option value="'+data.id+'">' + data.name +'</option>');
                 });
 
                 $('#departement_name').empty();
