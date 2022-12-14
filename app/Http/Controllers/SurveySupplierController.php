@@ -23,6 +23,11 @@ class SurveySupplierController extends Controller
         if($validasi_1 == 0){
             abort(403,'Form Survey Supplier Tidak ada');
         }
+        // Validasi, jika status data sudah done, maka tidak bisa melakukan survey
+        $validasi_2 = MasterFormPenilaianHeader::where('id',$id)->get();
+        if($validasi_2[0]->status =="DONE"){
+            abort(403,'Anda sudah melakukan survey');
+        } 
         $survey_header = DB::table('master_form_penilaian_headers')
                             ->select('master_form_penilaian_headers.*','master_departements.name as departement_name')
                             ->join('master_departements','master_departements.id','=','master_form_penilaian_headers.departement_id')
@@ -127,7 +132,7 @@ class SurveySupplierController extends Controller
                 'margin_left' => '5',
                 'margin_right' => '5',
             ]);
-            $imageLogo = '<img src="'.public_path('logo.png').'" width="70px" style="float: right;"/>';
+            $imageLogo = '<img src="'.public_path('icon.jpg').'" width="70px" style="float: right;"/>';
             $headers='';
             $headers .= '<table width="100%">
             <tr>
@@ -210,7 +215,7 @@ class SurveySupplierController extends Controller
                 'margin_left' => '5',
                 'margin_right' => '5',
             ]);
-            $imageLogo = '<img src="'.public_path('logo.png').'" width="70px" style="float: right;"/>';
+            $imageLogo = '<img src="'.public_path('icon.jpg').'" width="70px" style="float: right;"/>';
             $headers='';
             $headers .= '<table width="100%">
             <tr>
@@ -224,7 +229,6 @@ class SurveySupplierController extends Controller
         </table><br>';
         $document->WriteHTML($headers);
             // get data supplier
-          
             $footer = '<table width="100%" style="font-size: 10px;">
             <tr>
              
@@ -232,7 +236,6 @@ class SurveySupplierController extends Controller
                 <td width="33%" style="text-align: right;">Halaman : {PAGENO}</td>
             </tr>
              </table>';
-        
             // Set some header informations for output
             $header = [
                 'Content-Type' => 'application/pdf',

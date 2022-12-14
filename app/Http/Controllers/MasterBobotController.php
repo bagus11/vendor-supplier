@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LogBobot;
 use App\Models\MasterBobot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -121,6 +122,8 @@ class MasterBobotController extends Controller
         $status =500;
         $message ='Data gagal dihapus';
         $id = $request->id;
+        // validasi jika data sudah ada di log, tidak bisa dihapus
+        // $validasi_1 = LogBobot::where('')
         $delete = MasterBobot::find($id);
         $delete->delete();
         if($delete){

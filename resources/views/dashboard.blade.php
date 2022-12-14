@@ -53,7 +53,7 @@
     </div>
 </x-app-layout>
 <script>
-    getData()
+    // getData()
     var type = $('#bar_type').val()
     $('#bar_type').on('change', function(){
         if(type){

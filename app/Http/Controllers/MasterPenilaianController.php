@@ -10,6 +10,9 @@ use App\Models\Suppliers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\FunctionHelper;
+use App\Models\LogBobot;
+use App\Models\MasterBobot;
+
 class MasterPenilaianController extends Controller
 {
     public function index()
@@ -72,6 +75,7 @@ class MasterPenilaianController extends Controller
         $supplier_name = Suppliers::find($supplier_id);
         $post_array =[];
         $post_header =[];
+        $post_bobot_array=[];
         $status =500;
         $message ='Data Gagal disimpan, harap hubungi ICT Developer';
         foreach($pertanyaan_array as $row){
@@ -99,10 +103,28 @@ class MasterPenilaianController extends Controller
             ];
         }
         // dd($post_header);
+        // Get Log Bobot Nilai
+        $bobot_nilai = MasterBobot::where('departement_id',$departement_id)->get();
+        $form_penilaian = MasterFormPenilaianHeader::orderby('id','desc')->first();
+        $form_id = $form_penilaian!=null? $form_penilaian->id + 1: 1; 
+        foreach($bobot_nilai as $row){
+            $post_bobot =[
+              'form_id'=>$form_id,
+              'departement_id'=>$row->departement_id,
+              'aspek_id'=>$row->aspek_id,
+              'score'=>$row->score,
+              'bobot_id'=>$row->id,
+              'supplier_id'=>$supplier_id,
+              'created_at'=>date('Y-m-d H:i:s')
+            ];
+            array_push($post_bobot_array,$post_bobot);
+        }
+        // dd($post_bobot_array);
         if(count($post_array) > 0){
-            DB::transaction(function() use($post_array,$post_header) {
+            DB::transaction(function() use($post_array,$post_header,$post_bobot_array) {
                 $insert = MasterFormPenilaianHeader::create($post_header);
                 if($insert){
+                    LogBobot::insert($post_bobot_array);
                      MasterFormPenilaian::insert($post_array);
                 }
             });

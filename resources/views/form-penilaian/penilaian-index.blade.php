@@ -556,16 +556,7 @@ get_departement();
                 $('#user_name').append('<option value ="">Pilih User</option>');
                 $.each(response.data,function(i,data){
                     $('#user_name').append('<option value="'+data.id+'">' + data.name +'</option>');
-                });
-
-                $('#departement_name').empty();
-                $('#departement_name').append('<option value ="">Pilih Departement</option>');
-                $.each(response.departement_name,function(i,data){
-                    $('#departement_name').append('<option value="'+data.id+'">' + data.name +'</option>');
-                });
-
-
-                
+                }); 
             },
             error: function(xhr, status, error) {
                 swal.close();

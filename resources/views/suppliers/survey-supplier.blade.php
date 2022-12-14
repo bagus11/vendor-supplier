@@ -109,6 +109,12 @@
                     $count = $data->get();              
                     $total_score = $data->sum('score');
                     $avg_per_aspek = $total_score / count($count);
+                    $bobot = DB::table('log_bobots')
+                                ->select('log_bobots.*')
+                                ->where('log_bobots.aspek_id',$item->aspek_id)
+                                ->where('log_bobots.form_id',$master_header->id)->get();
+                 
+                       
                 @endphp     
                 <div>
                    <table>
@@ -169,7 +175,7 @@
                             <table >
                                 <tr>
                                     <td style="text-align:center">{{ number_format((float)$avg_per_aspek, 2, '.', '')}}</td>
-                                    <td style="text-align:center">{{number_format((float)$avg_per_aspek/100*5, 2, '.', '')}}</td>
+                                    <td style="text-align:center">{{number_format((float)$avg_per_aspek/100*$bobot[0]->score, 2, '.', '')}}</td>
                                 </tr>
                             </table>
                         </p>
@@ -177,6 +183,9 @@
                     </tr>
                    </table>
                 </div>
+                <p style="margin-left: 20px">
+                    <strong>Note : Bobot Nilai {{$bobot[0]->score}}% </strong>
+                </p>
         @endforeach
     </div>
     <div style="float: right">

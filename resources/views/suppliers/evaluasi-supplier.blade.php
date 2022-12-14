@@ -83,7 +83,7 @@
 </head>
 <body>
     <div style="margin-top:-20px">
-        <p style="text-align: center">Nama Perusahaan : {{$master_header->supplier_name}}</p>
+        <p style="text-align: center">Nama Perusahaan : {{$master_header->name}}</p>
     </div>  
     <div>
         @foreach ($master_aspek as $item)
@@ -99,9 +99,11 @@
                                     ->where('master_form_penilaians.aspek_id', $item->aspekId)
                                     ->groupBy('master_form_penilaians.departement_id')
                                     ->get();
-                        // dd($item->aspekId); 
-                        // dd($master_header->id); 
-                        // dd($form_evaluasi);
+                $bobot = DB::table('log_bobots')
+                            ->where('aspek_id',$item->aspekId)
+                            ->where('supplier_id',$master_header->id)
+                            ->sum('score');
+        
                 @endphp     
                 <div>
                    <table>
@@ -120,6 +122,8 @@
                                     <tr>
                                         <td class="border px-4 py-2" style="text-align: left">Review {{ $row->departement_name }}</td>
                                         <td class="border px-4 py-2" style="text-align: center">{{number_format((float)$row->score, 2, '.', '')  }}</td>
+                                        {{-- <td class="border px-4 py-2" style="text-align: center">{{number_format((float)$row->score, 2, '.', '')  }}</td> --}}
+                                        <td class="border px-4 py-2" style="text-align: center"></td>
                                     </tr>
                                     @empty
                                     <tr>
@@ -128,6 +132,45 @@
                                     @endforelse
                                 </tbody>
                             </table>  
+                        </td>
+                    </tr>
+                   </table>
+                   <table style="width:100%">
+                    <tr>
+                        <td style="width: 60%">
+                            <p style="margin-left:20px">
+                                <strong>Note : Bobot Nilai {{$bobot}}%</strong>
+                            </p>
+                        </td>
+                        <td tyle="width: 40%">
+                            <table>
+                                @php
+                                  $sum_score = DB::table('master_form_penilaian_headers')
+                                    ->join('master_form_penilaians','master_form_penilaians.form_id','=','master_form_penilaian_headers.id')
+                                    ->join('master_jawabans','master_jawabans.penilaian_id','=','master_form_penilaians.id')
+                                    ->join('master_departements','master_departements.id','=', 'master_form_penilaian_headers.departement_id')
+                                    ->join('master_aspeks','master_aspeks.id','=','master_form_penilaians.aspek_id')
+                                    ->where('master_form_penilaian_headers.supplier_id',$master_header->id)
+                                    ->where('master_form_penilaians.aspek_id', $item->aspekId)
+                                    ->sum('master_jawabans.score');
+                                $count = DB::table('master_form_penilaian_headers')
+                                        ->join('master_form_penilaians','master_form_penilaians.form_id','=','master_form_penilaian_headers.id')
+                                            ->join('master_jawabans','master_jawabans.penilaian_id','=','master_form_penilaians.id')
+                                            ->join('master_departements','master_departements.id','=', 'master_form_penilaian_headers.departement_id')
+                                            ->join('master_aspeks','master_aspeks.id','=','master_form_penilaians.aspek_id')
+                                            ->where('master_form_penilaian_headers.supplier_id',$master_header->id)
+                                            ->where('master_form_penilaians.aspek_id', $item->aspekId)
+                                            ->get();
+                                            // ->count('master_form_penilaian_headers.departement_id');
+                                    // dd($sum_score);
+                                @endphp
+
+                                <tr>
+                                    <td style="text-align: center;font-weight:bold;font-size:10px">{{$sum_score}}</td>
+                                    <td style="text-align: center;font-weight:bold;font-size:10px">{{number_format((float)$sum_score/count($count), 2, '.', '')  }}</td>
+                                    {{-- <td style="text-align: center;font-weight:bold;font-size:10px">{{number_format((float)$sum_score * $bobot / 100, 2, '.', '')  }}</td> --}}
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                    </table>
@@ -147,31 +190,7 @@
             </tr>
         </table>
     </div>
-    <div>
-        <p><strong>Apakah ada kritik dan saran untuk pengembangan kinerja supplier ?</strong></p>
-        <table style="width: 30%; font-size:12px;margin-top:-10px">
-            <tr>
-                <td>
-                    <label for="cc">
-                        <input type="checkbox" style="border-radius: 5px !important;" class="diterapkan" name="diterapkan" {{$master_header->keterangan != '' ?  'checked="checked"':''}}>
-                        Ya                  
-                    </label>
-                </td>
-                <td>
-                    <label for="cc">
-                        <input type="checkbox" style="border-radius: 5px !important;" class="tidak" name="tidak" {{$master_header->keterangan == '' ?  'checked="checked"':''}}>
-                        Tidak                  
-                    </label>
-                </td>
-            </tr>
-        </table>
-        <p class="{{$master_header->keterangan ==''?'hide':''}}">
-            Kritik & Saran : <br>
-            <p style="margin-left:10px ">
-                {{$master_header->keterangan}}
-            </p>
-        </p>
-    </div>
+
 
 </body>
 </html>
