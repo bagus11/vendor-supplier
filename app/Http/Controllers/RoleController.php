@@ -65,7 +65,7 @@ class RoleController extends Controller
    public function get_premission(Request $request)
    {
         if($request->ajax()) {
-            $data = Permission::whereNotNull('name');
+            $data = Permission::whereNotNull('name')->orderBy('id','desc');
             return DataTables::eloquent($data)
             ->addColumn('action', function($row){
                 $btn = '

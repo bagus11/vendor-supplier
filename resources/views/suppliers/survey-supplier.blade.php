@@ -76,16 +76,19 @@
         color: white;
         }
         strong{
-            font-size:10px
+            font-size:12px
         }
         p.hide {display: none;}
     </style>
 </head>
 <body>
-    <div style="margin-top:-20px">
+    <div style="margin-top:-30px">
         <p style="text-align: center">Nama Perusahaan : {{$master_header->supplier_name}}</p>
     </div>  
-    <div>
+    <div style="margin-top:-20px">
+        @php
+            $avg_array=[];
+        @endphp
         @foreach ($master_aspek as $item)
             <p><strong>{{$item->name}}</strong></p>
         
@@ -113,22 +116,22 @@
                                 ->select('log_bobots.*')
                                 ->where('log_bobots.aspek_id',$item->aspek_id)
                                 ->where('log_bobots.form_id',$master_header->id)->get();
-                 
-                       
+                    $percent_avg = $avg_per_aspek/100*$bobot[0]->score;
+                    array_push($avg_array,['avg'=>$percent_avg,'bobot'=>$bobot[0]->score]); 
                 @endphp     
                 <div>
-                   <table>
+                   <table style="margin-top:-10px">
                     <tr>
                         <td>
                             <table class="table-auto" id="customers" style="width: 100%">
                                 <thead>
                                     <tr class="bg-gray-100">
-                                        <th class="border px-4 py-2" style="text-align: center;width:50%">Keterangan</th>
-                                        <th class="border px-4 py-2" style="text-align: center ;width:6%">Buruk</th>
-                                        <th class="border px-4 py-2" style="text-align: center ;width:6%">Biasa</th>
-                                        <th class="border px-4 py-2" style="text-align: center ;width:6%">Bagus</th>
-                                        <th class="border px-4 py-2" style="text-align: center ;width:6%">Sangat Bagus</th>
-                                        <th class="border px-4 py-2" style="text-align: center ;width:6%">Sangat Bagus Sekali</th>
+                                        <th class="border px-4 py-2" style="text-align: center;width:50px%">Keterangan</th>
+                                        <th class="border px-4 py-2" style="text-align: center ;width:6px">Buruk</th>
+                                        <th class="border px-4 py-2" style="text-align: center ;width:6px">Biasa</th>
+                                        <th class="border px-4 py-2" style="text-align: center ;width:6px">Bagus</th>
+                                        <th class="border px-4 py-2" style="text-align: center ;width:6px">Sangat Bagus</th>
+                                        <th class="border px-4 py-2" style="text-align: center ;width:6px">Sangat Bagus Sekali</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -171,7 +174,7 @@
                                     @endforelse
                                 </tbody>
                            </table>
-                           <p style="font-size:10px">
+                           <p style="font-size:12px">
                             <table >
                                 <tr>
                                     <td style="text-align:center">{{ number_format((float)$avg_per_aspek, 2, '.', '')}}</td>
@@ -183,7 +186,7 @@
                     </tr>
                    </table>
                 </div>
-                <p style="margin-left: 20px">
+                <p style="margin-left: 20px;margin-top:-5px">
                     <strong>Note : Bobot Nilai {{$bobot[0]->score}}% </strong>
                 </p>
         @endforeach
@@ -194,22 +197,19 @@
                 <td style="width: 75%"></td>
                 <td>
                     <p style="font-size:10px">
-                        @php
-                            $total_score = DB::table('master_jawabans')
-                                            ->where('master_jawabans.form_id',$master_header->id)
-                                            ->join('master_form_penilaians','master_jawabans.penilaian_id','=','master_form_penilaians.id')
-                                            ->sum('score');
-                                            // ->get();
-                            $count_score = DB::table('master_jawabans')
-                                            ->where('master_jawabans.form_id',$master_header->id)
-                                            ->join('master_form_penilaians','master_jawabans.penilaian_id','=','master_form_penilaians.id')
-                                            ->groupBy('master_form_penilaians.id')
-                                            ->get();
-                                            $avg = $total_score / count($count_score);
-                            // dd($count_score);
-                        @endphp 
-                        <strong>Total Score Sementara</strong> {{ number_format((float)$avg, 2, '.', '')}} <br>
-                        <strong>Data yang terkumpul</strong>: 50% <br>
+                    
+                         @php
+                            $total_avg =0;
+                            $total_percent =0;
+                            for($i =0 ; $i < count($avg_array); $i++ ) {
+                                    $total_avg += $avg_array[$i]['avg'];
+                                    $total_percent += $avg_array[$i]['bobot'];
+
+                                }
+                           
+                         @endphp
+                        <strong>Total Score Sementara</strong> {{ number_format((float)$total_avg, 2, '.', '')}} <br>
+                        <strong>Data yang terkumpul</strong>: {{$total_percent}}% <br>
                     </p>
                 </td>
             </tr>
@@ -240,6 +240,6 @@
             </p>
         </p>
     </div>
-
+   
 </body>
 </html>

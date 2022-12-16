@@ -16,6 +16,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SupplierImportController;
 use App\Http\Controllers\SurveySupplierController;
 use App\Http\Controllers\UserAccess;
+use App\Http\Controllers\UserSetting;
 
 /*
 |--------------------------------------------------------------------------
@@ -133,6 +134,10 @@ Route::get('get_detail_bobot', [MasterBobotController::class, 'get_detail_bobot'
 Route::post('udpate_bobot', [MasterBobotController::class, 'udpate_bobot'])->name('udpate_bobot');
 Route::get('delete_bobot', [MasterBobotController::class, 'delete_bobot'])->name('delete_bobot');
 //End Master Bobot
+
+// User
+Route::get('setting_user', [UserSetting::class, 'index'])->name('setting_user');
+// End User
 // report
 Route::get('reportSupplier', [SupplierDataController::class, 'reportSupplier'])->name('reportSupplier');
 

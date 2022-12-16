@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FunctionHelper;
 use App\Models\MasterFormPenilaianHeader;
 use App\Models\Masterjawaban;
 use App\Models\MasterPertanyaan;
@@ -208,8 +209,8 @@ class SurveySupplierController extends Controller
             $document = new PDF([
                 'mode' => 'utf-8',
                 'format' => 'A4',
-                'margin_header' => '5',
-                'margin_top' => '5',
+                'margin_header' => '0',
+                'margin_top' => '0',
                 'margin_bottom' => '5',
                 'margin_footer' => '2',
                 'margin_left' => '5',
@@ -246,7 +247,7 @@ class SurveySupplierController extends Controller
 
             // content
             // $document->SetDisplayMode('fullpage');
-            $document->WriteHTML('<center><h4 style="text-align:center;">Form Evaluasi Suppleir</h4></center>');
+            $document->WriteHTML('<center><h4 style="text-align:center;margin-top:-25px;">Form Evaluasi Suppleir</h4></center>');
             // $document->writeHTML('<br/>');
             $master_header = Suppliers::find($id);
             $master_aspek =DB::table('master_form_penilaians')
@@ -263,6 +264,7 @@ class SurveySupplierController extends Controller
             $document->WriteHTML(view('suppliers.evaluasi-supplier', [
               'master_header'=> $master_header,
               'master_aspek'=> $master_aspek,
+              'tgl'=>FunctionHelper::tgl_indo(date('Y-m-d'))
             ]));
             // Save PDF on your public storage
             Storage::disk('public')->put($resultNamePDF, $document->Output($resultNamePDF, "S"));

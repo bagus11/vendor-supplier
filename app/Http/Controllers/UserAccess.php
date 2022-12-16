@@ -104,7 +104,11 @@ class UserAccess extends Controller
         $role = Role::find($role_id);
         $role->givePermissionTo($permission);
         // $role->syncPermissions($permission);
-
+        if($role)
+        {
+            $status=200;
+            $message='Data berhasil disimpan';
+        }
         return response()->json([
             'status'=>$status,
             'message'=>$message,
