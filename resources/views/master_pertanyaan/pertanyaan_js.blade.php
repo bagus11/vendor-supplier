@@ -177,7 +177,7 @@
                     {
                         data += `<tr style="text-align: center;">
                                     <td style="text-align: center;"> <input type="checkbox" id="check" name="check" class="is_checked" style="border-radius: 5px !important;" value="${response.data_pertanyaan[i]['id']}"  data-flg_aktif="${response.data_pertanyaan[i]['flg_aktif']}" data-id="${response.data_pertanyaan[i]['id']}" ${response.data_pertanyaan[i]['flg_aktif'] == 1 ?'checked':'' }></td>
-                                    <td style="text-align: center;">${response.data_pertanyaan[i]['flg_aktif']==1?'Active':'Innactive'}</td>
+                                    <td style="text-align: center;">${response.data_pertanyaan[i]['flg_aktif']==1?'Active':'inactive'}</td>
                                     <td style="text-align: left;">${response.data_pertanyaan[i]['departement_name']==null?'':response.data_pertanyaan[i]['departement_name']}</td>
                                     <td style="text-align: left;">${response.data_pertanyaan[i]['aspek_name']==null?'':response.data_pertanyaan[i]['aspek_name']}</td>
                                     <td style="text-align: left;">${response.data_pertanyaan[i]['name']==null?'':response.data_pertanyaan[i]['name']}</td>

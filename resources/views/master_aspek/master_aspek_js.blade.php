@@ -48,7 +48,7 @@
                     $('#label_aspek').html('Active')
                     }else{
                         document.getElementById("flg_aktif_aspek").checked = false;
-                        $('#label_aspek').html('Innactive')
+                        $('#label_aspek').html('inactive')
                     }
                 },
                 error: function(xhr, status, error) {
@@ -129,7 +129,7 @@
                     $('#label_departement').html('Active')
                     }else{
                         document.getElementById("flg_aktif_departement").checked = false;
-                        $('#label_departement').html('Innactive')
+                        $('#label_departement').html('inactive')
                     }
                 },
                 error: function(xhr, status, error) {

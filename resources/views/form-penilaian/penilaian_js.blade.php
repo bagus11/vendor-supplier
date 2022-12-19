@@ -150,9 +150,9 @@
                                     <td style="text-align: left;">${response.data[i]['supplier_name']==null?'':response.data[i]['supplier_name']}</td>
                                     <td class="supplier_id" style="text-align: center;">${response.data[i]['supplier_id']==null?'':response.data[i]['supplier_id']}</td>
                                     <td style="width:20%;text-align:center">
-                                        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"href="report_evaluasi_supplier/${response.data[i]['supplier_id']}" target="_blank" title="Print Survey">
+                                        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"href="report_evaluasi_supplier/${response.data[i]['supplier_id']}" target="_blank" title="Report Evaluasi">
                                                     <i class="fas fa-print"></i>
-                                                </a>
+                                        </a>
                                     </td>
                                 </tr>
                                 `;
@@ -216,14 +216,14 @@
                                                 </a>`;
                             }
                             if(isi_survey == '' && report_survey ==''){
-                                akeses =` <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Status Innactive</span>`
+                                akeses =` <span class="bg-gray-100 text-gray-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Status inactive</span>`
                             }else{
                                 akeses =``;
                             }
                             $('.table_detail tbody').append(``);
                                 row+= `<tr class="table-light">
                                             <td style="text-align: center;"> <input type="checkbox" id="check" name="check" class="is_checked" style="border-radius: 5px !important;" value="${response.data[i].id}"  data-flg_aktif="${response.data[i].flg_aktif}" data-id="${response.data[i].id}" ${response.data[i].flg_aktif == 1 ?'checked':'' }></td>
-                                            <td>${response.data[i].flg_aktif==1?'Active':'Innactive'}</td>
+                                            <td>${response.data[i].flg_aktif==1?'Active':'inactive'}</td>
                                             <td>${response.data[i].rating_code}</td>
                                             <td style="text-align:left">${response.data[i].departement_name}</td>
                                             <td>${response.data[i].status}</td>
@@ -300,7 +300,7 @@
                     {
                         data += `<tr style="text-align: center;">
                                     <td style="text-align: center;"> <input type="checkbox" id="check" name="check" class="is_checked" style="border-radius: 5px !important;" value="${response.data_pertanyaan[i]['id']}"  data-flg_aktif="${response.data_pertanyaan[i]['flg_aktif']}" data-id="${response.data_pertanyaan[i]['id']}" ${response.data_pertanyaan[i]['flg_aktif'] == 1 ?'checked':'' }></td>
-                                    <td style="text-align: center;">${response.data_pertanyaan[i]['flg_aktif']==1?'Active':'Innactive'}</td>
+                                    <td style="text-align: center;">${response.data_pertanyaan[i]['flg_aktif']==1?'Active':'inactive'}</td>
                                     <td style="text-align: left;">${response.data_pertanyaan[i]['departement_name']==null?'':response.data_pertanyaan[i]['departement_name']}</td>
                                     <td style="text-align: left;">${response.data_pertanyaan[i]['aspek_name']==null?'':response.data_pertanyaan[i]['aspek_name']}</td>
                                     <td style="text-align: left;">${response.data_pertanyaan[i]['name']==null?'':response.data_pertanyaan[i]['name']}</td>

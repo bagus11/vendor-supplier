@@ -40,7 +40,7 @@ class MasterAspekController extends Controller
                 }
                 return $btn;
             })->addColumn('status', function($row){
-            $checkbox = $row->flg_aktif == 1 ? 'active':'innactive' ;
+            $checkbox = $row->flg_aktif == 1 ? 'active':'inactive' ;
             return $checkbox;
             })->toJson();
         }
@@ -143,7 +143,7 @@ class MasterAspekController extends Controller
                 }
                 return $btn;
             })->addColumn('status', function($row){
-            $checkbox = $row->flg_aktif == 1 ? 'active':'innactive' ;
+            $checkbox = $row->flg_aktif == 1 ? 'active':'inactive' ;
             return $checkbox;
             })->toJson();
         }

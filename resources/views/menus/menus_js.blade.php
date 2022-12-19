@@ -79,7 +79,7 @@
                     $('#label_menus_status').html('Active')
                 }else{
                     document.getElementById("menus_status_update").checked = false;
-                      $('#label_menus_status').html('Innactive')
+                      $('#label_menus_status').html('inactive')
                 }
                     
                 },
@@ -152,7 +152,7 @@
                     $('#label_submenus_status').html('Active')
                     }else{
                         document.getElementById("submenus_status_update").checked = false;
-                        $('#label_submenus_status').html('Innactive')
+                        $('#label_submenus_status').html('inactive')
                     }
                     
                 },

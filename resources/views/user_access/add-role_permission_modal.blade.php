@@ -16,7 +16,7 @@
                         <div class="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                             <div class="container px-6">
                                 <input type="hidden" id="role_id_permission">
-                                <table class="table-auto w-full border-collapse" id="table_pemission_innactive">
+                                <table class="table-auto w-full border-collapse" id="table_pemission_inactive">
                                     <thead>
                                         <tr class="border">
                                             <th style="text-align: left"><input type="checkbox" id="check_all" name="check_all" class="check_all" style="border-radius: 5px !important;"></th>

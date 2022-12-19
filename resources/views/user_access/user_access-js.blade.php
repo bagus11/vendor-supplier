@@ -39,8 +39,8 @@
        $('#addRolePermissionModal').show()
        $('#delete_role_permission').hide()
        $('#save_add_role_permission').show()
-       $('#table_pemission_innactive').DataTable().clear();
-       $('#table_pemission_innactive').DataTable().destroy();
+       $('#table_pemission_inactive').DataTable().clear();
+       $('#table_pemission_inactive').DataTable().destroy();
        $.ajax({
            headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -59,18 +59,18 @@
                swal.close();
                $('#role_id_permission').val(id);
                var data=''
-               for(i = 0; i < response.permission_innactive.length; i++ )
+               for(i = 0; i < response.permission_inactive.length; i++ )
                {
                    data += `<tr style="text-align: center;">
-                               <td style="text-align: left;"> <input type="checkbox" id="check" name="check" class="is_checked" style="border-radius: 5px !important;" value="${response.permission_innactive[i]['id']}"  data-name="${response.permission_innactive[i]['name']}"></td>
-                               <td style="text-align: left;">${response.permission_innactive[i]['name']==null?'':response.permission_innactive[i]['name']}</td>
+                               <td style="text-align: left;"> <input type="checkbox" id="check" name="check" class="is_checked" style="border-radius: 5px !important;" value="${response.permission_inactive[i]['id']}"  data-name="${response.permission_inactive[i]['name']}"></td>
+                               <td style="text-align: left;">${response.permission_inactive[i]['name']==null?'':response.permission_inactive[i]['name']}</td>
                            </tr>
                            `;
                }
-                   $('#table_pemission_innactive > tbody:first').html(data);
+                   $('#table_pemission_inactive > tbody:first').html(data);
                        $(document).ready(function() 
                        {
-                           $('#table_pemission_innactive').DataTable( {
+                           $('#table_pemission_inactive').DataTable( {
                                "destroy": true,
                                "scrollX": true,
                                "autoWidth" : false,
@@ -130,8 +130,8 @@
        $('#addRolePermissionModal').show()
        $('#delete_role_permission').show()
        $('#save_add_role_permission').hide()
-       $('#table_pemission_innactive').DataTable().clear();
-       $('#table_pemission_innactive').DataTable().destroy();
+       $('#table_pemission_inactive').DataTable().clear();
+       $('#table_pemission_inactive').DataTable().destroy();
        $.ajax({
            headers: {
            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -158,10 +158,10 @@
                            </tr>
                            `;
                }
-                   $('#table_pemission_innactive > tbody:first').html(data);
+                   $('#table_pemission_inactive > tbody:first').html(data);
                        $(document).ready(function() 
                        {
-                           $('#table_pemission_innactive').DataTable( {
+                           $('#table_pemission_inactive').DataTable( {
                                "destroy": true,
                                "scrollX": true,
                                "autoWidth" : false,
@@ -182,7 +182,7 @@
    });
    $('#check_all').on('click', function(){
      // Get all rows with search applied
-       var table = $('#table_pemission_innactive').DataTable( {
+       var table = $('#table_pemission_inactive').DataTable( {
                "destroy": true,
                "scrollX": true,
                "autoWidth" : false,
@@ -201,7 +201,7 @@
    $('#save_add_role_permission').click(function () {
                    var checkArray = [];
                    var lengthParsed = 0;
-                   var role_permission_table = $('#table_pemission_innactive').dataTable();
+                   var role_permission_table = $('#table_pemission_inactive').dataTable();
                    var rowcollection =  role_permission_table.$("input:checkbox[name=check]:checked",{"page": "all"});
                    rowcollection.each(function(){
                        checkArray.push($(this).data("name"));
@@ -225,7 +225,7 @@
        $('#delete_role_permission').click(function () {
                    var checkArray = [];
                    var lengthParsed = 0;
-                   var role_permission_table = $('#table_pemission_innactive').dataTable();
+                   var role_permission_table = $('#table_pemission_inactive').dataTable();
                    var rowcollection =  role_permission_table.$("input:checkbox[name=check]:checked",{"page": "all"});
                    rowcollection.each(function(){
                        checkArray.push($(this).val());
@@ -404,7 +404,7 @@
                    return false
                }else{
                    toastr['success'](response.message);
-                   // window.location = "{{route('user_access')}}";
+                   window.location = "{{route('user_access')}}";
                }
                
            },

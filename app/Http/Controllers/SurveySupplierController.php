@@ -7,6 +7,7 @@ use App\Models\MasterFormPenilaianHeader;
 use App\Models\Masterjawaban;
 use App\Models\MasterPertanyaan;
 use App\Models\Suppliers;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use \Mpdf\Mpdf as PDF;
@@ -258,12 +259,18 @@ class SurveySupplierController extends Controller
                             ->groupBy('master_aspeks.name')
                             ->orderBy('master_aspeks.id','asc')
                             ->get();
+            $tempat = DB::table('users')->select('master_kantors.*','master_jabatans.name as jabatan_name')
+                                        ->leftJoin('master_kantors','master_kantors.id','=','users.kode_kantor')
+                                        ->leftJoin('master_jabatans','master_jabatans.id','=','users.jabatan_id')
+                                        ->where('users.id',auth()->user()->id)
+                                        ->first();
             $document->simpleTables = true;
             $document->SetHTMLFooter($footer);
             $document->SetHTMLHeader($headers);
             $document->WriteHTML(view('suppliers.evaluasi-supplier', [
               'master_header'=> $master_header,
               'master_aspek'=> $master_aspek,
+              'tempat'=> $tempat,
               'tgl'=>FunctionHelper::tgl_indo(date('Y-m-d'))
             ]));
             // Save PDF on your public storage

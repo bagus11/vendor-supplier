@@ -9,14 +9,15 @@ use App\Http\Controllers\SupplierDataController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MasterAspekController;
 use App\Http\Controllers\MasterBobotController;
+use App\Http\Controllers\MasterJabatanController;
 use App\Http\Controllers\MasterPenilaianController;
 use App\Http\Controllers\MasterPertanyaanController;
 use App\Http\Controllers\MenusController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingUserController;
 use App\Http\Controllers\SupplierImportController;
 use App\Http\Controllers\SurveySupplierController;
 use App\Http\Controllers\UserAccess;
-use App\Http\Controllers\UserSetting;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,8 +137,26 @@ Route::get('delete_bobot', [MasterBobotController::class, 'delete_bobot'])->name
 //End Master Bobot
 
 // User
-Route::get('setting_user', [UserSetting::class, 'index'])->name('setting_user');
+Route::get('setting_user', [SettingUserController::class, 'index'])->name('setting_user');
+Route::get('get_user', [SettingUserController::class, 'get_user'])->name('get_user');
+Route::post('update_status_user', [SettingUserController::class, 'update_status_user'])->name('update_status_user');
+Route::get('detail_user', [SettingUserController::class, 'detail_user'])->name('detail_user');
+Route::post('update_user', [SettingUserController::class, 'update_user'])->name('update_user');
 // End User
+// Jabatan
+Route::get('master_jabatan', [MasterJabatanController::class, 'index'])->name('master_jabatan');
+Route::get('get_kantor', [MasterJabatanController::class, 'get_kantor'])->name('get_kantor');
+Route::post('save_kantor', [MasterJabatanController::class, 'save_kantor'])->name('save_kantor');
+Route::post('update_status_kantor', [MasterJabatanController::class, 'update_status_kantor'])->name('update_status_kantor');
+Route::get('detail_kantor', [MasterJabatanController::class, 'detail_kantor'])->name('detail_kantor');
+Route::get('get_jabatan', [MasterJabatanController::class, 'get_jabatan'])->name('get_jabatan');
+Route::post('save_jabatan', [MasterJabatanController::class, 'save_jabatan'])->name('save_jabatan');
+Route::post('update_status_jabatan', [MasterJabatanController::class, 'update_status_jabatan'])->name('update_status_jabatan');
+Route::post('update_kantor', [MasterJabatanController::class, 'update_kantor'])->name('update_kantor');
+Route::get('detail_jabatan', [MasterJabatanController::class, 'detail_jabatan'])->name('detail_jabatan');
+Route::post('update_jabatan', [MasterJabatanController::class, 'update_jabatan'])->name('update_jabatan');
+// End Jabatan
+
 // report
 Route::get('reportSupplier', [SupplierDataController::class, 'reportSupplier'])->name('reportSupplier');
 

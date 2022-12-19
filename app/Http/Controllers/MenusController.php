@@ -49,7 +49,7 @@ class MenusController extends Controller
              
                 return $btn;
             })->addColumn('status', function($row){
-            $checkbox = $row->status == 1 ? 'active':'innactive' ;
+            $checkbox = $row->status == 1 ? 'active':'inactive' ;
             return $checkbox;
             })->toJson();
         }
@@ -91,7 +91,7 @@ class MenusController extends Controller
                 }
                 return $btn;
             })->addColumn('status', function($row){
-            $checkbox = $row->status == 1 ? 'active':'innactive' ;
+            $checkbox = $row->status == 1 ? 'active':'inactive' ;
             return $checkbox;
             })->toJson();
         }

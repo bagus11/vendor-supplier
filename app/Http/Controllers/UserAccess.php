@@ -80,7 +80,7 @@ class UserAccess extends Controller
         ]);
     }
     public function get_permisssion(Request $request){
-       $permission_innactive =  Permission::select(DB::raw('id,name,"0" as is_active'))
+       $permission_inactive =  Permission::select(DB::raw('id,name,"0" as is_active'))
                                             ->whereNotIn('id',DB::table('role_has_permissions')
                                             ->select('permission_id')
                                             ->where('role_id',$request->id))
@@ -91,7 +91,7 @@ class UserAccess extends Controller
                                 ->where('role_id',$request->id)
                                 ->get();
         return response()->json([
-            'permission_innactive'=>$permission_innactive,
+            'permission_inactive'=>$permission_inactive,
             'permission_active'=>$permission_active,
         ]);
     }

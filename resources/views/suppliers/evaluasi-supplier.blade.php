@@ -273,7 +273,7 @@
                 <td style="width: 47%"></td>
                 <td style="width: 20%">
                     <p>
-                        Karawang, {{$tgl}}
+                        {{$tempat->city}}, {{$tgl}}
                         <br>
                         <br>
                         <br>
@@ -282,7 +282,7 @@
                         <br>
                         <br>
                          Nama : {{auth()->user()->name}} <br>
-                         Jabatan : Purchasing  
+                         Jabatan : {{$tempat->jabatan_name}}  
                     </p>
                 </td>
             </tr>
