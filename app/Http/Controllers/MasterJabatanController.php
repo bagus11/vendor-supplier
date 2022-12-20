@@ -197,6 +197,7 @@ class MasterJabatanController extends Controller
                 'type'=>$kantor_type_update,
                 'city'=>$kantor_city_update,
             ];
+          
             $update = MasterKantor::find($kantor_id);
             $update->update($post);
             if($update){
@@ -204,6 +205,7 @@ class MasterJabatanController extends Controller
                 $message ='Data berhasil disimpan';
             }
         }
+    
         return response()->json([
             'message'=>$message, 
             'status'=>$status

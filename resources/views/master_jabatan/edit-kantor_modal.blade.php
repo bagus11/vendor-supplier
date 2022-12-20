@@ -43,8 +43,8 @@
                                     <div class="col-span-3">
                                         <select name="select_kantor_type_update" id="select_kantor_type_update">
                                             <option value="">Pilih Tipe</option>
-                                            <option value="pusat">Pusat</option>
-                                            <option value="cabang">Cabang</option>
+                                            <option value="Pusat">Pusat</option>
+                                            <option value="Cabang">Cabang</option>
                                         </select>
                                         <input type="hidden" class="w-full" name="kantor_type_update" id="kantor_type_update">
                                         <span  style="color:red;" class="message_error text-red block kantor_type_update_error"></span>

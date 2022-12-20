@@ -92,6 +92,9 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('logout')">
+                            {{ __('Setting User') }}
+                    </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -102,6 +105,7 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
+                     
                     </x-slot>
                 </x-dropdown>
             </div>

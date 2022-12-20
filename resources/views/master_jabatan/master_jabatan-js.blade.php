@@ -97,7 +97,7 @@
                     $('#select_kantor_type_update').empty()
                     $('#select_kantor_type_update').append('<option value="'+response.data.type+'">'+response.data.type+'</option>')
                     $('#select_kantor_type_update').append('<option value="Pusat">Pusat</option>')
-                    $('#select_kantor_type_update').append('<option value="Pusat">Cabang</option>')
+                    $('#select_kantor_type_update').append('<option value="Cabang">Cabang</option>')
 
                 },
                 error: function(xhr, status, error) {
@@ -114,6 +114,7 @@
         })
         $('#select_kantor_type_update').on('change', function(){
             var select_kantor_type_update = $('#select_kantor_type_update').val()
+            console.log(select_kantor_type_update);
             $('#kantor_type_update').val(select_kantor_type_update)
         })
         $('#jabatan_table').on('change', '.is_checked', function(e) {

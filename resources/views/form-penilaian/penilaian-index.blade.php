@@ -45,7 +45,9 @@
      {{-- Add Penilaian --}}
      @include('form-penilaian.add-penilaian_modal')
     {{--End Add Penilaian --}}
-
+    {{-- Print Evaluasi --}}
+    @include('form-penilaian.print-evaluasi_modal')
+    {{--End Print Evaluasi --}}
 </x-app-layout>
 {{-- js --}}
 @include('form-penilaian.penilaian_js')

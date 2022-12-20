@@ -77,38 +77,54 @@
         }
         save_form_penilaian(data)
      })
-     $('#penilaian_headers_table').on('change', '.is_checked', function(e) {
-            $('.is_checked').prop('disabled',true)
-            e.preventDefault();
-            var status = $(this).data('status')
-            var data ={
-                    'id': $(this).data('id'),     
-                    'flg_aktif': $(this).data('flg_aktif'),     
-            }
+     $('#penilaian_headers_table').on('change', '.is_checked', function(e) 
+    {
+        $('.is_checked').prop('disabled',true)
+        e.preventDefault();
+        var status = $(this).data('status')
+        var data ={
+                'id': $(this).data('id'),     
+                'flg_aktif': $(this).data('flg_aktif'),     
+        }
+        
+            $.ajax({
+                headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{route('update_status_penilaian_header')}}",
+            type: "post",
+            dataType: 'json',
+            async: true,
+            data: data,
             
-                $.ajax({
-                    headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                url: "{{route('update_status_penilaian_header')}}",
-                type: "post",
-                dataType: 'json',
-                async: true,
-                data: data,
-               
-                success: function(response) {
-                    $('.is_checked').prop('disabled',false)
-                    toastr['success'](response.message);
-                    get_penilaian_headers()
-                },
-                error: function(xhr, status, error) {
-                   
-                    toastr['error']('gagal mengambil data, silakan hubungi ITMAN');
-                }
-            });
-          
-           
+            success: function(response) {
+                $('.is_checked').prop('disabled',false)
+                toastr['success'](response.message);
+                get_penilaian_headers()
+            },
+            error: function(xhr, status, error) {
+                
+                toastr['error']('gagal mengambil data, silakan hubungi ITMAN');
+            }
         });
+        
+        
+    });
+    $('#penilaian_headers_table').on('click','.printEvaliuasi', function(e)
+    {
+        $('#printEvaluasiModal').show();
+        var id =$(this).data('id')
+        $('#print_supplier_id').val(id);
+    })
+    $('#close_print_evaluasi').on('click', function()
+    {
+        $('#printEvaluasiModal').hide();
+    })
+    $('#print_evaluasi').on('click', function(){
+        var print_supplier_id = $('#print_supplier_id').val()
+        var tgl_laporan = $('#tgl_laporan').val()
+        window.open('report_evaluasi_supplier/'+print_supplier_id+'/'+tgl_laporan,'_blank');
+    })
        // EndOperation
     // Function here
         function get_penilaian_headers(){
@@ -150,9 +166,9 @@
                                     <td style="text-align: left;">${response.data[i]['supplier_name']==null?'':response.data[i]['supplier_name']}</td>
                                     <td class="supplier_id" style="text-align: center;">${response.data[i]['supplier_id']==null?'':response.data[i]['supplier_id']}</td>
                                     <td style="width:20%;text-align:center">
-                                        <a class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded"href="report_evaluasi_supplier/${response.data[i]['supplier_id']}" target="_blank" title="Report Evaluasi">
-                                                    <i class="fas fa-print"></i>
-                                        </a>
+                                        <button title="Print Evaluasi" class="printEvaliuasi bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"data-id="${response.data[i]['supplier_id']}">
+                                            <i class="fas fa-print"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 `;
@@ -206,12 +222,12 @@
                         var report_survey =``;
                         var akeses =``;
                             if(response.data[i]['status'] != 'DONE'&& response.data[i]['flg_aktif']==1 ){
-                            isi_survey =`<a class="bg-green-300 hover:bg-green-500 text-white font-bold py-1 px-3 rounded"href="survey_supplier/${response.data[i]['id']}/${response.data[i]['user_id']}" target="_blank" title="Isi Survey">
+                            isi_survey =`<a class="bg-green-300 hover:bg-green-500 text-white font-bold py-1 px-3 rounded"href="survey_supplier/${response.data[i]['id']}/${response.data[i]['user_id']}" title="Isi Survey">
                                                 <i class="fas fa-arrow-right"></i>
                                             </a>`;
                             }
                             if(response.data[i]['status']=='DONE'&& response.data[i]['flg_aktif']==1 ){
-                                report_survey =`<a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded"href="report_survey_supplier/${response.data[i]['id']}" target="_blank" title="Print Survey">
+                                report_survey =`<a class="bg-yellow-300 hover:bg-yellow-500 text-white font-bold py-1 px-3 rounded"href="report_survey_supplier/${response.data[i]['id']}" title="Print Survey">
                                                     <i class="fas fa-print"></i>
                                                 </a>`;
                             }

@@ -196,12 +196,16 @@ class SurveySupplierController extends Controller
             echo $e->getMessage();
         }
     }
-    public function report_evaluasi_supplier($id)
+    public function report_evaluasi_supplier($id,$tgl_laporan)
     {
-        $validasi_1 = Suppliers::where('id',$id)->count();
-        if($validasi_1 == 0)
+        $validasi_1 = MasterFormPenilaianHeader::where('supplier_id',$id)
+                                                ->whereBetween(DB::raw('DATE(created_at)'), [$tgl_laporan.'-01-01', $tgl_laporan.'-12-31'])
+                                                ->where('status','DONE')
+                                                ->count();
+        // dd($validasi_1);
+        if($validasi_1 < 2 )
         {
-            return "Supplier Tidak ada";
+            return "Beberapa Departement ada yg belum selesai penilaian";
         }
         try {
             $resultNamePDF = 'report_survey_supplier'.date("YmdHis").'.pdf';
@@ -271,7 +275,8 @@ class SurveySupplierController extends Controller
               'master_header'=> $master_header,
               'master_aspek'=> $master_aspek,
               'tempat'=> $tempat,
-              'tgl'=>FunctionHelper::tgl_indo(date('Y-m-d'))
+              'tgl'=>FunctionHelper::tgl_indo(date('Y-m-d')),
+              'tgl_laporan'=>$tgl_laporan
             ]));
             // Save PDF on your public storage
             Storage::disk('public')->put($resultNamePDF, $document->Output($resultNamePDF, "S"));

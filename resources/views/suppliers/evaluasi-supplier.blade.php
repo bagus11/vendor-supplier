@@ -122,6 +122,7 @@
                                     ->select(DB::raw('master_departements.name as departement_name, AVG(master_jawabans.score) as score'))
                                     ->where('master_form_penilaian_headers.supplier_id',$master_header->id)
                                     ->where('master_form_penilaians.aspek_id', $item->aspekId)
+                                    ->whereBetween(DB::raw('DATE(master_form_penilaian_headers.created_at)'), [$tgl_laporan.'-01-01', $tgl_laporan.'-12-31'])
                                     ->groupBy('master_form_penilaians.departement_id')
                                     ->get();
                 $bobot = DB::table('log_bobots')
@@ -160,6 +161,7 @@
                                             ->join('master_aspeks','master_aspeks.id','=','master_form_penilaians.aspek_id')
                                             ->where('master_form_penilaian_headers.supplier_id',$master_header->id)
                                             ->where('master_form_penilaians.aspek_id', $item->aspekId)
+                                            ->whereBetween(DB::raw('DATE(master_form_penilaian_headers.created_at)'), [$tgl_laporan.'-01-01', $tgl_laporan.'-12-31'])
                                             ->groupBy('master_form_penilaian_headers.departement_id')
                                             ->get();
                                             $avg_score = $a / count($count);

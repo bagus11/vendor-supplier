@@ -39,7 +39,7 @@
 
         #customers td, #customers th {
         border: 1px solid #ddd;
-        padding: 8px;
+        padding: 4px;
         }
 
         #customers tr:nth-child(even){background-color: #f2f2f2;}
@@ -61,7 +61,7 @@
 
         #score td, #score th {
         border: 1px solid #ddd;
-        padding: 8px;
+        padding: 4px;
         }
 
         #score tr:nth-child(even){background-color: #f2f2f2;}
@@ -126,7 +126,7 @@
                             <table class="table-auto" id="customers" style="width: 100%">
                                 <thead>
                                     <tr class="bg-gray-100">
-                                        <th class="border px-4 py-2" style="text-align: center;width:50px%">Keterangan</th>
+                                        <th class="border px-4 py-2" style="text-align: center;width:50px">Keterangan</th>
                                         <th class="border px-4 py-2" style="text-align: center ;width:6px">Buruk</th>
                                         <th class="border px-4 py-2" style="text-align: center ;width:6px">Biasa</th>
                                         <th class="border px-4 py-2" style="text-align: center ;width:6px">Bagus</th>
@@ -177,8 +177,8 @@
                            <p style="font-size:12px">
                             <table >
                                 <tr>
-                                    <td style="text-align:center">{{ number_format((float)$avg_per_aspek, 2, '.', '')}}</td>
-                                    <td style="text-align:center">{{number_format((float)$avg_per_aspek/100*$bobot[0]->score, 2, '.', '')}}</td>
+                                    <td style="text-align:center"><strong>{{ number_format((float)$avg_per_aspek, 2, '.', '')}}</strong></td>
+                                    <td style="text-align:center"><strong>{{number_format((float)$avg_per_aspek/100*$bobot[0]->score, 2, '.', '')}}</strong></td>
                                 </tr>
                             </table>
                         </p>
@@ -196,20 +196,17 @@
             <tr>
                 <td style="width: 75%"></td>
                 <td>
-                    <p style="font-size:10px">
-                    
+                    <p style="font-size:12px">
                          @php
                             $total_avg =0;
                             $total_percent =0;
                             for($i =0 ; $i < count($avg_array); $i++ ) {
                                     $total_avg += $avg_array[$i]['avg'];
                                     $total_percent += $avg_array[$i]['bobot'];
-
                                 }
-                           
                          @endphp
-                        <strong>Total Score Sementara</strong> {{ number_format((float)$total_avg, 2, '.', '')}} <br>
-                        <strong>Data yang terkumpul</strong>: {{$total_percent}}% <br>
+                      Total Score Sementara <strong> {{ number_format((float)$total_avg, 2, '.', '')}}</strong> <br>
+                      Data yang terkumpul<strong>: {{$total_percent}}%  </strong> <br>
                     </p>
                 </td>
             </tr>
